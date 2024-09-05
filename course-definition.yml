@@ -105,3 +105,47 @@ stages:
 
     marketing_md: |-
       In this stage, you'll start implementing the ResponseHeader.
+
+  - slug: "wa6"
+    name: "Parse Correlation ID in RequestHeader"
+    difficulty: medium
+    description_md: |-
+      In this stage, you'll comtinue implementing the Kafka wire protocol.
+      The request structure is as follows:
+
+      RequestHeader: V1
+
+      RequestHeader:
+        RequestApiKey: INT16
+        RequestApiVersion: INT16
+        CorrelationId: INT32
+        ClientId: NULLABLE_STRING
+
+      The request is structured as follows:
+
+      ```
+      +---------------+--------------------+------------------+
+      | MessageLength | RequestHeader      | RequestBody      |
+      +---------------+--------------------+------------------+
+      | INT32         | REQUEST_HEADER_V1  | REQUEST_BODY_V3  |
+      +---------------+--------------------+------------------+
+      ```
+
+      In general each request in the Kafka wire protocol starts with a INT32 containing the length of the entire message, followed by the RequestHeader and then the RequestBody.
+
+      ### Tests
+
+      The tester will execute your program like this:
+
+      ```bash
+      $ ./your_program.sh
+      ```
+
+      It'll then try to connect to your server. It will then send a `APIVersions` request. You need to parse the RequestHeader and extract the CorrelationId.
+
+      In this stage, you don't need to add the actual message length yet, but you need to send the correlation ID in the response header.
+
+      The tester will validate that the correlation ID in the response header matches the correlation ID in the request header.
+
+    marketing_md: |-
+      In this stage, you'll start decoding the RequestHeader.
