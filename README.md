@@ -1,6 +1,6 @@
-# build-your-own-<fill_in_course_slug>
+# build-your-own-kafka
 
-Content for the "<fill_in_course_name>" challenge
+Content for the "Kafka" challenge
 
 ## Setup
 

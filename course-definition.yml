@@ -1,81 +1,25 @@
-# Used in your course's URL: https://app.codecrafters.io/courses/<slug>
-# Example: "redis"
-slug: "your_course_slug"
-
-# The name of your course. This will be displayed in the course catalog, and on other course pages.
-# Example: "Build your own Redis"
-name: "Build your own something"
-
-# A short name for your course, this'll be used in copy like emails. 
-# Example: "Redis"
-short_name: "dummy"
-
-# The release status for your course. 
-#
-# - alpha: Only visible to yourself and CodeCrafters staff. 
-# - beta: Visible to all CodeCrafters users, but with a "beta" label.
-# - live: Visible to all CodeCrafters users, no label.
-# 
-# Allowed values: "alpha", "beta", "live"
+slug: "kafka"
+name: "Build your own Kafka"
+short_name: "Kafka"
 release_status: "alpha"
 
-# This is shown on the course overview page. Markdown supported, recommended length ~30 words.
-# 
-# Recommended format: 
-# 
-# > In this challenge, you'll build ABC that's capable of D, E, F and G. Along the way, we'll learn about X, Y, Z and more.
-# 
-# Example:
-# 
-# > In this challenge, you'll build a toy Redis clone that's capable of handling basic commands like PING, GET
-# > and SET. Along the way, we'll learn about event loops, the Redis Protocol and more.
 description_md: |-
-  Add a description for your course here.
+  Kafka is a distributed event streaming platform capable of handling high-throughput message processing. In this challenge, you'll build a toy Kafka clone that's capable of accepting and responding to APIVersions & Fetch API requests. You'll also learn about encoding and decoding messages using the Kafka wire protocol. You'll also learn about handling the network protocol, event loops, TCP sockets and more.
 
-# This is shown on the catalog. Plaintext only, recommended length ~10 words.
-# 
-# Recommended format: 
-# 
-# > Learn about X, Y, Z and more
-# 
-# Example: 
-#
-# > Learn about TCP servers, the Redis protocol and more
-# 
-# **TODO**: Remove _md suffix since markdown isn't supported
 short_description_md: |-
-  Add a short description for your course here.
+  Learn about TCP sockets, the Kafka wire protocol, event loops and more.
 
-# The percentage of users who complete your course. We'll calculate this automatically in the future, safe to ignore for now.
 completion_percentage: 15
 
-# The languages that your course supports.
 languages:
   - slug: "go"
   - slug: "python"
   - slug: "rust"
 
 marketing:
-  # Shown in the catalog. 
-  # 
-  # Recommended guidelines:
-  # 
-  # - "easy": < 2h of work for an experienced developer
-  # - "medium": > 6h of work for an experienced developer
-  # - "hard": > 6h of work for an experienced developer
-  #
-  # Allowed values: "easy", "medium", "hard"
   difficulty: medium
-
-  # This is shown as an example when users suggest extensions to your course.
-  # Example: "Persistence" (from the Redis challenge)
-  sample_extension_idea_title: "My course extension idea"
-
-  # This is shown as an example when users suggest extensions to your course.
-  # Example: "A Redis server that can read and write .rdb files" (from the Redis challenge)
-  sample_extension_idea_description: "A description for my course extension idea"
-
-  # These are some default testimonials that you can use. Feel free to switch these out with your own.
+  sample_extension_idea_title: "On Disk Storage"
+  sample_extension_idea_description: "A Kafka broker that can read and write to disk"
   testimonials:
     - author_name: "Ananthalakshmi Sankar"
       author_description: "Automation Engineer at Apple"
