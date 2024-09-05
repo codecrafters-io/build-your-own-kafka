@@ -36,37 +36,72 @@ marketing:
         Didn't even know that was possible!
 
 stages:
-  - slug: "init" # A identifier for this stage, needs to be unique within a course.
-
-    # The name of the stage. This is shown in the course catalog, and on other course pages.
-    name: "The first stage"
-
-    # The difficulty of this stage. 
-    # 
-    # Recommended guidelines, based on how long the stage will take an experienced developer to complete:
-    # 
-    # - Very Easy (< 5 minutes) 
-    # - Easy (5-10 minutes) 
-    # - Medium (30m-1h) 
-    # - Hard (> 1h)
-    # 
-    # Allowed values: "very_easy", "easy", "medium", "hard"
-    difficulty: very_easy
-
-    # The instructions for your stage. Markdown supported. Shown on the course page.
+  - slug: "vi6"
+    name: "Bind to a port"
+    difficulty: easy
     description_md: |-
-      In this stage, we'll do XYZ
+      In this stage, you'll implement a TCP server that listens on port 9092.
 
-      **Example:** ABC
+      [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) is the underlying protocol used by protocols like HTTP, SSH and others
+      you're probably familiar with. Kafka clients & brokers use TCP to communicate with each other.
 
-      Your program will be executed like this: 
+      Don't worry if you're unfamiliar with the TCP protocol, or what Kafka clients & brokers are. You'll learn more about this in the
+      next stages.
+
+      ### Tests
+
+      The tester will execute your program like this:
 
       ```bash
-      $ echo "apple" | ./your_executable.sh -E "a"
+      $ ./your_program.sh
       ```
 
-      You program must ABCD.
+      It'll then try to connect to your TCP server on port 9092. If the connection succeeds, you'll pass this stage.
 
-    # A description of this stage that is used on the course overview page and other marketing material. Markdown supported.
+      ### Notes
+
+      - 9092 is the default port that Kafka uses.
+      - If you already have a Kafka server running on your machine and listening on port 9092, you'll see a "port already in use" error when running your code. Try stopping the existing Kafka server and running your code again.
+
     marketing_md: |-
-      In this stage, we'll do XYZ.
+      In this stage, you'll start a TCP server on port 9092, which is the
+      default port that Redis uses.
+
+  - slug: "nv3"
+    name: "Respond with a Correlation ID"
+    difficulty: easy
+    description_md: |-
+      In this stage, you'll start implementing the Kafka wire protocol.
+      The response structure is as follows:
+
+      ResponseHeader: V0
+
+      ResponseHeader:
+        CorrelationId: INT32
+
+      The response is structured as follows:
+
+      ```
+      +---------------+--------------------+------------------+
+      | MessageLength | ResponseHeader     | ResponseBody     |
+      +---------------+--------------------+------------------+
+      | INT32         | RESPONSE_HEADER_V0 | RESPONSE_BODY_V3 |
+      +---------------+--------------------+------------------+
+      ```
+
+      In general each response in the Kafka wire protocol starts with a INT32 containing the length of the entire message, followed by the ResponseHeader and then the ResponseBody.
+
+      ### Tests
+
+      The tester will execute your program like this:
+
+      ```bash
+      $ ./your_program.sh
+      ```
+
+      It'll then try to connect to your server. It will then send a `APIVersions` request. You don't need to implement the logic to parse this request yet, you need to just send the header with a hardcoded correlation ID.
+
+      In this stage, you don't need to add the actual message length, just send a INT32 with any value. And hardcode the CorrelationId to `7`.
+
+    marketing_md: |-
+      In this stage, you'll start implementing the ResponseHeader.
