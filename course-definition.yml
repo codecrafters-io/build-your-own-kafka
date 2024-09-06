@@ -235,8 +235,7 @@ stages:
     name: "Fetch response with 0 messages"
     difficulty: medium
     description_md: |-
-      In this stage, you'll continue decoding the RequestHeader.
-      The request structure is as follows:
+      In this stage, you'll implement the Fetch response for a topic with 0 messages.
 
       ### Tests
 
@@ -261,3 +260,54 @@ stages:
 
     marketing_md: |-
       In this stage, you'll start encoding your response to the `Fetch` requests.
+
+  - slug: "cm4"
+    name: "Fetch response with hardcoded message"
+    difficulty: hard
+    description_md: |-
+      In this stage, you'll implement the Fetch response for a topic with multiple messages (hardcoded).
+
+      ### Tests
+
+      The tester will execute your program like this:
+
+      ```bash
+      $ ./your_program.sh
+      ```
+
+      It'll then connect to your server on port 9092 and send a `Fetch:V16` request. The tester will validate that the correlation ID in the response header matches 
+      the correlation ID in the request header. The tester will also validate that the error code in the response body is 0.
+      Then, it will validate that the response body contains a topicResponse for the topic provided in the request.
+      And that the topicResponse contains a partitionResponse for the partition provided in the request.
+
+      The partitionResponse should contain a messageSet with a RecordBatch.
+      Which should in turn contain a Record which should contain a string with the hardcoded message. 
+
+      You need to send 3 such messages in the response. 
+      The messages should be `m1, m2, m3`.
+
+      The hexdump of a sample kafka response for this request is given below.
+
+      ```
+      0000   00 00 00 df b4 5e ed c3 00 00 00 00 00 00 00 1d   .....^..........
+      0010   0d 45 6f 02 7d 98 b8 a8 4a 42 4e c8 a4 fa bc e4   .Eo.}...JBN.....
+      0020   c9 5d 18 a6 02 00 00 00 00 00 00 00 00 00 00 00   .]..............
+      0030   00 00 03 00 00 00 00 00 00 00 03 00 00 00 00 00   ................
+      0040   00 00 00 00 ff ff ff ff 97 01 00 00 00 00 00 00   ................
+      0050   00 00 00 00 00 44 00 00 00 00 02 59 1e f5 8f 00   .....D.....Y....
+      0060   00 00 00 00 01 00 00 01 91 b2 3a 23 db 00 00 01   ..........:#....
+      0070   91 b2 3a 25 f8 00 00 00 00 00 00 00 00 00 00 00   ..:%............
+      0080   00 00 00 00 00 00 02 10 00 00 00 01 04 6d 31 00   .............m1.
+      0090   12 00 ba 08 02 01 04 6d 32 00 00 00 00 00 00 00   .......m2.......
+      00a0   00 02 00 00 00 3a 00 00 00 00 02 ce df 14 77 00   .....:........w.
+      00b0   00 00 00 00 00 00 00 01 91 b2 3a 29 cc 00 00 01   ..........:)....
+      00c0   91 b2 3a 29 cc 00 00 00 00 00 00 00 00 00 00 00   ..:)............
+      00d0   00 00 02 00 00 00 01 10 00 00 00 01 04 6d 33 00   .............m3.
+      00e0   00 00 00                                          ...
+      ```
+
+      ### Notes
+      - We will send an `Fetch` request with an `APIVersion` of 16.
+
+    marketing_md: |-
+      In this stage, you'll implement the Fetch response for a topic with multiple messages.
