@@ -5,8 +5,8 @@ Study and uncomment the relevant code:
 ```python
 # Uncomment this to pass the first stage
 
-server_socket = socket.create_server(("localhost", 9092), reuse_port=True)
-server_socket.accept() # wait for client
+server = socket.create_server(("localhost", 9092), reuse_port=True)
+server.accept() # wait for client
 ```
 
 Push your changes to pass the first stage:
