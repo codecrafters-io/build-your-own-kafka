@@ -230,3 +230,34 @@ stages:
 
     marketing_md: |-
       In this stage, you'll add the Fetch API to the APIVersions response.
+
+  - slug: "dh6"
+    name: "Fetch response with 0 messages"
+    difficulty: medium
+    description_md: |-
+      In this stage, you'll continue decoding the RequestHeader.
+      The request structure is as follows:
+
+      ### Tests
+
+      The tester will execute your program like this:
+
+      ```bash
+      $ ./your_program.sh
+      ```
+
+      It'll then connect to your server on port 9092 and send a `Fetch:V16` request. The tester will validate that the correlation ID in the response header matches 
+      the correlation ID in the request header. The tester will also validate that the error code in the response body is 0.
+      Then, it will validate that the response body contains no topicResponses. (But as the response body contains COMPACT_ARRAY of topicResponses, the length should be prefixed as 1).
+      The hexdump of a sample kafka response for this request is given below.
+
+      ```
+      0000   00 00 00 11 5e 33 46 cc 00 00 00 00 00 00 00 0a   ....^3F.........
+      0010   b9 c1 2e 01 00                                    .....
+      ```
+
+      ### Notes
+      - We will send an `Fetch` request with an `APIVersion` of 16.
+
+    marketing_md: |-
+      In this stage, you'll start encoding your response to the `Fetch` requests.
