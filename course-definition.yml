@@ -286,6 +286,8 @@ stages:
       You need to send 3 such messages in the response. 
       The messages should be `m1, m2, m3`.
 
+      The RecordBatch has a CRC field, which is computed using the Castagnoli polynomial. This CRC field in the response should match with the CRC computed from the RecordBatch contents.
+
       The hexdump of a sample kafka response for this request is given below.
 
       ```
