@@ -110,7 +110,7 @@ stages:
     name: "Parse Correlation ID in RequestHeader"
     difficulty: medium
     description_md: |-
-      In this stage, you'll comtinue implementing the Kafka wire protocol.
+      In this stage, you'll continue implementing the Kafka wire protocol.
       The request structure is as follows:
 
       RequestHeader: V1
@@ -141,11 +141,38 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then try to connect to your server. It will then send a `APIVersions` request. You need to parse the RequestHeader and extract the CorrelationId.
+      It'll then try to connect to your server on port 9092 and send a `APIVersions-V3` request. The tester will validate that the correlation ID in the response header matches 
+      the correlation ID in the request header.
 
-      In this stage, you don't need to add the actual message length yet, but you need to send the correlation ID in the response header.
-
-      The tester will validate that the correlation ID in the response header matches the correlation ID in the request header.
+      Although your server's response will need to contain the "message length" field (an int32), the tester will not verify this value in this stage.
 
     marketing_md: |-
       In this stage, you'll start decoding the RequestHeader.
+
+  - slug: "nc5"
+    name: "Parse APIVersion in RequestHeader"
+    difficulty: medium
+    description_md: |-
+      In this stage, you'll continue decoding the RequestHeader.
+      The request structure is as follows:
+
+      ### Tests
+
+      The tester will execute your program like this:
+
+      ```bash
+      $ ./your_program.sh
+      ```
+
+      It'll then connect to your server on port 9092 and send a `APIVersions:V3` request. The tester will validate that the correlation ID in the response header matches 
+      the correlation ID in the request header. The tester will also validate that the error code in the response body is 35.
+      This is the error code for `UNSUPPORTED_VERSION`.
+      We are intentionally triggering this error to test that your server is correctly populating the error code in the response body. 
+
+      Although your server's response will need to contain the "message length" field (an int32), the tester will not verify this value in this stage.
+
+      ### Notes
+      - We will send an `APIVersions` request with an `APIVersion` of -1.
+
+    marketing_md: |-
+      In this stage, you'll start encoding your response to the `APIVersions` requests.
