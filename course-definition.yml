@@ -74,7 +74,7 @@ stages:
     name: "Send Correlation ID"
     difficulty: easy
     description_md: |-
-      In this stage, you'll respond to a request with a correlation ID.
+      In this stage, you'll respond to a request with a hardcoded correlation ID.
 
       ### Kafka wire protocol
 
@@ -129,15 +129,17 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `APIVersions` request. You don't need to implement the logic to parse this request yet, in this stage the tester
-      will only assert that your server sends back a response with a hardcoded correlation ID of `7` (that's `00 00 00 07` in hexadecimal).
+      It'll then connect to your server on port 9092 and send a `APIVersions` request. You don't need to implement the logic to parse this request yet.
 
-      The tester won't validate the first 4 bytes of your response (the "message length") in this stage.
+      The tester will wait to receive a response from your server. It will expect at least 8 bytes of data (4 bytes for the message length + 4 bytes for the correlation ID).
+
+      The tester won't validate the first 4 bytes of your response (the "message length") in this stage. The tester will assert that the next 4 bytes are `00 00 00 07` (7, encoded
+      as a 4 byte integer in big-endian).
 
       ### Notes
 
-      - Since the response format is currently incomplete, the first 4 bytes of your response (the "message length") will not be validated in this stage. We'll come back to this in later stages.
       - In this stage you're expected to hardcode the correlation ID as `7` in your response. We'll get to reading this value from the request in later stages.
+      - Since the response format is currently incomplete, the first 4 bytes of your response (the "message length") will not be validated in this stage. We'll get to this in later stages.
       - You don't need to parse the request in this stage. We'll get to this in later stages.
     marketing_md: |-
       In this stage, you'll start implementing the ResponseHeader.
