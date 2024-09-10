@@ -162,6 +162,9 @@ stages:
       | `request_api_version` | INT16           | The version of the API for the request    |
       | `correlation_id`      | INT32           | A unique identifier for the request       |
       | `client_id`           | NULLABLE_STRING | The client ID for the request             |
+      | `tagged_fields`       | TAGGED_FIELDS   | Optional tagged fields                    |
+
+      The documentation for this can be found [here](https://kafka.apache.org/protocol.html#protocol_messages) under the "Request Header v3" section.
 
       - `request_api_key`: An integer identifying the type of request.
         - The value of this field is different for each type of request.
@@ -174,6 +177,8 @@ stages:
         - This value is echo-ed back in the response.
         - (This is the value you hardcoded in the previous stage!)
       - `client_id`: A string identifying the client that sent the request.
+      - `tagged_fields`: Optional tagged fields
+        - This can be ignored for now, they're [optional tagged fields](https://cwiki.apache.org/confluence/display/KAFKA/KIP-482%3A+The+Kafka+Protocol+should+Support+Optional+Tagged+Fields) used to introduce additional features over time.
 
       In this stage, you'll only need to parse the `correlation_id` field. You can ignore the other fields for now.
 
