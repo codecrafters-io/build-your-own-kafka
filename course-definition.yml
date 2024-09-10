@@ -4,10 +4,13 @@ short_name: "Kafka"
 release_status: "alpha"
 
 description_md: |-
-  Kafka is a distributed event streaming platform capable of handling high-throughput message processing. In this challenge, you'll build a toy Kafka clone that's capable of accepting and responding to APIVersions & Fetch API requests. You'll also learn about encoding and decoding messages using the Kafka wire protocol. You'll also learn about handling the network protocol, event loops, TCP sockets and more.
+  Apache Kafka is a distributed event streaming platform often used for high-performance data pipelines. In this challenge, you'll build your own Kafka broker
+  that's capable of serving basic requests.
+
+  Along the way you'll learn about TCP servers, the Kafka wire protocol and more.
 
 short_description_md: |-
-  Learn about TCP sockets, the Kafka wire protocol, event loops and more.
+  Learn about TCP servers, the Kafka wire protocol and more.
 
 completion_percentage: 15
 
