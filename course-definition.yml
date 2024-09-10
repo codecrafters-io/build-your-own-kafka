@@ -115,7 +115,7 @@ stages:
       - `tag_buffer`: An array of optional "tagged fields"
         - This can be ignored for now, they're [optional tagged fields](https://cwiki.apache.org/confluence/display/KAFKA/KIP-482%3A+The+Kafka+Protocol+should+Support+Optional+Tagged+Fields) used to introduce additional features over time.
 
-      Note that as mentioned in the previous section, the header is preceded by 4 bytes that describe the length of the entire message (header and body combined).
+      As mentioned in the previous section, the header is preceded by 4 bytes that describe the length of the entire message (header and body combined).
 
       ### Tests
 
@@ -134,6 +134,7 @@ stages:
 
       - Since the response format is currently incomplete, the first 4 bytes of your response (the "message length") will not be validated in this stage. We'll come back to this in later stages.
       - In this stage you're expected to hardcode the correlation ID as `7` in your response. We'll get to reading this value from the request in later stages.
+      - You don't need to parse the request in this stage. We'll get to this in later stages.
     marketing_md: |-
       In this stage, you'll start implementing the ResponseHeader.
 
