@@ -209,7 +209,13 @@ stages:
     name: "Parse API Version"
     difficulty: medium
     description_md: |-
-      In this stage, you'll continue decoding the RequestHeader.
+      In this stage, you'll parse the `api_version` field from a request and respond with an error if the version is unsupported.
+
+      🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
+
+      In the meantime, please use
+      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+NC5+%28Parse+API+Version%29&body=%3Cyour+question+here%3E)
+      to ask questions on the forum.
 
       ### Tests
 
@@ -219,15 +225,19 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `APIVersions:V3` request with an invalid `APIVersion` of -1.
-      The tester will validate that the correlation ID in the response header matches
-      the correlation ID in the request header. The tester will also validate that the error code in the response body is 35.
-      This is the error code for `UNSUPPORTED_VERSION`.
-      We are intentionally triggering this error to test that your server is correctly populating the error code in the response body.
+      It'll then connect to your server on port 9092 and send a `APIVersions` request. This request will include an invalid `APIVersion` (Example: `-1`).
 
-      Although your server's response will need to contain the "message length" field (an int32), the tester will not verify this value in this stage.
+      Your server should respond with an error code of `35` (UNSUPPORTED_VERSION).
+
+      The tester will validate that:
+
+      - The correlation ID in the response header matches the correlation ID in the request header.
+      - The error code in the response body is `35` (UNSUPPORTED_VERSION).
+
+      The tester won't validate the first 4 bytes of your response (the "message length") in this stage. We'll get to this in later stages.
 
       ### Notes
+
       - We will send an `APIVersions` request with an `APIVersion` of -1.
 
     marketing_md: |-
@@ -238,6 +248,12 @@ stages:
     difficulty: hard
     description_md: |-
       In this stage, you'll implement the ResponseBody for the `APIVersions` request.
+
+      🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
+
+      In the meantime, please use
+      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+PV1+%28Handle+APIVersions+requests%29&body=%3Cyour+question+here%3E)
+      to ask questions on the forum.
 
       ### Tests
 
@@ -267,6 +283,13 @@ stages:
     description_md: |-
       In this stage, you'll add Fetch to the APIVersions response.
 
+      🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
+
+      In the meantime, please use
+      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+GS0+%28Include+Fetch+in+APIVersions%29&body=%3Cyour+question+here%3E)
+      to ask questions on the forum.
+
+
       ### Tests
 
       The tester will execute your program like this:
@@ -292,6 +315,12 @@ stages:
     difficulty: medium
     description_md: |-
       In this stage, you'll implement the Fetch response for a topic with 0 messages.
+
+      🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
+
+      In the meantime, please use
+      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+DH6+%28Fetch+with+an+empty+topic%29&body=%3Cyour+question+here%3E)
+      to ask questions on the forum.
 
       ### Tests
 
@@ -322,6 +351,12 @@ stages:
     difficulty: hard
     description_md: |-
       In this stage, you'll implement the Fetch response for a topic with multiple messages (hardcoded).
+
+      🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
+
+      In the meantime, please use
+      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+CM4+%28Fetch+with+a+hardcoded+message%29&body=%3Cyour+question+here%3E)
+      to ask questions on the forum.
 
       ### Tests
 
