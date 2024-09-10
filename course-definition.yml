@@ -148,28 +148,34 @@ stages:
     name: "Parse Correlation ID"
     difficulty: medium
     description_md: |-
-      In this stage, you'll continue implementing the Kafka wire protocol.
-      The request structure is as follows:
+      In this stage, you'll parse the correlation ID from the request and send a response with the same correlation ID.
 
-      RequestHeader: V1
+      ### Request header format
 
-      RequestHeader:
-        RequestApiKey: INT16
-        RequestApiVersion: INT16
-        CorrelationId: INT32
-        ClientId: NULLABLE_STRING
+      In the previous stage, we saw that the request starts with a 4 byte length field, followed by the request header, and then the request body.
 
-      The request is structured as follows:
+      The format of the request header is as follows:
 
-      ```
-      +---------------+--------------------+------------------+
-      | MessageLength | RequestHeader      | RequestBody      |
-      +---------------+--------------------+------------------+
-      | INT32         | REQUEST_HEADER_V1  | REQUEST_BODY_V3  |
-      +---------------+--------------------+------------------+
-      ```
+      | Field Name            | Field Type      | Description                               |
+      |-----------------------|-----------------|-------------------------------------------|
+      | `request_api_key`     | INT16           | The API key for the request               |
+      | `request_api_version` | INT16           | The version of the API for the request    |
+      | `correlation_id`      | INT32           | A unique identifier for the request       |
+      | `client_id`           | NULLABLE_STRING | The client ID for the request             |
 
-      In general each request in the Kafka wire protocol starts with a INT32 containing the length of the entire message, followed by the RequestHeader and then the RequestBody.
+      - `request_api_key`: An integer identifying the type of request.
+        - The value of this field is different for each type of request.
+        - For example, the `APIVersions` request has a `request_api_key` of `18`.
+        - A full list of API keys can be found in [the docs](https://kafka.apache.org/protocol.html#protocol_api_keys).
+      - `request_api_version`: The version of the API for the request.
+        - This is an integer that identifies the version of the API for the request.
+        - For example, the `APIVersions` request supports multiple versions: `0`, `1`, `2` and `3`.
+      - `correlation_id`: A unique identifier for the request.
+        - This value is echo-ed back in the response.
+        - (This is the value you hardcoded in the previous stage!)
+      - `client_id`: A string identifying the client that sent the request.
+
+      In this stage, you'll only need to parse the `correlation_id` field. You can ignore the other fields for now.
 
       ### Tests
 
@@ -179,11 +185,18 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then try to connect to your server on port 9092 and send a `APIVersions-V3` request. The tester will validate that the correlation ID in the response header matches
-      the correlation ID in the request header.
+      It'll then connect to your server on port 9092 and send a `APIVersions` request. The tester will include a random
+      correlation ID in this request.
 
-      Although your server's response will need to contain the "message length" field (an int32), the tester will not verify this value in this stage.
+      The tester will wait for your program to respond and it'll then validate that the correlation ID in the response header matches the correlation ID it send in the request header.
 
+      Just like the previous stage, the tester won't validate the first 4 bytes of your response (the "message length") in this stage.
+
+      ### Notes
+
+      - You can remove the hardcoded correlation ID of `7` we used in the previous stage. You can now read this value from the request.
+      - Since the response format is currently incomplete, the first 4 bytes of your response (the "message length") will not be validated in this stage. We'll get to this in later stages.
+      - You don't need to parse all fields in the request in this stage, just the `correlation_id` field. We'll get to the other fields in later stages.
     marketing_md: |-
       In this stage, you'll start decoding the RequestHeader.
 
