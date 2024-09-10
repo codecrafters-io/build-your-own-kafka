@@ -103,11 +103,11 @@ stages:
 
       For example, if the length of the message is 10, the first 4 bytes (in hexadecimal) will be `00 00 00 0a` (`0a` is the hexadecimal representation of 10).
 
-      ### Response format
+      ### Response header format
 
-      Each response to a Kafka request contains a header and a body. The header format is the same across all request types, but the body format varies per request.
+      Each response to a Kafka request contains a header and a body. The header format is the same for all responses (irrespective of request type), but the body format varies by request type.
 
-      The header format is as follows:
+      The response header format is as follows:
 
       - `correlation_id`: An integer that uniquely identifies the request (the client sends this value in the request)
         - This is an "INT32" according to the Kafka wire protocol
@@ -116,6 +116,10 @@ stages:
         - This can be ignored for now, they're [optional tagged fields](https://cwiki.apache.org/confluence/display/KAFKA/KIP-482%3A+The+Kafka+Protocol+should+Support+Optional+Tagged+Fields) used to introduce additional features over time.
 
       As mentioned in the previous section, the header is preceded by 4 bytes that describe the length of the entire message (header and body combined).
+
+      ### Response body format
+
+      The response body format varies by request type. We'll cover this in later stages.
 
       ### Tests
 
