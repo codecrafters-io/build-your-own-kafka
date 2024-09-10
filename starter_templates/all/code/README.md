@@ -25,7 +25,7 @@ That's all!
 Note: This section is for stages 2 and beyond.
 
 1. Ensure you have `{{ required_executable }}` installed locally
-1. Run `./your_program.sh` to run your Kafka server, which is implemented in
+1. Run `./your_program.sh` to run your Kafka broker, which is implemented in
    `{{ user_editable_file }}`.{{# language_is_rust }} This command compiles your
    Rust project, so it might be slow the first time you run it. Subsequent runs
    will be fast.{{/ language_is_rust}}

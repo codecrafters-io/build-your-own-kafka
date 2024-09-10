@@ -28,7 +28,7 @@ That's all!
 Note: This section is for stages 2 and beyond.
 
 1. Ensure you have `cargo (1.54)` installed locally
-1. Run `./your_program.sh` to run your Kafka server, which is implemented in
+1. Run `./your_program.sh` to run your Kafka broker, which is implemented in
    `src/main.rs`. This command compiles your Rust project, so it might be slow
    the first time you run it. Subsequent runs will be fast.
 1. Commit your changes and run `git push origin master` to submit your solution
