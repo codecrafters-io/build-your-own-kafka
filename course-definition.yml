@@ -74,25 +74,48 @@ stages:
     name: "Send Correlation ID"
     difficulty: easy
     description_md: |-
-      In this stage, you'll start implementing the Kafka wire protocol.
-      The response structure is as follows:
+      In this stage, you'll respond to a request with a correlation ID.
 
-      ResponseHeader: V0
+      ### Kafka wire protocol
 
-      ResponseHeader:
-        CorrelationId: INT32
+      The [Kafka wire protocol](https://kafka.apache.org/protocol.html) is a binary protocol used by Kafka brokers and clients to communicate with each other.
 
-      The response is structured as follows:
+      All communication over this protocol happens in request-response pairs. A client sends a request to the broker, and the broker responds with a response.
 
-      ```
-      +---------------+--------------------+------------------+
-      | MessageLength | ResponseHeader     | ResponseBody     |
-      +---------------+--------------------+------------------+
-      | INT32         | RESPONSE_HEADER_V0 | RESPONSE_BODY_V3 |
-      +---------------+--------------------+------------------+
-      ```
+      You'll implement support for this protocol over the next few stages. We'll break down the protocol into smaller pieces and implement them one by one.
 
-      In general each response in the Kafka wire protocol starts with a INT32 containing the length of the entire message, followed by the ResponseHeader and then the ResponseBody.
+      ### Kafka requests
+
+      Examples of some commonly used Kafka requests:
+
+      - `APIVersions`, used to get the supported API versions by the broker
+      - `Fetch`, used to get data from the broker
+      - `Produce`, used to send data to the broker
+
+      We'll learn about these in detail later, for now we'll focus on the protocol format itself.
+
+      ### Request/Response format
+
+      As described in [the docs](https://kafka.apache.org/protocol.html#protocol_common), each request and response in the Kafka wire protocol starts with 4 bytes that
+      describe the length of the entire message (this includes the header & body), followed by the message. This is true for both requests and responses.
+
+      The first 4 bytes are encoded as an int32 (4 bytes, big-endian / network byte order).
+
+      For example, if the length of the message is 10, the first 4 bytes (in hexadecimal) will be `00 00 00 0a` (`0a` is the hexadecimal representation of 10).
+
+      ### Response format
+
+      Each response to a Kafka request contains a header and a body. The header format is the same across all request types, but the body format varies per request.
+
+      The header format is as follows:
+
+      - `correlation_id`: An integer that uniquely identifies the request (the client sends this value in the request)
+        - This is an "INT32" according to the Kafka wire protocol
+        - It is a signed integer, encoded using 4 bytes in the response (big-endian / network byte order)
+      - `tag_buffer`: An array of optional "tagged fields"
+        - This can be ignored for now, they're [optional tagged fields](https://cwiki.apache.org/confluence/display/KAFKA/KIP-482%3A+The+Kafka+Protocol+should+Support+Optional+Tagged+Fields) used to introduce additional features over time.
+
+      Note that as mentioned in the previous section, the header is preceded by 4 bytes that describe the length of the entire message (header and body combined).
 
       ### Tests
 
@@ -102,10 +125,15 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then try to connect to your server. It will then send a `APIVersions` request. You don't need to implement the logic to parse this request yet, you need to just send the header with a hardcoded correlation ID.
+      It'll then connect to your server on port 9092 and send a `APIVersions` request. You don't need to implement the logic to parse this request yet, in this stage the tester
+      will only assert that your server sends back a response with a hardcoded correlation ID of `7` (that's `00 00 00 07` in hexadecimal).
 
-      In this stage, you don't need to add the actual message length, just send a INT32 with any value. And hardcode the CorrelationId to `7`.
+      The tester won't validate the first 4 bytes of your response (the "message length") in this stage.
 
+      ### Notes
+
+      - Since the response format is currently incomplete, the first 4 bytes of your response (the "message length") will not be validated in this stage. We'll come back to this in later stages.
+      - In this stage you're expected to hardcode the correlation ID as `7` in your response. We'll get to reading this value from the request in later stages.
     marketing_md: |-
       In this stage, you'll start implementing the ResponseHeader.
 
