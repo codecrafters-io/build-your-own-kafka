@@ -148,7 +148,7 @@ stages:
     name: "Parse Correlation ID"
     difficulty: medium
     description_md: |-
-      In this stage, you'll parse the correlation ID from the request and send a response with the same correlation ID.
+      In this stage, you'll parse the correlation ID from a request and send a response with the same correlation ID.
 
       ### Request header format
 
