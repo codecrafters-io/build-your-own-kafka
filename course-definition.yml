@@ -71,7 +71,7 @@ stages:
       default port that Redis uses.
 
   - slug: "nv3"
-    name: "Respond with a Correlation ID"
+    name: "Send Correlation ID"
     difficulty: easy
     description_md: |-
       In this stage, you'll start implementing the Kafka wire protocol.
@@ -209,7 +209,7 @@ stages:
       In this stage, you'll need to implement the `APIVersions:V3` response.
 
   - slug: "gs0"
-    name: "Include Fetch in APIVersions response"
+    name: "Include Fetch in APIVersions"
     difficulty: medium
     description_md: |-
       In this stage, you'll add Fetch to the APIVersions response.
