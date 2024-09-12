@@ -307,13 +307,12 @@ stages:
     primary_extension_slug: "concurrent-clients"
     difficulty: medium
     description_md: |-
-      In this stage, you'll have to respond to multiple sequential requests, from a single client.
-      All the requests will be of type `APIVersions`, version `3`.
+      In this stage, you'll add support for responding multiple sequential requests, from the same client.
 
       🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
 
       In the meantime, please use
-      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+NH4+%28Handle+multiple+sequential+requests%29&body=%3Cyour+question+here%3E)
+      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+NH4+%28Serial+requests%29&body=%3Cyour+question+here%3E)
       to ask questions on the forum.
 
       ### Tests
@@ -324,11 +323,11 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092.
-      It will then send a valid `APIVersions` (v3) request, read the response, & validate the response.
-      It will repeat this process 2-3 times.
+      It'll then connect to your server on port 9092 and send a `APIVersions` (v3) request, read the response, & validate the response.
 
-      The validations that the tester will perform are:
+      Once a response is received, the tester will re-use the same connection to send multiple other `APIVersions` (v3) requests.
+
+      For each response, the tester will validate that:
 
       - The first 4 bytes of your response (the "message length") are valid.
       - The correlation ID in the response header matches the correlation ID in the request header.
@@ -338,7 +337,7 @@ stages:
 
       ### Notes
 
-      - The tester will always send you v3 of the APIVersions request.
+      - The tester will only send APIVersions (v3) requests in this stage.
       - If extra bytes are remaining after decoding all the fields of the response body, this will be considered an error.
     marketing_md: |-
       In this stage, you'll need to handle multiple sequential `APIVersions` requests.
@@ -348,8 +347,7 @@ stages:
     primary_extension_slug: "concurrent-clients"
     difficulty: hard
     description_md: |-
-      In this stage, you'll have to respond to concurrent requests, from multiple clients.
-      All the requests will be of type `APIVersions`, version `3`.
+      In this stage, you'll respond to concurrent requests from multiple clients.
 
       🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
 
@@ -365,16 +363,9 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll instantiate 2-3 clients, and open connections to your server on port 9092 from all of them. (It will be sequential, so the first client will connect before the second one, and so on.)
-      From each connection, it'll send a valid `APIVersions` (v3) request.
-      It will read the responses from all the connections and validate them.
+      It'll then instantiate 2-3 clients. Each of these clients will connect to your server on port 9092 and send multiple `APIVersions` (v3) requests.
 
-      Each operation will be performed by all clients before the next operation begins.
-      So, all clients connect first.
-      Then, all clients send `APIVersions` (v3) request concurrently.
-      Then, all clients read the responses concurrently, and validate them.
-
-      The validations that the tester will perform are:
+      For each response, the tester will validate that:
 
       - The first 4 bytes of your response (the "message length") are valid.
       - The correlation ID in the response header matches the correlation ID in the request header.
@@ -384,7 +375,7 @@ stages:
 
       ### Notes
 
-      - The tester will always send you v3 of the APIVersions request.
+      - The tester will only send APIVersions (v3) requests in this stage.
       - If extra bytes are remaining after decoding all the fields of the response body, this will be considered an error.
     marketing_md: |-
       In this stage, you'll need to handle concurrent `APIVersions` requests.
