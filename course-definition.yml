@@ -40,7 +40,7 @@ marketing:
         Didn't even know that was possible!
 
 extensions:
-  - slug: "concurrent-clients"
+  - slug: "concurrent-requests"
     name: "Concurrent Clients"
     description_markdown: |
       In this challenge extension you'll add support for multiple clients to connect to your Kafka broker simultaneously.
@@ -304,6 +304,7 @@ stages:
 
   - slug: "nh4"
     name: "Handle multiple sequential requests"
+    primary_extension_slug: "concurrent-requests"
     difficulty: medium
     description_md: |-
       In this stage, you'll have to respond to multiple sequential requests, from a single client.
@@ -344,6 +345,7 @@ stages:
 
   - slug: "sk0"
     name: "Handle concurrent requests"
+    primary_extension_slug: "concurrent-requests"
     difficulty: hard
     description_md: |-
       In this stage, you'll have to respond to concurrent requests, from multiple clients.
