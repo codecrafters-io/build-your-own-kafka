@@ -485,7 +485,9 @@ stages:
       - The `throttle_time_ms` field in the response is present (any value is accepted).
       - The `error_code` field in the response is `0` (no error).
       - The `session_id` field in the response is `0` (i.e. this request is not part of a session).
-      - The `responses` field in the response has 1 element, and in that element:
+      - The `responses` field in the response has 1 element, and the contents of the message is "Hello World!"
+
+      <!-- TODO: To fill in later
         - The `topic_id` field is `00000000-0000-0000-0000-000000000001` (same as the request).
         - The `partitions` array has 1 element, and in that element:
           - The `partition_index` field is `0`.
@@ -500,6 +502,7 @@ stages:
             - The `batchLength` field is `1`.
             - ... <TODO>
             - The `crc` field is present, and is a [CRC-32C (Castagnoli)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check#Castagnoli_polynomial) of the bytes that appear after the `crc` field.
+      -->
 
 
       <!--
