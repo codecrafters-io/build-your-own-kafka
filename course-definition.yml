@@ -40,19 +40,19 @@ marketing:
         Didn't even know that was possible!
 
 extensions:
-  - slug: "concurrent-requests"
+  - slug: "concurrent-clients"
     name: "Concurrent Clients"
     description_markdown: |
-      In this challenge extension you'll add support for multiple clients to connect to your Kafka broker simultaneously.
+      In this challenge extension you'll add support for serving multiple clients simultaneously.
 
-      Along the way you'll learn about TCP connections, thread safety and more.
+      Along the way you'll learn about TCP connections, how to handle concurrency and more.
 
   - slug: "consuming-messages"
     name: "Consuming Messages"
     description_markdown: |
-      In this challenge extension you'll add support for Consuming Messages, by responding to the [Fetch][fetch-api] API.
+      In this challenge extension you'll add support for consuming messages by implementing the [Fetch][fetch-api] API.
 
-      Along the way you'll learn about Kafka's wire format, the structure of a Kafka message and more.
+      Along the way you'll learn about how Kafka's Fetch API works, how Kafka stores messages on disk and more.
 
       [fetch-api]: https://kafka.apache.org/protocol.html#The_Messages_Fetch
 
@@ -303,8 +303,8 @@ stages:
   # Concurrent Requests
 
   - slug: "nh4"
-    name: "Handle multiple sequential requests"
-    primary_extension_slug: "concurrent-requests"
+    name: "Serial requests"
+    primary_extension_slug: "concurrent-clients"
     difficulty: medium
     description_md: |-
       In this stage, you'll have to respond to multiple sequential requests, from a single client.
@@ -325,7 +325,7 @@ stages:
       ```
 
       It'll then connect to your server on port 9092.
-      It will then send a valid `APIVersions` (v3) request, read the response, & validate the response. 
+      It will then send a valid `APIVersions` (v3) request, read the response, & validate the response.
       It will repeat this process 2-3 times.
 
       The validations that the tester will perform are:
@@ -344,8 +344,8 @@ stages:
       In this stage, you'll need to handle multiple sequential `APIVersions` requests.
 
   - slug: "sk0"
-    name: "Handle concurrent requests"
-    primary_extension_slug: "concurrent-requests"
+    name: "Concurrent requests"
+    primary_extension_slug: "concurrent-clients"
     difficulty: hard
     description_md: |-
       In this stage, you'll have to respond to concurrent requests, from multiple clients.
@@ -543,7 +543,7 @@ stages:
       In this stage, you'll implement the Fetch response for a given topic and partition with a single message.
       But, the messages are written to disk, and you'll have to read them from there.
 
-      🚧 **We're still working on this stage**. 
+      🚧 **We're still working on this stage**.
 
       ### Tests
 
@@ -558,7 +558,7 @@ stages:
       In this stage, you'll implement the Fetch response for a given topic and partition with multiple messages.
       The messages are written to disk, and you'll have to read them from there.
 
-      🚧 **We're still working on this stage**. 
+      🚧 **We're still working on this stage**.
 
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with multiple messages, reading them from disk.
