@@ -18,6 +18,7 @@ languages:
   - slug: "go"
   - slug: "python"
   - slug: "rust"
+  - slug: "javascript"
 
 marketing:
   difficulty: medium
@@ -37,6 +38,23 @@ marketing:
       text: |-
         I think the instant feedback right there in the git push is really cool.
         Didn't even know that was possible!
+
+extensions:
+  - slug: "concurrent-clients"
+    name: "Concurrent Clients"
+    description_markdown: |
+      In this challenge extension you'll add support for multiple clients to connect to your Kafka broker simultaneously.
+
+      Along the way you'll learn about TCP connections, thread safety and more.
+
+  - slug: "consuming-messages"
+    name: "Consuming Messages"
+    description_markdown: |
+      In this challenge extension you'll add support for Consuming Messages, by responding to the [Fetch][fetch-api] API.
+
+      Along the way you'll learn about Kafka's wire format, the structure of a Kafka message and more.
+
+      [fetch-api]: https://kafka.apache.org/protocol.html#The_Messages_Fetch
 
 stages:
   - slug: "vi6"
@@ -282,7 +300,12 @@ stages:
     marketing_md: |-
       In this stage, you'll need to implement the `APIVersions:V3` response.
 
+  # Concurrent Requests
+
+  # Consuming Messages
+
   - slug: "gs0"
+    primary_extension_slug: "consuming-messages"
     name: "Include Fetch in APIVersions"
     difficulty: medium
     description_md: |-
@@ -321,6 +344,7 @@ stages:
       In this stage, you'll add the Fetch API to the APIVersions response.
 
   - slug: "dh6"
+    primary_extension_slug: "consuming-messages"
     name: "Fetch with an empty topic"
     difficulty: medium
     description_md: |-
@@ -365,6 +389,7 @@ stages:
       In this stage, you'll start encoding your response to the `Fetch` requests.
 
   - slug: "cm4"
+    primary_extension_slug: "consuming-messages"
     name: "Fetch with a hardcoded message"
     difficulty: hard
     description_md: |-
@@ -422,3 +447,31 @@ stages:
 
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with multiple messages.
+
+  - slug: "eg2"
+    primary_extension_slug: "consuming-messages"
+    name: "Fetch single message from disk"
+    difficulty: hard
+    description_md: |-
+      In this stage, you'll implement the Fetch response for a given topic and partition with a single message.
+      But, the messages are written to disk, and you'll have to read them from there.
+
+      🚧 **We're still working on this stage**. 
+
+      ### Tests
+
+    marketing_md: |-
+      In this stage, you'll implement the Fetch response for a topic with a single message, reading it from disk.
+
+  - slug: "fd8"
+    primary_extension_slug: "consuming-messages"
+    name: "Fetch multiple messages from disk"
+    difficulty: very hard
+    description_md: |-
+      In this stage, you'll implement the Fetch response for a given topic and partition with multiple messages.
+      The messages are written to disk, and you'll have to read them from there.
+
+      🚧 **We're still working on this stage**. 
+
+    marketing_md: |-
+      In this stage, you'll implement the Fetch response for a topic with multiple messages, reading them from disk.
