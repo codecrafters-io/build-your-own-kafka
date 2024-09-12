@@ -341,7 +341,7 @@ stages:
     primary_extension_slug: "concurrent-clients"
     difficulty: hard
     description_md: |-
-      In this stage, you'll respond to concurrent requests from multiple clients.
+      In this stage, you'll add support for handling concurrent requests from multiple clients.
 
       ### Tests
 
