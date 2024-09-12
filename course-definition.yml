@@ -307,13 +307,7 @@ stages:
     primary_extension_slug: "concurrent-clients"
     difficulty: medium
     description_md: |-
-      In this stage, you'll add support for responding multiple sequential requests, from the same client.
-
-      🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
-
-      In the meantime, please use
-      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+NH4+%28Serial+requests%29&body=%3Cyour+question+here%3E)
-      to ask questions on the forum.
+      In this stage, you'll add support for handling multiple sequential requests from the same client.
 
       ### Tests
 
@@ -348,12 +342,6 @@ stages:
     difficulty: hard
     description_md: |-
       In this stage, you'll respond to concurrent requests from multiple clients.
-
-      🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
-
-      In the meantime, please use
-      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+SK0+%28Handle+concurrent+requests%29&body=%3Cyour+question+here%3E)
-      to ask questions on the forum.
 
       ### Tests
 
