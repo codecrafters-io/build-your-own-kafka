@@ -471,7 +471,7 @@ stages:
     name: "Fetch with a hardcoded message"
     difficulty: hard
     description_md: |-
-      In this stage, you'll implement the Fetch response for a topic with multiple messages (hardcoded).
+      In this stage, you'll implement the Fetch response for a topic with a single message (hardcoded).
 
       🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
 
@@ -487,18 +487,35 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `Fetch:V16` request. The tester will validate that the correlation ID in the response header matches
-      the correlation ID in the request header. The tester will also validate that the error code in the response body is 0.
-      Then, it will validate that the response body contains a topicResponse for the topic provided in the request.
-      And that the topicResponse contains a partitionResponse for the partition provided in the request.
+      It'll then connect to your server on port 9092 and send a `Fetch:V16` request. The request will contain
+      `00000000-0000-0000-0000-000000000001` as the `topic_id`.
 
-      The partitionResponse should contain a messageSet with a RecordBatch.
-      Which should in turn contain a Record which should contain a string with the hardcoded message.
+      The tester will validate that:
 
-      You need to send 3 such messages in the response.
-      The messages should be `m1, m2, m3`.
+      - The first 4 bytes of your response (the "message length") are valid.
+      - The correlation ID in the response header matches the correlation ID in the request header.
+      - The `throttle_time_ms` field in the response is present (any value is accepted).
+      - The `error_code` field in the response is `0` (no error).
+      - The `session_id` field in the response is `0` (i.e. this request is not part of a session).
+      - The `responses` field in the response has 1 element, and in that element:
+        - The `topic_id` field is `00000000-0000-0000-0000-000000000001` (same as the request).
+        - The `partitions` array has 1 element, and in that element:
+          - The `partition_index` field is `0`.
+          - The `error_code` field is `0` (no error).
+          - The `high_watermark` field is <TODO>
+          - The `last_stable_offset` field is <TODO>
+          - The `log_start_offset` field is <TODO>
+          - The `aborted_transactions` array has 0 elements.
+          - The `preferred_read_replica` field is <TODO>
+          - The `records` is a [Record batch](https://kafka.apache.org/documentation/#recordbatch) with 1 record, and in that record batch:
+            - The `baseOffset` field is `0` (i.e. this is the first record batch in the topic)
+            - The `batchLength` field is `1`.
+            - ... <TODO>
+            - The `crc` field is present (details on this below)
+              - This is a [CRC-32C (Castagnoli)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check#Castagnoli_polynomial) hash of the bytes in the `records` field.
 
-      The RecordBatch has a CRC field, which is computed using the Castagnoli polynomial. This CRC field in the response should match with the CRC computed from the RecordBatch contents.
+
+      <!--
 
       The hexdump of a sample kafka response for this request is given below.
 
@@ -519,6 +536,8 @@ stages:
       00d0   00 00 02 00 00 00 01 10 00 00 00 01 04 6d 33 00   .............m3.
       00e0   00 00 00                                          ...
       ```
+
+      -->
 
       ### Notes
       - We will send an `Fetch` request with an `APIVersion` of 16.
