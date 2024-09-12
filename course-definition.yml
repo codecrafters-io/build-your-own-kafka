@@ -531,13 +531,7 @@ stages:
     name: "Fetch single message from disk"
     difficulty: hard
     description_md: |-
-      In this stage, you'll implement the Fetch response for a given topic and partition with a single message.
-      But, the messages are written to disk, and you'll have to read them from there.
-
-      🚧 **We're still working on this stage**.
-
-      ### Tests
-
+      🚧 **We're still working on this stage!**.
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with a single message, reading it from disk.
 
@@ -546,10 +540,7 @@ stages:
     name: "Fetch multiple messages from disk"
     difficulty: hard
     description_md: |-
-      In this stage, you'll implement the Fetch response for a given topic and partition with multiple messages.
-      The messages are written to disk, and you'll have to read them from there.
-
-      🚧 **We're still working on this stage**.
+      🚧 **We're still working on this stage!**.
 
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with multiple messages, reading them from disk.
