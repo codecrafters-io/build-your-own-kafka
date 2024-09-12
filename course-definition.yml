@@ -499,7 +499,7 @@ stages:
             - The `baseOffset` field is `0` (i.e. this is the first record batch in the topic)
             - The `batchLength` field is `1`.
             - ... <TODO>
-            - The `crc` field is present, and is a [CRC-32C (Castagnoli)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check#Castagnoli_polynomial) of the bytes in the `records` field.
+            - The `crc` field is present, and is a [CRC-32C (Castagnoli)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check#Castagnoli_polynomial) of the bytes that appear after the `crc` field.
 
 
       <!--
