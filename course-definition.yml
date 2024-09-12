@@ -551,7 +551,7 @@ stages:
   - slug: "fd8"
     primary_extension_slug: "consuming-messages"
     name: "Fetch multiple messages from disk"
-    difficulty: very hard
+    difficulty: hard
     description_md: |-
       In this stage, you'll implement the Fetch response for a given topic and partition with multiple messages.
       The messages are written to disk, and you'll have to read them from there.
