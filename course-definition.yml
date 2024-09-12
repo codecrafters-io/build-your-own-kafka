@@ -258,7 +258,7 @@ stages:
 
       ### Notes
 
-      - The `APIVersions` request will be send with an invalid `APIVersion` of `-1`.
+      - The `APIVersions` request will be sent with an invalid `APIVersion` of `-1`.
     marketing_md: |-
       In this stage, you'll start encoding your response to the `APIVersions` requests.
 
