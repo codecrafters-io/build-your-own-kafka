@@ -512,7 +512,7 @@ stages:
             - The `batchLength` field is `1`.
             - ... <TODO>
             - The `crc` field is present (details on this below)
-              - This is a [CRC-32C (Castagnoli)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check#Castagnoli_polynomial) hash of the bytes in the `records` field.
+              - This is a [CRC-32C (Castagnoli)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check#Castagnoli_polynomial) of the bytes in the `records` field.
 
 
       <!--
