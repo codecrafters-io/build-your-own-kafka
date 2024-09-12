@@ -527,8 +527,11 @@ stages:
       -->
 
       ### Notes
-      - We will send an `Fetch` request with an `APIVersion` of 16.
 
+      - The tester will always send a "version 16" `Fetch` request
+      - The `topic_id` in the request will be `00000000-0000-0000-0000-000000000001`, you'll need to hardcode this value in your code for now. We'll
+        get to reading values from disk in later stages.
+      - You'll still need to support the case where a topic doesn't exist (tested in previous stages).
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with multiple messages.
 
