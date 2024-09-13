@@ -184,21 +184,21 @@ stages:
 
       The documentation for this can be found [here](https://kafka.apache.org/protocol.html#protocol_messages) under the "Request Header v2" section.
 
-      - `request_api_key`: An integer identifying the type of request.
+      - `request_api_key`: An integer identifying which API the request is for.
         - The value of this field is different for each type of request.
         - For example, the `APIVersions` request has a `request_api_key` of `18`.
         - A full list of API keys can be found in [the docs](https://kafka.apache.org/protocol.html#protocol_api_keys).
-      - `request_api_version`: The version of the API for the request.
-        - This is an integer that identifies the version of the API for the request.
-        - For example, the `APIVersions` request supports multiple versions: `0`, `1`, `2` and `3`.
+      - `request_api_version`: The version of the API to use for the request.
+        - For example, the `APIVersions` request supports multiple versions: 0, 1, 2, 3 and 4.
       - `correlation_id`: A unique identifier for the request.
         - This value is echo-ed back in the response.
         - (This is the value you hardcoded in the previous stage!)
       - `client_id`: A string identifying the client that sent the request.
       - `tagged_fields`: Optional tagged fields
         - This can be ignored for now, they're [optional tagged fields](https://cwiki.apache.org/confluence/display/KAFKA/KIP-482%3A+The+Kafka+Protocol+should+Support+Optional+Tagged+Fields) used to introduce additional features over time.
+        - The value for this will always be a null byte in this challenge (i.e. no tagged fields are present)
 
-      In this stage, you'll only need to parse the `correlation_id` field. You can ignore the other fields for now.
+      In this stage, you'll only need to parse the `correlation_id` field from the request. You can ignore the other fields for now.
 
       ### Tests
 
@@ -208,7 +208,7 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `APIVersions` request. The tester will include a random
+      It'll then connect to your server on port 9092 and send a `APIVersions` (v4) request. The tester will include a random
       correlation ID in this request.
 
       The tester will wait for your program to respond and it'll then validate that the correlation ID in the response header matches the correlation ID it send in the request header.
@@ -217,7 +217,7 @@ stages:
 
       ### Notes
 
-      - You can remove the hardcoded correlation ID of `7` we used in the previous stage. You can now read this value from the request.
+      - You can remove the hardcoded correlation ID of `7` we used in the previous stage. You'll now need to read this value from the request.
       - Since the response format is currently incomplete, the first 4 bytes of your response (the "message length") will not be validated in this stage. We'll get to this in later stages.
       - You don't need to parse all fields in the request in this stage, just the `correlation_id` field. We'll get to the other fields in later stages.
     marketing_md: |-
