@@ -399,13 +399,13 @@ stages:
       - The correlation ID in the response header matches the correlation ID in the request header.
       - The error code in the response body is `0` (No Error).
       - The response body contains at least one entry for the API key `1` (FETCH).
-      - The `MaxVersion` for the `ApiKey` `1` is atleast `16`.
+      - The `MaxVersion` for the Fetch API is atleast 16.
 
       ### Notes
 
       - You don't have to implement support for the `Fetch` request in this stage. We'll get to this in later stages.
       - You'll still need to include the entry for `APIVersions` in your response to pass the previous stage.
-      - The `MaxVersion` for the `Fetch` and `APIVersions` are different. For `APIVersions`, the `MaxVersion` is `4`. For `Fetch`, the `MaxVersion` is `16`.
+      - The `MaxVersion` for the `Fetch` and `APIVersions` are different. For `APIVersions`, it is 4. For `Fetch`, it is 16.
     marketing_md: |-
       In this stage, you'll add the Fetch API to the APIVersions response.
 
@@ -430,14 +430,16 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `Fetch` (v16) request. The tester will validate that:
+      It'll then connect to your server on port 9092 and send a `Fetch` (v16) request. The request will contain an empty array of topics.
+
+      The tester will validate that:
 
       - The first 4 bytes of your response (the "message length") are valid.
       - The correlation ID in the response header matches the correlation ID in the request header.
       - The error code in the response body is `0` (No Error).
       - The `throttle_time_ms` field in the response is present (any value is accepted).
       - The `session_id` field in the response is `0`.
-      - The `responses` field in the response has 0 elements.
+      - The `responses` field in the response has 0 elements (since the request had an empty array of topics).
 
       <!--
       ```
@@ -475,7 +477,9 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `Fetch` (v16) request. The tester will validate that:
+      It'll then connect to your server on port 9092 and send a `Fetch` (v16) request. This request will contain a single topic with an unknown topic ID (i.e. the topic doesn't exist yet).
+
+      The tester will validate that:
 
       - The first 4 bytes of your response (the "message length") are valid.
       - The correlation ID in the response header matches the correlation ID in the request header.
@@ -501,7 +505,7 @@ stages:
     name: "Fetch with an empty topic"
     difficulty: hard
     description_md: |-
-      🚧 **We're still working on this stage!**.
+      🚧 **We're still working on tests for this stage!**.
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with multiple messages.
 
@@ -510,7 +514,7 @@ stages:
     name: "Fetch single message from disk"
     difficulty: hard
     description_md: |-
-      🚧 **We're still working on this stage!**.
+      🚧 **We're still working on tests for this stage!**.
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with a single message, reading it from disk.
 
@@ -519,6 +523,6 @@ stages:
     name: "Fetch multiple messages from disk"
     difficulty: hard
     description_md: |-
-      🚧 **We're still working on this stage!**.
+      🚧 **We're still working on tests for this stage!**.
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with multiple messages, reading them from disk.
