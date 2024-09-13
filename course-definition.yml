@@ -212,7 +212,7 @@ stages:
       It'll then connect to your server on port 9092 and send a `APIVersions` (v4) request. The tester will include a random
       correlation ID in this request.
 
-      The tester will wait for your program to respond and it'll then validate that the correlation ID in the response header matches the correlation ID it send in the request header.
+      The tester will wait for your program to respond and it'll then validate that the correlation ID in the response header matches the correlation ID it sent in the request header.
 
       Just like the previous stage, the tester won't validate the first 4 bytes of your response (the "message length") in this stage.
 
@@ -467,7 +467,7 @@ stages:
       🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
 
       In the meantime, please use
-      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+DH6+%28Fetch+with+an+empty+topic%29&body=%3Cyour+question+here%3E)
+      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+HN6+%28Fetch+with+an+unknown+topic%29&body=%3Cyour+question+here%3E)
       to ask questions on the forum.
 
       ### Tests
