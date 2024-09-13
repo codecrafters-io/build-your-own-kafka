@@ -86,7 +86,7 @@ stages:
 
     marketing_md: |-
       In this stage, you'll start a TCP server on port 9092, which is the
-      default port that Redis uses.
+      default port that Kafka uses.
 
   - slug: "nv3"
     name: "Send Correlation ID"
@@ -157,7 +157,7 @@ stages:
 
       ### Notes
 
-      - In this stage you're expected to hardcode the correlation ID as `7` in your response. We'll get to reading this value from the request in later stages.
+      - In this stage, you're expected to hardcode the correlation ID as `7` in your response. We'll get to reading this value from the request in later stages.
       - Since the response format is currently incomplete, the first 4 bytes of your response (the "message length") will not be validated in this stage. We'll get to this in later stages.
       - You don't need to parse the request in this stage. We'll get to this in later stages.
     marketing_md: |-
@@ -244,7 +244,7 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `APIVersions` request. This request will include an invalid `APIVersion` (Example: `-1` or `1234`).
+      It'll then connect to your server on port 9092 and send a `APIVersions` request. This request will include an invalid `APIVersion` (Examples: `-1` or `1234`).
 
       Any version other than 0, 1, 2, 3 and 4 should be considered an invalid version.
 
@@ -259,7 +259,7 @@ stages:
 
       ### Notes
 
-      - The `APIVersions` request will be sent with an invalid `APIVersion` (Example: `-1` or `1234`).
+      - The `APIVersions` request will be sent with an invalid `APIVersion` (Examples: `-1` or `1234`).
     marketing_md: |-
       In this stage, you'll start encoding your response to the `APIVersions` requests.
 
@@ -291,7 +291,7 @@ stages:
       - The correlation ID in the response header matches the correlation ID in the request header.
       - The error code in the response body is `0` (No Error).
       - The response body contains at least one entry for the API key `18` (API_VERSIONS).
-      - The `MaxVersion` for the `ApiKey` `18` is atleast `4`.
+      - The `MaxVersion` for the `ApiKey` `18` is at least `4`.
 
       ### Notes
 
@@ -328,7 +328,7 @@ stages:
       - The correlation ID in the response header matches the correlation ID in the request header.
       - The error code in the response body is `0` (No Error).
       - The response body contains at least one entry for the API key `18` (API_VERSIONS).
-      - The `MaxVersion` for the `ApiKey` `18` is atleast `4`.
+      - The `MaxVersion` for the `ApiKey` `18` is at least `4`.
 
       ### Notes
 
