@@ -282,7 +282,7 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a valid `APIVersions` (v3) request.
+      It'll then connect to your server on port 9092 and send a valid `APIVersions` (v4) request.
 
       The tester will validate that:
 
@@ -294,11 +294,11 @@ stages:
 
       ### Notes
 
-      - The tester will always send you v3 of the APIVersions request.
+      - The tester will always send you v4 of the APIVersions request.
       - From this stage onwards, the tester will start validating the first 4 bytes of your response (the "message length") in addition to the other checks.
       - If extra bytes are remaining after decoding all the fields of the response body, this will be considered an error.
     marketing_md: |-
-      In this stage, you'll need to implement the `APIVersions:V3` response.
+      In this stage, you'll need to implement the `APIVersions:V4` response.
 
   # Concurrent Requests
 
@@ -317,9 +317,9 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `APIVersions` (v3) request, read the response, & validate the response.
+      It'll then connect to your server on port 9092 and send a `APIVersions` (v4) request, read the response, & validate the response.
 
-      Once a response is received, the tester will re-use the same connection to send multiple other `APIVersions` (v3) requests.
+      Once a response is received, the tester will re-use the same connection to send multiple other `APIVersions` (v4) requests.
 
       For each response, the tester will validate that:
 
@@ -331,7 +331,7 @@ stages:
 
       ### Notes
 
-      - The tester will only send APIVersions (v3) requests in this stage.
+      - The tester will only send APIVersions (v4) requests in this stage.
       - If extra bytes are remaining after decoding all the fields of the response body, this will be considered an error.
     marketing_md: |-
       In this stage, you'll need to handle multiple sequential `APIVersions` requests.
@@ -351,7 +351,7 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then instantiate 2-3 clients. Each of these clients will connect to your server on port 9092 and send multiple `APIVersions` (v3) requests.
+      It'll then instantiate 2-3 clients. Each of these clients will connect to your server on port 9092 and send multiple `APIVersions` (v4) requests.
 
       For each response, the tester will validate that:
 
@@ -363,7 +363,7 @@ stages:
 
       ### Notes
 
-      - The tester will only send APIVersions (v3) requests in this stage.
+      - The tester will only send APIVersions (v4) requests in this stage.
       - If extra bytes are remaining after decoding all the fields of the response body, this will be considered an error.
     marketing_md: |-
       In this stage, you'll need to handle concurrent `APIVersions` requests.
@@ -391,7 +391,7 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a valid `APIVersions` (v3) request.
+      It'll then connect to your server on port 9092 and send a valid `APIVersions` (v4) request.
 
       The tester will validate that:
 
