@@ -184,7 +184,7 @@ stages:
 
       The documentation for this can be found [here](https://kafka.apache.org/protocol.html#protocol_messages) under the "Request Header v2" section.
 
-      - `request_api_key`: An integer identifying which API the request is for.
+      - `request_api_key`: An integer identifying the request type.
         - The value of this field is different for each type of request.
         - For example, the `APIVersions` request has a `request_api_key` of `18`.
         - A full list of API keys can be found in [the docs](https://kafka.apache.org/protocol.html#protocol_api_keys).
