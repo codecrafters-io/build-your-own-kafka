@@ -243,9 +243,9 @@ stages:
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `APIVersions` request. This request will include an invalid `APIVersion` (Example: `-1`).
+      It'll then connect to your server on port 9092 and send a `APIVersions` request. This request will include an invalid `APIVersion` (Example: `-1` or `1234`).
 
-      Any version other than `0`, `1`, `2` and `3` should be considered an invalid version.
+      Any version other than 0, 1, 2, 3 and 4 should be considered an invalid version.
 
       Your server should respond with an error code of `35` (UNSUPPORTED_VERSION).
 
