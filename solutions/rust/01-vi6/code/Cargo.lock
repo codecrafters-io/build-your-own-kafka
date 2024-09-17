@@ -189,7 +189,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "redis-starter-rust"
+name = "kafka-starter-rust"
 version = "0.1.0"
 dependencies = [
  "anyhow",
