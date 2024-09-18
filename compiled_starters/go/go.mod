@@ -6,6 +6,6 @@
 //
 // DON'T EDIT THIS!
 
-module github.com/codecrafters-io/redis-starter-go
+module github.com/codecrafters-io/kafka-starter-go
 
 go 1.22
