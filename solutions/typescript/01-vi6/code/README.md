@@ -13,7 +13,7 @@ about handling the network protocol, event loops, TCP sockets and more.
 
 # Passing the first stage
 
-The entry point for your Kafka implementation is in `app/main.js`. Study and
+The entry point for your Kafka implementation is in `app/main.ts`. Study and
 uncomment the relevant code, and push your changes to pass the first stage:
 
 ```sh

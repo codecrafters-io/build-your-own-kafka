@@ -1,11 +1,12 @@
+# syntax=docker/dockerfile:1.7-labs
 FROM oven/bun:1.1.27-alpine
 
 ENV CODECRAFTERS_DEPENDENCY_FILE_PATHS="package.json,bun.lockb"
 
 WORKDIR /app
 
-COPY package.json ./
-COPY bun.lockb ./
+# .git & README.md are unique per-repository. We ignore them on first copy to prevent cache misses
+COPY --exclude=.git --exclude=README.md . /app
 
 # For reproducible builds.
 # This will install the exact versions of each package specified in the lockfile.
