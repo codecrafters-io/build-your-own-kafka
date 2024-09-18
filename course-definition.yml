@@ -15,10 +15,11 @@ short_description_md: |-
 completion_percentage: 15
 
 languages:
+  - slug: "gleam"
   - slug: "go"
+  - slug: "javascript"
   - slug: "python"
   - slug: "rust"
-  - slug: "javascript"
   - slug: "typescript"
 
 marketing:
