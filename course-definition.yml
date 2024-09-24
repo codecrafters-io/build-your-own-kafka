@@ -64,17 +64,12 @@ stages:
     description_md: |-
       In this stage, you'll implement a TCP server that listens on port 9092.
 
-      [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) is the underlying protocol used by protocols like HTTP, SSH and others
-      you're probably familiar with. Kafka clients & brokers use TCP to communicate with each other.
-
-      Don't worry if you're unfamiliar with the TCP protocol, or what Kafka clients & brokers are. You'll learn more about this in the
-      next stages.
+      [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) is the underlying protocol that Kafka brokers and clients use to communicate with each other.
 
       ### Tests
 
       The tester will execute your program like this:
-
-      ```bash
+      ```
       $ ./your_program.sh
       ```
 
@@ -82,9 +77,8 @@ stages:
 
       ### Notes
 
+      - If you already have a Kafka broker running on port 9092 and you run your program, you'll get a "port already in use" error. To fix this, terminate the existing Kafka broker and run your program again.
       - 9092 is the default port that Kafka uses.
-      - If you already have a Kafka broker running on your machine and listening on port 9092, you'll see a "port already in use" error when running your code. Try stopping the existing Kafka broker and running your code again.
-
     marketing_md: |-
       In this stage, you'll start a TCP server on port 9092, which is the
       default port that Kafka uses.
