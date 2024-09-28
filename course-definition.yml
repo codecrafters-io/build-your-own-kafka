@@ -552,9 +552,8 @@ stages:
       The tester will execute your program like this:
 
       ```bash
-      $ ./your_program.sh
+      $ ./your_program.sh /tmp/server.properties
       ```
-      <!-- TODO: Where do we mention kraft.server.properties ? Do we mention at all ? -->
 
       It'll then connect to your server on port 9092 and send a valid `APIVersions` (v4) request.
 
@@ -593,7 +592,7 @@ stages:
       The tester will execute your program like this:
 
       ```bash
-      $ ./your_program.sh
+      $ ./your_program.sh /tmp/server.properties
       ```
 
       It'll then connect to your server on port 9092 and send a `DescribeTopicPartition` (v0) request. The request will contain a single topic which 1 partition.
@@ -619,7 +618,7 @@ stages:
   - slug: "ea7"
     primary_extension_slug: "topic-partition-metadata"
     name: "DescribeTopicPartition with single topic"
-    difficulty: very hard
+    difficulty: hard
     description_md: |-
       In this stage, you'll implement the `DescribeTopicPartition` response for a single topic.
 
@@ -634,7 +633,7 @@ stages:
       The tester will execute your program like this:
 
       ```bash
-      $ ./your_program.sh
+      $ ./your_program.sh /tmp/server.properties
       ```
 
       It'll then connect to your server on port 9092 and send a `DescribeTopicPartition` (v0) request. The request will contain an single topic name. The topic exists and has a single partition assigned to it.
@@ -659,8 +658,6 @@ stages:
     marketing_md: |-
       In this stage, you'll implement the DescribeTopicPartition response for a single topic.
 
-      <!-- TODO: How to explain to users how to do this ? ClusterMetadata folder. Decode it. Decode Topic Record, Partition Record. -->
-
   - slug: "ku4"
     primary_extension_slug: "topic-partition-metadata"
     name: "DescribeTopicPartition with single topic but multiple partitions"
@@ -679,7 +676,7 @@ stages:
       The tester will execute your program like this:
 
       ```bash
-      $ ./your_program.sh
+      $ ./your_program.sh /tmp/server.properties
       ```
 
       It'll then connect to your server on port 9092 and send a `DescribeTopicPartition` (v0) request. The request will contain an single topic name. The topic exists and has 2 partitions assigned to it.
@@ -708,7 +705,7 @@ stages:
   - slug: "wq2"
     primary_extension_slug: "topic-partition-metadata"
     name: "DescribeTopicPartition with multiple topics"
-    difficulty: very hard
+    difficulty: hard
     description_md: |-
       In this stage, you'll implement the `DescribeTopicPartition` response for multiple topics.
 
@@ -723,7 +720,7 @@ stages:
       The tester will execute your program like this:
 
       ```bash
-      $ ./your_program.sh
+      $ ./your_program.sh /tmp/server.properties
       ```
 
       It'll then connect to your server on port 9092 and send a `DescribeTopicPartition` (v0) request. The request will contain 3 topic names. The topics exist and have 1 or 2 partitions assigned to each.
