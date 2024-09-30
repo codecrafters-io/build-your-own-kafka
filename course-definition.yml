@@ -436,7 +436,7 @@ stages:
       $ ./your_program.sh /tmp/server.properties
       ```
 
-      It'll then connect to your server on port 9092 and send a `DescribeTopicPartitions` (v0) request. The request will contain a single topic which 1 partition.
+      It'll then connect to your server on port 9092 and send a `DescribeTopicPartitions` (v0) request. The request will contain a single topic with 1 partition.
 
       The tester will validate that:
 
