@@ -442,11 +442,11 @@ stages:
 
       - The first 4 bytes of your response (the "message length") are valid.
       - The correlation ID in the response header matches the correlation ID in the request header.
-      - The error code in the response body is `3` (UNKNOWN_TOPIC_OR_PARTITION).
-      - The response body should be valid DescribeTopicPartitionResponse.
+      - The error code in the response body is 3 (`UNKNOWN_TOPIC_OR_PARTITION`).
+      - The response body should be valid DescribeTopicPartitions (v0) Response.
       - The `topic_name` field in the response should be equal to the topic name sent in the request.
       - The `topic_id` field in the response should be equal to `00000000-0000-0000-0000-000000000000`.
-      - The partition response should be empty. (As there are no partitions assigned to this non-existent topic.)
+      - The `partitions` field in the response should be empty. (As there are no partitions assigned to this non-existent topic.)
 
       ### Notes
 
