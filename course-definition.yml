@@ -403,14 +403,14 @@ stages:
       - The first 4 bytes of your response (the "message length") are valid.
       - The correlation ID in the response header matches the correlation ID in the request header.
       - The error code in the response body is `0` (No Error).
-      - The response body contains at least three entries of APIKeyResponses.
-      - The response for the API key `18` (API_VERSIONS) has a `MaxVersion` of at least 4, and a `MinVersion` of at least 0.
-      - The response for the API key `75` (DESCRIBE_TOPIC_PARTITION) has a `MaxVersion` of at least 0, and a `MinVersion` of at least 0.
+      - The response body contains at least one entry for the API key 18 (`APIVersions`) and one entry for the API key 75 (`DescribeTopicPartitions`).
+      - The response for the API key 18 (`APIVersions`) has a `MaxVersion` of at least 4, and a `MinVersion` of at least 0.
+      - The response for the API key 75 (`DescribeTopicPartitions`) has a `MaxVersion` of at least 0, and a `MinVersion` of at least 0.
 
       ### Notes
 
       - You don't have to implement support for the `DescribeTopicPartitions` request in this stage. We'll get to this in later stages.
-      - You'll still need to include the entry for `APIVersions` in your response to pass the previous stage.
+      - You'll still need to include the entry for `APIVersions` in your response to pass previous stages.
       - The `MaxVersion` for the `DescribeTopicPartitions` and `APIVersions` are different. For `APIVersions`, it is 4. For `DescribeTopicPartitions`, it is 0.
     marketing_md: |-
       In this stage, you'll add the DescribeTopicPartitions API to the APIVersions response.
