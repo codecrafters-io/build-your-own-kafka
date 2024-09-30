@@ -48,6 +48,15 @@ extensions:
 
       Along the way you'll learn about TCP connections, how to handle concurrency and more.
 
+  - slug: "listing-partitions"
+    name: "Listing Partitions"
+    description_markdown: |
+      In this challenge extension you'll add support for listing topic partitions by implementing the [DescribeTopicPartitions][describe-topic-partitions] API.
+
+      Along the way you'll learn about how Kafka stores cluster metadata on disk, how to read topic metadata from disk and more.
+
+      [describe-topic-partitions]: https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions
+
   - slug: "consuming-messages"
     name: "Consuming Messages"
     description_markdown: |
@@ -56,15 +65,6 @@ extensions:
       Along the way you'll learn about how Kafka's Fetch API works, how Kafka stores messages on disk and more.
 
       [fetch-api]: https://kafka.apache.org/protocol.html#The_Messages_Fetch
-
-  - slug: "topic-partition-metadata"
-    name: "Topic Partition Metadata"
-    description_markdown: |
-      In this challenge extension you'll add support for fetching metadata about topic partitions by implementing the [DescribeTopicPartition][describe-topic-partition] API.
-
-      Along the way you'll learn about how Kafka stores cluster metadata on disk, how to read topic metadata from disk and more.
-
-      [describe-topic-partition]: https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions
 
 stages:
   - slug: "vi6"
