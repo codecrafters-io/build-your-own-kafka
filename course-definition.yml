@@ -483,13 +483,13 @@ stages:
 
       - The first 4 bytes of your response (the "message length") are valid.
       - The correlation ID in the response header matches the correlation ID in the request header.
-      - The error code in the response body is `0` (NO_ERROR).
-      - The response body should be valid DescribeTopicPartitionResponse.
-      - The `topic_name` field in the response should be equal to the topic name sent in the request.
-      - The `topic_id` field in the response should be equal to the topic UUID of the topic.
-      - The partition response should contain details of the partition assigned to the topic.
-      - The error code in the partition response should be `0` (NO_ERROR).
-      - The `partition_index` field in the partition response should be equal to the partition ID of the partition assigned to the topic.
+      - The error code in the response body is 0 (no error).
+      - The response body should be valid DescribeTopicPartitions (v0) Response.
+      - The `topic_name` field in the response should match the topic name sent in the request.
+      - The `topic_id` field in the response should match the topic UUID of the topic.
+      - The `partitions` field in the response should contain details of the partition assigned to the topic.
+      - The error code in the partition response should be 0 (no error).
+      - The `partition_index` field in the partition response should match the partition ID of the partition assigned to the topic.
 
       ### Notes
 
