@@ -536,15 +536,15 @@ stages:
 
   - slug: "yk1"
     primary_extension_slug: "listing-partitions"
-    name: "Include DescribeTopicPartition in APIVersions"
+    name: "Include DescribeTopicPartitions in APIVersions"
     difficulty: medium
     description_md: |-
-      In this stage, you'll add an entry for the `DescribeTopicPartition` API to the APIVersions response.
+      In this stage, you'll add an entry for the `DescribeTopicPartitions` API to the APIVersions response.
 
       🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
 
       In the meantime, please use
-      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+YK1+%28Include+DescribeTopicPartition+in+APIVersions%29&body=%3Cyour+question+here%3E)
+      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+YK1+%28Include+DescribeTopicPartitions+in+APIVersions%29&body=%3Cyour+question+here%3E)
       to ask questions on the forum.
 
       ### Tests
@@ -568,15 +568,15 @@ stages:
 
       ### Notes
 
-      - You don't have to implement support for the `DescribeTopicPartition` request in this stage. We'll get to this in later stages.
+      - You don't have to implement support for the `DescribeTopicPartitions` request in this stage. We'll get to this in later stages.
       - You'll still need to include the entry for `APIVersions` in your response to pass the previous stage.
-      - The `MaxVersion` for the `DescribeTopicPartition` and `APIVersions` are different. For `APIVersions`, it is 4. For `DescribeTopicPartition`, it is 0.
+      - The `MaxVersion` for the `DescribeTopicPartitions` and `APIVersions` are different. For `APIVersions`, it is 4. For `DescribeTopicPartitions`, it is 0.
     marketing_md: |-
-      In this stage, you'll add the DescribeTopicPartition API to the APIVersions response.
+      In this stage, you'll add the DescribeTopicPartitions API to the APIVersions response.
 
   - slug: "vt6"
     primary_extension_slug: "listing-partitions"
-    name: "DescribeTopicPartition with unknown topic"
+    name: "List for an unknown topic"
     difficulty: medium
     description_md: |-
       In this stage, you'll implement the `DescribeTopicPartition` response for an unknown topic.
@@ -617,7 +617,7 @@ stages:
 
   - slug: "ea7"
     primary_extension_slug: "listing-partitions"
-    name: "DescribeTopicPartition with single topic"
+    name: "List for a single partition"
     difficulty: hard
     description_md: |-
       In this stage, you'll implement the `DescribeTopicPartition` response for a single topic.
@@ -660,7 +660,7 @@ stages:
 
   - slug: "ku4"
     primary_extension_slug: "listing-partitions"
-    name: "DescribeTopicPartition with single topic but multiple partitions"
+    name: "List for multiple partitions"
     difficulty: hard
     description_md: |-
       In this stage, you'll implement the `DescribeTopicPartition` response for a single topic with multiple partitions.
@@ -704,7 +704,7 @@ stages:
 
   - slug: "wq2"
     primary_extension_slug: "listing-partitions"
-    name: "DescribeTopicPartition with multiple topics"
+    name: "List for multiple topics"
     difficulty: hard
     description_md: |-
       In this stage, you'll implement the `DescribeTopicPartition` response for multiple topics.
