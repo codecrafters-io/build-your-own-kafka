@@ -18,7 +18,6 @@ languages:
   - slug: "gleam"
   - slug: "go"
   - slug: "java"
-    release_status: "alpha"
   - slug: "javascript"
   - slug: "python"
   - slug: "rust"
