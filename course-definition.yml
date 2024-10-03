@@ -429,6 +429,11 @@ stages:
       [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+vt6%3A+List+for+an+unknown+topic&body=%3Cyour+question+here%3E)
       to ask questions on the forum.
 
+      We've also created an interactive protocol inspector for the `DescribeTopicPartitions` request & response:
+
+      - [🔎 DescribeTopicPartitions Request (v0)](https://binspec.org/kafka-describe-topic-partitions-request-v0)
+      - [🔎 DescribeTopicPartitions Response (v0) - Unknown Topic](https://binspec.org/kafka-describe-topic-partitions-response-v0-unknown-topic)
+
       ### Tests
 
       The tester will execute your program like this:
