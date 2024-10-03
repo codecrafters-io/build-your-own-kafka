@@ -481,8 +481,6 @@ stages:
       - 🔎 [DescribeTopicPartitions Request (v0)](https://binspec.org/kafka-describe-topic-partitions-request-v0)
       - 🔎 [DescribeTopicPartitions Response (v0)](https://binspec.org/kafka-describe-topic-partitions-response-v0)
 
-      To find whether a topic exists or not, you'll need to read the `__cluster_metadata` topic log file.
-
       ### Tests
 
       The tester will execute your program like this:
@@ -508,6 +506,7 @@ stages:
       ### Notes
 
       - You'll need to parse the `DescribeTopicPartitions` request in this stage to get the topic name to send in the response.
+      - To find whether a topic exists or not, you'll need to read the `__cluster_metadata` topic log file, located at `/tmp/kraft-combined-logs/__cluster_metadata...`.
       - The official docs for the `DescribeTopicPartitions` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions).
 
     marketing_md: |-
