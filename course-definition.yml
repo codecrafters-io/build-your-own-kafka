@@ -431,8 +431,8 @@ stages:
 
       We've created an interactive protocol inspector for the `DescribeTopicPartitions` request & response:
 
-      - [🔎 DescribeTopicPartitions Request (v0)](https://binspec.org/kafka-describe-topic-partitions-request-v0)
-      - [🔎 DescribeTopicPartitions Response (v0) - Unknown Topic](https://binspec.org/kafka-describe-topic-partitions-response-v0-unknown-topic)
+      - 🔎 [DescribeTopicPartitions Request (v0)](https://binspec.org/kafka-describe-topic-partitions-request-v0)
+      - 🔎 [DescribeTopicPartitions Response (v0) - Unknown Topic](https://binspec.org/kafka-describe-topic-partitions-response-v0-unknown-topic)
 
       ### Tests
 
