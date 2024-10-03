@@ -410,9 +410,9 @@ stages:
 
       ### Notes
 
-      - You don't have to implement support for the `DescribeTopicPartitions` request in this stage. We'll get to this in later stages.
-      - You'll still need to include the entry for `APIVersions` in your response to pass previous stages.
       - The `MaxVersion` for the `DescribeTopicPartitions` and `APIVersions` are different. For `APIVersions`, it is 4. For `DescribeTopicPartitions`, it is 0.
+      - You'll still need to include the entry for `APIVersions` in your response to pass previous stages.
+      - We'll get to implementing the `DescribeTopicPartitions` request in later stages, in this stage you only need to add an entry to the APIVersions response.
     marketing_md: |-
       In this stage, you'll add the DescribeTopicPartitions API to the APIVersions response.
 
