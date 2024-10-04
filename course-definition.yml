@@ -54,7 +54,7 @@ extensions:
     description_markdown: |
       In this challenge extension you'll add support for listing topic partitions by implementing the [DescribeTopicPartitions][describe-topic-partitions] API.
 
-      Along the way you'll learn about how Kafka stores cluster metadata on disk, how to read topic metadata from disk and more.
+      Along the way you'll learn about how Kafka stores messages on disk, the `__cluster_metadata` topic and more.
 
       [describe-topic-partitions]: https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions
 
