@@ -475,7 +475,7 @@ stages:
 
       We've created an interactive protocol inspector for the cluster metadata log file and the `DescribeTopicPartitions` response:
 
-      - 🔎 [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata-log-file)
+      - 🔎 [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata)
       - 🔎 [DescribeTopicPartitions Response (v0)](https://binspec.org/kafka-describe-topic-partitions-response-v0)
 
       🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
