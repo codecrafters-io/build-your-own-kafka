@@ -470,7 +470,8 @@ stages:
     description_md: |-
       In this stage, you'll implement the `DescribeTopicPartitions` response for a single topic.
 
-      To check if a topic exists or not, you'll need to read the `__cluster_metadata` topic's log file, located at `/tmp/kraft-combined-logs/__cluster_metadata-0/00000000000000000000.log`.
+      Kafka stores metadata about topics in the `__cluster_metadata` topic. To check if a topic exists or not, you'll need to read
+      the `__cluster_metadata` topic's log file, located at `/tmp/kraft-combined-logs/__cluster_metadata-0/00000000000000000000.log`.
 
       We've created an interactive protocol inspector for the cluster metadata log file and the `DescribeTopicPartitions` response:
 
