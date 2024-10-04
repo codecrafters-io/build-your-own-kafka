@@ -552,7 +552,6 @@ stages:
 
       ### Notes
 
-      - You'll need to parse the `DescribeTopicPartitions` request in this stage to get the topic name to send in the response.
       - The official docs for the `DescribeTopicPartitions` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions).
 
     marketing_md: |-
@@ -594,7 +593,6 @@ stages:
 
       ### Notes
 
-      - You'll need to parse the `DescribeTopicPartitions` request in this stage to get the topic name to send in the response.
       - The official docs for the `DescribeTopicPartitions` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions).
 
     marketing_md: |-
