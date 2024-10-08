@@ -97,74 +97,63 @@ stages:
     name: "Send Correlation ID"
     difficulty: easy
     description_md: |-
-      In this stage, you'll respond to a request with a hardcoded correlation ID.
+      In this stage, you'll send a response with a correlation ID.
 
-      ### Kafka wire protocol
+      ### Response message
 
-      The [Kafka wire protocol](https://kafka.apache.org/protocol.html) is a binary protocol used by Kafka brokers and clients to communicate with each other.
+      Kafka brokers communicate with clients through the [Kafka wire protocol](https://kafka.apache.org/protocol.html). The protocol uses a request-response model, where the client sends a request message and the broker replies with a response message.
 
-      All communication over this protocol happens in request-response pairs. A client sends a request to the broker, and the broker responds with a response.
+      A Kafka response message has three parts:
+      1. Message size
+      2. Header
+      3. Body
 
-      You'll implement support for this protocol over the next few stages. We'll break down the protocol into smaller pieces and implement them one by one.
+      For this stage, you can ignore the body and just focus on the message size and header. You'll learn about response bodies in a later stage.
 
-      ### Kafka requests
+      #### Message size
 
-      Examples of some commonly used Kafka requests:
+      The [message size](https://kafka.apache.org/protocol.html#protocol_common) is a 32-bit signed integer. It specifies the size of the header and body.
 
-      - `APIVersions`, used to get the supported API versions by the broker
-      - `Fetch`, used to get data from the broker
-      - `Produce`, used to send data to the broker
+      For this stage, the tester will only assert that your message size is 4 bytes long—it won't check its value. You'll implement correct message sizes in a later stage.
 
-      We'll learn about these in detail later, for now we'll focus on the protocol format itself.
+      #### Header
 
-      ### Request/Response format
+      Kafka has a few different header versions. The way Kafka determines which header version to use is a bit complicated and is outside the scope of this challenge. For more information, take a look at [KIP-482](https://cwiki.apache.org/confluence/display/KAFKA/KIP-482%3A+The+Kafka+Protocol+should+Support+Optional+Tagged+Fields) and this [Stack Overflow answer](https://stackoverflow.com/a/71853003).
 
-      As described in [the docs](https://kafka.apache.org/protocol.html#protocol_common), each request and response in the Kafka wire protocol starts with 4 bytes that
-      describe the length of the entire message (this includes the header & body), followed by the message. This is true for both requests and responses.
+      In this stage, you will use [response header v0](https://kafka.apache.org/protocol.html#protocol_messages) (scroll down).
 
-      The first 4 bytes are encoded as an int32 (4 bytes, big-endian / network byte order).
+      It has a single value: a [correlation ID](https://developer.confluent.io/patterns/event/correlation-identifier/). This value lets clients match responses to their original requests. Here's how it works:
 
-      For example, if the length of the message is 10, the first 4 bytes (in hexadecimal) will be `00 00 00 0a` (`0a` is the hexadecimal representation of 10).
+      1. The client generates a correlation ID.
+      2. The client sends a request that includes the correlation ID.
+      3. The broker sends a response that includes the same correlation ID.
+      4. The client receives the response and matches the correlation ID to the original request.
 
-      ### Response header format (v0)
-
-      Each response to a Kafka request contains a header and a body. The header format is the same for most responses (irrespective of request type), but it does vary specifically
-      for the `APIVersions` response. The `APIVersions` response uses the "v0" header format, while all other responses use the "v1" header format.
-
-      The response header format (v0) is 4 bytes long, and contains exactly one field:
-
-      - `correlation_id`: An integer that uniquely identifies the request (the client sends this value in the request)
-        - This is an "INT32" according to the Kafka wire protocol
-        - It is a signed integer, encoded using 4 bytes in the response (big-endian / network byte order)
-
-      The response header format (v1) contains an additional `tag_buffer` field, which we'll cover in later stages.
-
-      As mentioned in the previous section, the header is preceded by 4 bytes that describe the length of the entire message (header and body combined).
-
-      ### Response body format
-
-      The response body format varies by request type. We'll cover this in later stages.
+      The correlation ID is a 32-bit signed integer. For this stage, your program must respond with a hard-coded correlation ID of 7.
 
       ### Tests
 
       The tester will execute your program like this:
-
-      ```bash
+      ```
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `APIVersions` request. You don't need to implement the logic to parse this request yet.
+      It'll then connect to your broker on port 9092 and send a request:
+      ```
+      $ echo -n "Placeholder request" | nc -v localhost 9092 | hexdump -C
+      ```
 
-      The tester will wait to receive a response from your server. It will expect at least 8 bytes of data (4 bytes for the message length + 4 bytes for the correlation ID).
-
-      The tester won't validate the first 4 bytes of your response (the "message length") in this stage. The tester will assert that the next 4 bytes are `00 00 00 07` (7, encoded
-      as a 4 byte integer in big-endian).
+      Your broker must send a response with a correlation ID of 7:
+      ```java
+      00 00 00 00  // Message size:   0 (any value works)
+      00 00 00 07  // Correlation ID: 7
+      ```
 
       ### Notes
 
-      - In this stage, you're expected to hardcode the correlation ID as `7` in your response. We'll get to reading this value from the request in later stages.
-      - Since the response format is currently incomplete, the first 4 bytes of your response (the "message length") will not be validated in this stage. We'll get to this in later stages.
-      - You don't need to parse the request in this stage. We'll get to this in later stages.
+      - For this stage, you don't need to parse the request. You'll learn about request parsing in a later stage.
+      - All integers are in [big-endian](https://developer.mozilla.org/en-US/docs/Glossary/Endianness) order.
+
     marketing_md: |-
       In this stage, you'll start implementing the ResponseHeader.
 
