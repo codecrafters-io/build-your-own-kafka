@@ -177,7 +177,7 @@ stages:
       2. Header
       3. Body
 
-      To get the correlation ID, you need to find its offset. You already know that the message size is 4 bytes long. And here's what the request header looks like (in this challenge, we're using [request header v2](https://kafka.apache.org/protocol.html#protocol_messages)):
+      To get the correlation ID, you need to find its offset. You already know that the message size is 4 bytes long. And here's what the request header looks like (in this stage, we're using [request header v2](https://kafka.apache.org/protocol.html#protocol_messages)):
 
       | Field                 | Data type         | Description                            |
       | --------------------- | ----------------- | -------------------------------------- |
