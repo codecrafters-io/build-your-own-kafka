@@ -161,60 +161,61 @@ stages:
     name: "Parse Correlation ID"
     difficulty: medium
     description_md: |-
-      In this stage, you'll parse the correlation ID from a request and send a response with the same correlation ID.
+      In this stage, you'll replace the hard-coded correlation ID with the actual correlation ID from the request.
 
-      ### Request header format
+      ### Request message
 
-      In the previous stage, we saw that the request starts with a 4 byte length field, followed by the request header, and then the request body.
+      A request message has three parts:
+      1. Message size
+      2. Header
+      3. Body
 
-      The format of the request header is as follows:
+      To get the correlation ID, you need to find its offset. You already know that the message size is 4 bytes long. And here's what the request header looks like (in this stage, we're using [request header v2](https://kafka.apache.org/protocol.html#protocol_messages)):
 
-      | Field Name            | Field Type      | Description                               |
-      |-----------------------|-----------------|-------------------------------------------|
-      | `request_api_key`     | INT16           | The API key for the request               |
-      | `request_api_version` | INT16           | The version of the API for the request    |
-      | `correlation_id`      | INT32           | A unique identifier for the request       |
-      | `client_id`           | NULLABLE_STRING | The client ID for the request             |
-      | `tagged_fields`       | TAGGED_FIELDS   | Optional tagged fields                    |
+      | Field                 | Data type         | Description                            |
+      | --------------------- | ----------------- | -------------------------------------- |
+      | `request_api_key`     | `INT16`           | The API key for the request            |
+      | `request_api_version` | `INT16`           | The version of the API for the request |
+      | `correlation_id`      | `INT32`           | A unique identifier for the request    |
+      | `client_id`           | `NULLABLE_STRING` | The client ID for the request          |
+      | `tagged_fields`       | `TAGGED_FIELDS`   | Optional tagged fields                 |
 
-      The documentation for this can be found [here](https://kafka.apache.org/protocol.html#protocol_messages) under the "Request Header v2" section.
+      To learn more about the different data types, see [Protocol Primitive Types](https://kafka.apache.org/protocol.html#protocol_types).
 
-      - `request_api_key`: An integer identifying the request type.
-        - The value of this field is different for each type of request.
-        - For example, the `APIVersions` request has a `request_api_key` of `18`.
-        - A full list of API keys can be found in [the docs](https://kafka.apache.org/protocol.html#protocol_api_keys).
-      - `request_api_version`: The version of the API to use for the request.
-        - For example, the `APIVersions` request supports multiple versions: 0, 1, 2, 3 and 4.
-      - `correlation_id`: A unique identifier for the request.
-        - This value is echo-ed back in the response.
-        - (This is the value you hardcoded in the previous stage!)
-      - `client_id`: A string identifying the client that sent the request.
-      - `tagged_fields`: Optional tagged fields
-        - This can be ignored for now, they're [optional tagged fields](https://cwiki.apache.org/confluence/display/KAFKA/KIP-482%3A+The+Kafka+Protocol+should+Support+Optional+Tagged+Fields) used to introduce additional features over time.
-        - The value for this will always be a null byte in this challenge (i.e. no tagged fields are present)
+      #### Example
 
-      In this stage, you'll only need to parse the `correlation_id` field from the request. You can ignore the other fields for now.
+      Here's an example of a request message:
+      ```java
+      00 00 00 23  // size:                35
+      00 12        // request_api_key:     18
+      00 04        // request_api_version: 4
+      6f 7f c6 61  // correlation_id:      1870644833
+      ...
+      ```
 
       ### Tests
 
       The tester will execute your program like this:
-
-      ```bash
+      ```
       $ ./your_program.sh
       ```
 
-      It'll then connect to your server on port 9092 and send a `APIVersions` (v4) request. The tester will include a random
-      correlation ID in this request.
+      It'll then connect to your broker on port 9092 and send a request with a request header v2:
+      ```
+      $ echo -n "00000023001200046f7fc66100096b61666b612d636c69000a6b61666b612d636c6904302e3100" | xxd -r -p | nc localhost 9092 | hexdump -C
+      ```
 
-      The tester will wait for your program to respond and it'll then validate that the correlation ID in the response header matches the correlation ID it sent in the request header.
-
-      Just like the previous stage, the tester won't validate the first 4 bytes of your response (the "message length") in this stage.
+      Your broker must send a response with the correct correlation ID:
+      ```java
+      00 00 00 00  // Message size:   0 (any value works)
+      6f 7f c6 61  // Correlation ID: 1870644833
+      ```
 
       ### Notes
 
-      - You can remove the hardcoded correlation ID of `7` we used in the previous stage. You'll now need to read this value from the request.
-      - Since the response format is currently incomplete, the first 4 bytes of your response (the "message length") will not be validated in this stage. We'll get to this in later stages.
-      - You don't need to parse all fields in the request in this stage, just the `correlation_id` field. We'll get to the other fields in later stages.
+      - For this stage, you don't need to worry about what the request is asking for. You'll handle that in the next stage.
+      - For this stage, the tester will only assert that your message size is 4 bytes long—it won't check its value. You'll implement correct message sizes in a later stage.
+      - The request header version and response header version are unrelated to each other and do not have to match.
     marketing_md: |-
       In this stage, you'll start decoding the RequestHeader.
 
