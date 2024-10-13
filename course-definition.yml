@@ -21,6 +21,7 @@ languages:
   - slug: "javascript"
   - slug: "python"
   - slug: "rust"
+  - slug: "zig"
 
 marketing:
   difficulty: medium
