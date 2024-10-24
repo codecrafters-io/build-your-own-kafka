@@ -755,6 +755,12 @@ stages:
           - The `error_code` field is `0` (No Error).
           - The `records` array has `0` elements.
 
+      ### Notes
+
+      - You'll need to parse the `Fetch` request in this stage to get the `topic_id` to send in the response.
+      - The official docs for the `Fetch` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Fetch). Make sure
+        to scroll down to the "Fetch Response (Version: 16)" section.
+
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with no messages.
 
@@ -795,6 +801,12 @@ stages:
           - The `records` array has 1 element.
             - The entire `RecordBatch` content is read from disk. (We will compare the contents of the `RecordBatch` with the contents of the log file to verify this.)
 
+      ### Notes
+
+      - You'll need to parse the `Fetch` request in this stage to get the `topic_id` to send in the response.
+      - The official docs for the `Fetch` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Fetch). Make sure
+        to scroll down to the "Fetch Response (Version: 16)" section.
+
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with a single message, reading it from disk.
 
@@ -834,6 +846,12 @@ stages:
           - The `error_code` field is `0` (No Error).
           - The `records` array has the correct number of elements.
             - The entire `RecordBatch` content is read from disk. (We will compare the contents of the `RecordBatch` with the contents of the log file to verify this.)
+
+      ### Notes
+
+      - You'll need to parse the `Fetch` request in this stage to get the `topic_id` to send in the response.
+      - The official docs for the `Fetch` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Fetch). Make sure
+        to scroll down to the "Fetch Response (Version: 16)" section.
 
     marketing_md: |-
       In this stage, you'll implement the Fetch response for a topic with multiple messages, reading them from disk.
