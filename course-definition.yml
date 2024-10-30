@@ -114,7 +114,7 @@ stages:
 
       The [`message_size`](https://kafka.apache.org/protocol.html#protocol_common) field is a 32-bit signed integer. It specifies the size of the header and body.
 
-      For this stage, the tester will only assert that your `message_size` field is 4 bytes long—it won't check its value. You'll implement correct `message_size` values in a later stage.
+      For this stage, the tester will only assert that your `message_size` field is 4 bytes long—it won't check the value. You'll implement correct `message_size` values in a later stage.
 
       #### Header
 
