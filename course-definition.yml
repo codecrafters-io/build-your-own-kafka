@@ -104,17 +104,17 @@ stages:
       Kafka brokers communicate with clients through the [Kafka wire protocol](https://kafka.apache.org/protocol.html). The protocol uses a request-response model, where the client sends a request message and the broker replies with a response message.
 
       A Kafka response message has three parts:
-      1. Message size
+      1. `message_size`
       2. Header
       3. Body
 
-      For this stage, you can ignore the body and just focus on the message size and header. You'll learn about response bodies in a later stage.
+      For this stage, you can ignore the body and just focus on `message_size` and the header. You'll learn about response bodies in a later stage.
 
-      #### Message size
+      #### The `message_size` field
 
-      The [message size](https://kafka.apache.org/protocol.html#protocol_common) is a 32-bit signed integer. It specifies the size of the header and body.
+      The [`message_size`](https://kafka.apache.org/protocol.html#protocol_common) field is a 32-bit signed integer. It specifies the size of the header and body.
 
-      For this stage, the tester will only assert that your message size is 4 bytes long—it won't check its value. You'll implement correct message sizes in a later stage.
+      For this stage, the tester will only assert that your `message_size` field is 4 bytes long—it won't check the value. You'll implement correct `message_size` values in a later stage.
 
       #### Header
 
@@ -122,14 +122,14 @@ stages:
 
       In this stage, you will use [response header v0](https://kafka.apache.org/protocol.html#protocol_messages) (scroll down).
 
-      It has a single value: a [correlation ID](https://developer.confluent.io/patterns/event/correlation-identifier/). This value lets clients match responses to their original requests. Here's how it works:
+      Response header v0 contains a single field: [`correlation_id`](https://developer.confluent.io/patterns/event/correlation-identifier/). This field lets clients match responses to their original requests. Here's how it works:
 
       1. The client generates a correlation ID.
       2. The client sends a request that includes the correlation ID.
       3. The broker sends a response that includes the same correlation ID.
       4. The client receives the response and matches the correlation ID to the original request.
 
-      The correlation ID is a 32-bit signed integer. For this stage, your program must respond with a hard-coded correlation ID of 7.
+      The `correlation_id` field is a 32-bit signed integer. For this stage, your program must respond with a hard-coded `correlation_id` of 7.
 
       ### Tests
 
@@ -145,8 +145,8 @@ stages:
 
       Your broker must send a response with a correlation ID of 7:
       ```java
-      00 00 00 00  // Message size:   0 (any value works)
-      00 00 00 07  // Correlation ID: 7
+      00 00 00 00  // message_size:   0 (any value works)
+      00 00 00 07  // correlation_id: 7
       ```
 
       ### Notes
@@ -166,11 +166,11 @@ stages:
       ### Request message
 
       A request message has three parts:
-      1. Message size
+      1. `message_size`
       2. Header
       3. Body
 
-      To get the correlation ID, you need to find its offset. You already know that the message size is 4 bytes long. And here's what the request header looks like (in this stage, we're using [request header v2](https://kafka.apache.org/protocol.html#protocol_messages)):
+      To get the `correlation_id` field, you need to find its offset. You already know that `message_size` is 4 bytes long. And here's what the request header looks like (in this stage, we're using [request header v2](https://kafka.apache.org/protocol.html#protocol_messages)):
 
       | Field                 | Data type         | Description                            |
       | --------------------- | ----------------- | -------------------------------------- |
@@ -186,7 +186,7 @@ stages:
 
       Here's an example of a request message:
       ```java
-      00 00 00 23  // size:                35
+      00 00 00 23  // message_size:        35
       00 12        // request_api_key:     18
       00 04        // request_api_version: 4
       6f 7f c6 61  // correlation_id:      1870644833
@@ -207,14 +207,14 @@ stages:
 
       Your broker must send a response with the correct correlation ID:
       ```java
-      00 00 00 00  // Message size:   0 (any value works)
-      6f 7f c6 61  // Correlation ID: 1870644833
+      00 00 00 00  // message_size:   0 (any value works)
+      6f 7f c6 61  // correlation_id: 1870644833
       ```
 
       ### Notes
 
       - For this stage, you don't need to worry about what the request is asking for. You'll handle that in the next stage.
-      - For this stage, the tester will only assert that your message size is 4 bytes long—it won't check its value. You'll implement correct message sizes in a later stage.
+      - For this stage, the tester will only assert that your `message_size` field is 4 bytes long—it won't check the value. You'll implement correct `message_size` values in a later stage.
       - The request header version and response header version are unrelated to each other and do not have to match.
     marketing_md: |-
       In this stage, you'll start decoding the RequestHeader.
