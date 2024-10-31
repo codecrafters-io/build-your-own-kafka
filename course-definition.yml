@@ -178,7 +178,7 @@ stages:
       | `request_api_version` | `INT16`           | The version of the API for the request |
       | `correlation_id`      | `INT32`           | A unique identifier for the request    |
       | `client_id`           | `NULLABLE_STRING` | The client ID for the request          |
-      | `tagged_fields`       | `TAGGED_FIELDS`   | Optional tagged fields                 |
+      | `TAG_BUFFER`          | `COMPACT_ARRAY`   | Optional tagged fields                 |
 
       To learn more about the different data types, see [Protocol Primitive Types](https://kafka.apache.org/protocol.html#protocol_types).
 
