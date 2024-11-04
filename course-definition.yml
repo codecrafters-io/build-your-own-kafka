@@ -15,6 +15,7 @@ short_description_md: |-
 completion_percentage: 15
 
 languages:
+  - slug: "cpp"
   - slug: "gleam"
   - slug: "go"
   - slug: "java"
