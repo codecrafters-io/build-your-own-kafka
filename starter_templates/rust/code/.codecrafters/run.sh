@@ -6,6 +6,4 @@
 #
 # Learn more: https://codecrafters.io/program-interface
 
-set -e # Exit on failure
-
-exec /tmp/codecrafters-kafka-target/release/kafka-starter-rust "$@"
+exec /tmp/codecrafters-build-kafka-rust/release/codecrafters-kafka "$@"
