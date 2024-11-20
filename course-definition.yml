@@ -22,6 +22,7 @@ languages:
   - slug: "javascript"
   - slug: "python"
   - slug: "rust"
+  - slug: "csharp"
 
 marketing:
   difficulty: medium
