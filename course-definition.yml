@@ -23,6 +23,9 @@ languages:
   - slug: "javascript"
   - slug: "python"
   - slug: "rust"
+  - slug: "elixir"
+    release_status: "alpha"
+    alpha_tester_usernames: ["hlorellium"]
 
 marketing:
   difficulty: medium
