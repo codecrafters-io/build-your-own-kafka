@@ -4,7 +4,11 @@ Study and uncomment the relevant code:
 
 ```typescript
 // Uncomment this block to pass the first stage
-console.log("TODO: Implement starter code");
+const server: net.Server = net.createServer((connection: net.Socket) => {
+  // Handle connection
+});
+
+server.listen(9092, "127.0.0.1");
 ```
 
 Push your changes to pass the first stage:
