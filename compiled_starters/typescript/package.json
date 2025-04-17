@@ -1,0 +1,11 @@
+{
+  "name": "@codecrafters/kafka",
+  "description": "Build your own Kafka challenge, from CodeCrafters",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run app/main.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
