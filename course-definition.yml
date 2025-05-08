@@ -896,7 +896,7 @@ stages:
       - The `responses` field in the response has 1 element, and in that element:
         - The `topic_id` field matches what was sent in the request.
         - The `partitions` array has 1 element, and in that element:
-          - The `partition_index` field is `0`.
+          - The `partition_index` field matches what was sent in the request.
           - The `error_code` field is `0` (No Error).
           - The `records` array has the correct number of elements.
             - The entire `RecordBatch` content is read from disk. (We will compare the contents of the `RecordBatch` with the contents of the log file to verify this.)
