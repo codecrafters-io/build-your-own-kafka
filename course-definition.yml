@@ -315,6 +315,11 @@ stages:
     description_md: |-
       In this stage, you'll implement the response body for the `APIVersions` request.
 
+      We've created an interactive protocol inspector for the `APIVersions` request & response:
+
+      - 🔎 [API Versions Request (v4)](https://binspec.org/kafka-api-versions-request-v4)
+      - 🔎 [API Versions Response (v4)](https://binspec.org/kafka-api-versions-Response-v4)
+
       🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
 
       In the meantime, please use
