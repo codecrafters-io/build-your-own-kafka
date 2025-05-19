@@ -269,7 +269,7 @@ stages:
 
       In this stage, you'll begin to add support for `ApiVersions` version 4. For this stage, you only need to add support for the `error_code` field. You'll implement the other fields in later stages.
 
-      Note: As of Oct 30th 2024, [version 4](https://github.com/apache/kafka/blob/84caaa6e9da06435411510a81fa321d4f99c351f/clients/src/main/resources/common/message/ApiVersionsRequest.json#L25C22-L25C33) of `ApiVersions` is still unreleased, so it isn't available in the Kafka docs yet. However, the request and response formats for `ApiVersions` version 4 are identical to those of version 3. The docs for version 4 will be available once Kafka 3.9 is released.
+      Note: [ApiVersions v4](https://github.com/apache/kafka/blob/84caaa6e9da06435411510a81fa321d4f99c351f/clients/src/main/resources/common/message/ApiVersionsRequest.json#L25C22-L25C33) isn’t documented yet, but its request and response formats are identical to v3.
 
       The `ApiVersions` response body begins with `error_code`, a 16-bit signed integer. This field indicates if an error occurred with the request. It's set to 0 if there was no error. To see all the possible values, consult the [error codes chart](https://kafka.apache.org/protocol.html#protocol_error_codes).
 
