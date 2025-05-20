@@ -269,8 +269,6 @@ stages:
 
       In this stage, you'll begin to add support for `ApiVersions` version 4. For this stage, you only need to add support for the `error_code` field. You'll implement the other fields in later stages.
 
-      Note: [ApiVersions v4](https://github.com/apache/kafka/blob/84caaa6e9da06435411510a81fa321d4f99c351f/clients/src/main/resources/common/message/ApiVersionsRequest.json#L25C22-L25C33) isn’t documented yet, but its request and response formats are identical to v3.
-
       The `ApiVersions` response body begins with `error_code`, a 16-bit signed integer. This field indicates if an error occurred with the request. It's set to 0 if there was no error. To see all the possible values, consult the [error codes chart](https://kafka.apache.org/protocol.html#protocol_error_codes).
 
       You only need to add support for error code 35, `UNSUPPORTED_VERSION`. This error code occurs when the version of `ApiVersions` requested by the client is not supported by the broker. Assume that your broker only supports versions 0 to 4.
@@ -341,7 +339,7 @@ stages:
 
       ### Notes
 
-      - The tester will always send you v4 of the APIVersions request. Its structure is identical to v3.
+      - The tester will always send you v4 of the APIVersions request.
       - From this stage onwards, the tester will start validating the first 4 bytes of your response (the "message length") in addition to the other checks.
       - If extra bytes are remaining after decoding all the fields of the response body, this will be considered an error.
     marketing_md: |-
