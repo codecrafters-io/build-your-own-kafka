@@ -858,6 +858,7 @@ stages:
           - The `partition_index` field is `0`.
           - The `error_code` field is `0` (No Error).
           - The `records` array has 1 element.
+            - The `records` field is represented as `COMPACT_NULLABLE_BYTES`. It starts with an UNSIGNED_VARINT length of N+1, followed by N bytes.
             - The entire `RecordBatch` content is read from disk. (We will compare the contents of the `RecordBatch` with the contents of the log file to verify this.)
 
       ### Notes
@@ -904,6 +905,7 @@ stages:
           - The `partition_index` field matches what was sent in the request.
           - The `error_code` field is `0` (No Error).
           - The `records` array has the correct number of elements.
+            - The `records` field is represented as `COMPACT_NULLABLE_BYTES`. It starts with an UNSIGNED_VARINT length of N+1, followed by N bytes.
             - The entire `RecordBatch` content is read from disk. (We will compare the contents of the `RecordBatch` with the contents of the log file to verify this.)
 
       ### Notes
