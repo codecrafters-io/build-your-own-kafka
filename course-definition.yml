@@ -279,7 +279,7 @@ stages:
 
       The tester will execute your program like this:
       ```
-      $ ./your_program.sh  
+      $ ./your_program.sh
       ```
 
       It'll then connect to your broker on port 9092 and send an `ApiVersions` request. This request will ask for an unsupported version of `ApiVersions`:
@@ -655,38 +655,6 @@ stages:
     primary_extension_slug: "consuming-messages"
     name: "Include Fetch in APIVersions"
     difficulty: medium
-    description_md: |-
-      In this stage, you'll add an entry for the `Fetch` API to the APIVersions response.
-
-      🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
-
-      In the meantime, please use
-      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+gs0%3A+Include+Fetch+in+APIVersions&body=%3Cyour+question+here%3E)
-      to ask questions on the forum.
-
-      ### Tests
-
-      The tester will execute your program like this:
-
-      ```bash
-      $ ./your_program.sh
-      ```
-
-      It'll then connect to your server on port 9092 and send a valid `APIVersions` (v4) request.
-
-      The tester will validate that:
-
-      - The first 4 bytes of your response (the "message length") are valid.
-      - The correlation ID in the response header matches the correlation ID in the request header.
-      - The error code in the response body is `0` (No Error).
-      - The response body contains at least one entry for the API key `1` (FETCH).
-      - The `MaxVersion` for the Fetch API is atleast 16.
-
-      ### Notes
-
-      - You don't have to implement support for the `Fetch` request in this stage. We'll get to this in later stages.
-      - You'll still need to include the entry for `APIVersions` in your response to pass the previous stage.
-      - The `MaxVersion` for the `Fetch` and `APIVersions` are different. For `APIVersions`, it is 4. For `Fetch`, it is 16.
     marketing_md: |-
       In this stage, you'll add the Fetch API to the APIVersions response.
 
@@ -694,46 +662,6 @@ stages:
     primary_extension_slug: "consuming-messages"
     name: "Fetch with no topics"
     difficulty: medium
-    description_md: |-
-      In this stage, you'll implement the Fetch response for a Fetch request with no topics.
-
-      🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
-
-      In the meantime, please use
-      [this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+dh6%3A+Fetch+with+no+topics&body=%3Cyour+question+here%3E)
-      to ask questions on the forum.
-
-      ### Tests
-
-      The tester will execute your program like this:
-
-      ```bash
-      $ ./your_program.sh
-      ```
-
-      It'll then connect to your server on port 9092 and send a `Fetch` (v16) request. The request will contain an empty array of topics.
-
-      The tester will validate that:
-
-      - The first 4 bytes of your response (the "message length") are valid.
-      - The correlation ID in the response header matches the correlation ID in the request header.
-      - The error code in the response body is `0` (No Error).
-      - The `throttle_time_ms` field in the response is `0`.
-      - The `session_id` field in the response is `0`.
-      - The `responses` field in the response has 0 elements (since the request had an empty array of topics).
-
-      <!--
-      ```
-      0000   00 00 00 11 5e 33 46 cc 00 00 00 00 00 00 00 0a   ....^3F.........
-      0010   b9 c1 2e 01 00                                    .....
-      ```
-      -->
-
-      ### Notes
-
-      - You don't need to parse the fields in the `Fetch` request in this stage, we'll get to this in later stages.
-      - The official docs for the `Fetch` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Fetch). Make sure
-        to scroll down to the "Fetch Response (Version: 16)" section.
     marketing_md: |-
       In this stage, you'll start encoding your response to the `Fetch` requests.
 
