@@ -1,10 +1,15 @@
-In this stage, you'll implement the Fetch response for a Fetch request with no topics.
+In this stage, you'll implement the response for a `Fetch` request with no topics.
 
-🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
+### Fetch API response for no topics
 
-In the meantime, please use
-[this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+dh6%3A+Fetch+with+no+topics&body=%3Cyour+question+here%3E)
-to ask questions on the forum.
+A `Fetch` request includes a list of topics to fetch messages from. If the request contains an empty list of topics, the `responses` field in the response will be an empty array.
+
+Here are interactive visualizations of what the `Fetch` request & response will look like when the request contains an empty list of topics:
+
+- 🔎 [Fetch Request (v17) with no topics](https://binspec.org/kafka-fetch-request-v17-no-topics)
+- 🔎 [Fetch Response (v17) with no topics](https://binspec.org/kafka-fetch-response-v17-no-topics)
+
+In this stage, you'll need to implement the response for a `Fetch` request with an empty list of topics. We'll get to handling `Fetch` requests with topics in later stages.
 
 ### Tests
 
@@ -36,4 +41,4 @@ The tester will validate that:
 
 - You don't need to parse the fields in the `Fetch` request in this stage, we'll get to this in later stages.
 - The official docs for the `Fetch` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Fetch). Make sure
-to scroll down to the "Fetch Response (Version: 16)" section.
+  to scroll down to the "Fetch Response (Version: 16)" section.
