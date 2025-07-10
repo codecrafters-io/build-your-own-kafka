@@ -45,3 +45,7 @@ The tester will validate that:
 
 - The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
 - The official Kafka docs don't cover the structure of records inside the `__cluster_metadata` topic, but you can find the definitions in the Kafka source code [here](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata).
+
+TODO: @rohitpaulk our cluster metadata binspec doesn't go into details for each cluster metadata payload type.
+Something for me to add. 
+In the meantime the github link works. 
