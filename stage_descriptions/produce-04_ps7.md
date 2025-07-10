@@ -11,10 +11,11 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
 - 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
 
-We've also created an interactive protocol inspector for Kafka's log file format:
-- 🔎 [Kafka Log File Format](https://binspec.org/kafka-log-file)
+Kafka's on-disk log format is just records inside a RecordBatch. The same RecordBatch format that is used in the Produce request, Fetch request is also used in the on-disk log file.
 
-This will help you understand how to write records to the log file in the correct binary format.
+You can refer to the following interactive protocol inspector for Kafka's log file format:
+- 🔎 [__cluster_metadata topic's log file](https://binspec.org/kafka-cluster-metadata)
+
 
 ## Tests
 
@@ -42,7 +43,6 @@ The tester will also verify that the record is persisted to the appropriate log 
 
 ## Notes
 
-- You'll need to implement log file writing using Kafka's binary log format.
-- Records must be stored in RecordBatch format with proper CRC validation.
+- On-disk log files must be stored in RecordBatch format with proper CRC validation.
 - The offset assignment should start from 0 for new partitions and increment for each subsequent record.
 - The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
