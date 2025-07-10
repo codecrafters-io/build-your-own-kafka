@@ -1,6 +1,6 @@
-In this stage, you'll add support for handling Produce requests to non-existent topics.
+In this stage, you'll add support for handling Produce requests to invalid topics.
 
-## Produce API response for non-existent topics
+## Produce API response for invalid topics
 
 When a Kafka broker receives a Produce request, it first needs to validate that the topic exists. If a topic doesn't exist, it returns an appropriate error code and response. 
 To validate that a topic exists, the broker reads the `__cluster_metadata` topic's log file, located at `/tmp/kraft-combined-logs/__cluster_metadata-0/00000000000000000000.log`. Inside the log file, the broker finds the topic's metadata, which is a `record` (inside a RecordBatch) with a payload of type `TOPIC_RECORD`. If there exists a `TOPIC_RECORD` with the given topic name and the topic ID, the topic exists. Else, the topic doesn't exist.
@@ -17,7 +17,7 @@ We've also created an interactive protocol inspector for the `__cluster_metadata
 
 This would help you understand the structure of the `TOPIC_RECORD` record inside the `__cluster_metadata` topic's log file.
 
-In this stage, you'll need to implement the response for a `Produce` request with a non-existent topic.
+In this stage, you'll need to implement the response for a `Produce` request with an invalid topic.
 
 ## Tests
 
@@ -27,7 +27,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request with a non-existent topic.
+It'll then connect to your server on port 9092 and send a `Produce` (v11) request with an invalid topic.
 
 The tester will validate that:
 
