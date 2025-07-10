@@ -1,8 +1,15 @@
 In this stage, you'll add an entry for the `Produce` API to the APIVersions response.
 
-## APIVersions
+## The Produce API
 
-Your Kafka implementation should include the Produce API (key=0) in the ApiVersions response before implementing produce functionality. This would let the client know that the broker supports the Produce API.
+The [Produce API](https://kafka.apache.org/protocol#The_Messages_Produce) (API key `0`) is used to produce messages to a Kafka topic.
+
+We've created an interactive protocol inspector for the request & response structures for `Produce`:
+
+- 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
+- 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
+
+In this stage, you'll only need to add an entry for the `Produce` API to the APIVersions response you implemented in earlier stages. This will let the client know that the broker supports the `Produce` API. We'll get to responding to `Produce` requests in later stages.
 
 ## Tests
 
@@ -25,4 +32,5 @@ The tester will validate that:
 ## Notes
 
 - You don't have to implement support for the `Produce` request in this stage. We'll get to this in later stages.
-- You'll still need to include the entry for `APIVersions` in your response to pass the previous stage.
+- You'll still need to include the entry for `APIVersions` in your response to pass earlier stages.
+- The `MaxVersion` for the `Produce` and `APIVersions` are different. For `APIVersions`, it is 4. For `Produce`, it is 11.
