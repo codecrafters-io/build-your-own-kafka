@@ -2,11 +2,7 @@ In this stage, you'll add support for successfully producing a single record.
 
 ## Single Record Production
 
-When a Kafka broker receives a Produce request for a valid topic and partition, it needs to:
-
-1. **Validate the topic and partition exist** (using the `__cluster_metadata` topic's log file)
-2. **Store the record** in the appropriate log file using Kafka's on-disk format
-3. **Return a successful response** with the assigned offset
+When a Kafka broker receives a Produce request for a valid topic and partition, it needs to validate that the topic and partition exist (using the `__cluster_metadata` topic's log file), store the record in the appropriate log file using Kafka's on-disk format, and return a successful response with the assigned offset.
 
 The record must be persisted to the topic's log file at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log` using Kafka's RecordBatch format.
 
