@@ -14,12 +14,12 @@ Stage CT4: CreateTopics with Existing Topic Name (Read __cluster_metadata)
 - Handle duplicate topic creation attempts
 - Error code: TOPIC_ALREADY_EXISTS (36)
 
-Stage CT5: CreateTopics with Valid Parameters (Success Case)
+Stage CT5: CreateTopics with Validation Only
+- Handle all validations but don't persist any data
+
+Stage CT6: CreateTopics with Valid Parameters (Success Case)
 - Successfully create single topic with valid parameters
 - Core success functionality
 
-Stage CT6: Multiple topics in single request
+Stage CT7: Multiple topics in single request
 - Handle multiple topics in a single request
-
-Stage CT7: CreateTopics with Validation Only
-- Handle validation only mode
