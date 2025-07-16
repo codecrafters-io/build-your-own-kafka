@@ -80,6 +80,15 @@ extensions:
 
       [produce-api]: https://kafka.apache.org/protocol.html#The_Messages_Produce
 
+  - slug: "creating-topics"
+    name: "Creating Topics"
+    description_markdown: |
+      In this challenge extension you'll add support for creating topics by implementing the [CreateTopics][create-topics-api] API.
+
+      Along the way you'll learn about how Kafka's CreateTopics API works, topic validation, the `__cluster_metadata` topic and more.
+
+      [create-topics-api]: https://kafka.apache.org/protocol.html#The_Messages_CreateTopics
+
 stages:
   - slug: "vi6"
     name: "Bind to a port"
@@ -252,3 +261,54 @@ stages:
     difficulty: hard
     marketing_md: |-
       In this stage, you'll implement producing to multiple topics in a single request.
+
+  # Creating Topics
+
+  - slug: "yb1"
+    primary_extension_slug: "creating-topics"
+    name: "Include CreateTopics in APIVersions"
+    difficulty: easy
+    marketing_md: |-
+      In this stage, you'll add the CreateTopics API to the APIVersions response.
+
+  - slug: "ve7"
+    primary_extension_slug: "creating-topics"
+    name: "CreateTopics with Invalid Topic Name"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll implement the CreateTopics response for invalid topic names.
+
+  - slug: "cb8"
+    primary_extension_slug: "creating-topics"
+    name: "CreateTopics with Reserved Topic Name"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll implement the CreateTopics response for reserved topic names.
+
+  - slug: "us2"
+    primary_extension_slug: "creating-topics"
+    name: "CreateTopics with Existing Topic Name"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll implement the CreateTopics response for existing topic names.
+
+  - slug: "hh9"
+    primary_extension_slug: "creating-topics"
+    name: "CreateTopics with Validation Only"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll implement the CreateTopics response for validation-only mode.
+
+  - slug: "rk2"
+    primary_extension_slug: "creating-topics"
+    name: "CreateTopics with a single topic"
+    difficulty: hard
+    marketing_md: |-
+      In this stage, you'll implement creating a single topic.
+
+  - slug: "fl3"
+    primary_extension_slug: "creating-topics"
+    name: "CreateTopics with Multiple Topics"
+    difficulty: hard
+    marketing_md: |-
+      In this stage, you'll implement creating multiple topics in a single request.
