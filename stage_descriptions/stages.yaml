@@ -1,0 +1,28 @@
+- Include CreateTopics in APIVersions 
+- CreateTopics with Invalid Topic Name (empty, ., .., length > 249, invalid characters)
+- CreateTopics with Invalid Partition Values (negative, zero)
+- CreateTopics with Invalid Replication Values (negative, zero, > broker count)
+- CreateTopics with Reserved Topic Name (__cluster_metadata)
+- CreateTopics with Existing Topic (read __cluster_metadata)
+- CreateTopics with Authorization Check (no CREATE permission on CLUSTER or TOPIC resource)
+- CreateTopics with Single Topic (single topic in single request)
+- CreateTopics with Multiple Topics (multiple topics in single request)
+- CreateTopics with Manual Assignments (manual assignment of partitions and replicas)
+- CreateTopics with Validation Only
+- CreateTopics with Invalid Request (Duplicate topic names in single request)
+
+
+  1. Topic Name Validation - INVALID_TOPIC_EXCEPTION (17)
+  - Empty topic name or "." or ".."
+  - Length > 249 characters
+  - Invalid characters (only ASCII alphanumerics, '.', '_', '-')
+  - Internal topic collision detection
+
+
+
+Stage CT8: CreateTopics with Invalid Parameters
+- Handle negative/zero partitions, invalid replication factors
+- Duplicate topic names in single request
+- Error codes: INVALID_PARTITIONS (37), INVALID_REPLICATION_FACTOR (38)
+
+- CT8: Topic-specific configurations
