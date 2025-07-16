@@ -17,8 +17,8 @@ Mixed success/failure scenarios are handled gracefully - if one topic fails vali
 
 We've created an interactive protocol inspector for the request & response structures for `CreateTopics`:
 
-- 🔎 [CreateTopics Request (v7)](https://binspec.org/kafka-createtopics-request-v7)
-- 🔎 [CreateTopics Response (v7)](https://binspec.org/kafka-createtopics-response-v7)
+- 🔎 [CreateTopics Request (v6)](https://binspec.org/kafka-createtopics-request-v6)
+- 🔎 [CreateTopics Response (v6)](https://binspec.org/kafka-createtopics-response-v6)
 
 ## Tests
 
@@ -28,7 +28,7 @@ The tester will execute your program like this:
 ./your_program.sh
 ```
 
-It'll then connect to your server on port 9092 and send a `CreateTopics` (v7) request with multiple topics.
+It'll then connect to your server on port 9092 and send a `CreateTopics` (v6) request with multiple topics.
 
 The tester will validate that:
 

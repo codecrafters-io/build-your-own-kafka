@@ -14,8 +14,8 @@ If the topic name is invalid, the broker returns an error code of `17` (INVALID_
 
 We've created an interactive protocol inspector for the request & response structures for `CreateTopics`:
 
-- 🔎 [CreateTopics Request (v7)](https://binspec.org/kafka-createtopics-request-v7)
-- 🔎 [CreateTopics Response (v7)](https://binspec.org/kafka-createtopics-response-v7)
+- 🔎 [CreateTopics Request (v6)](https://binspec.org/kafka-createtopics-request-v6)
+- 🔎 [CreateTopics Response (v6)](https://binspec.org/kafka-createtopics-response-v6)
 
 In this stage, you'll need to implement basic topic name validation without needing to check against existing topics or system topics. You can hard code the error response for invalid topic names in this stage. 
 
@@ -27,7 +27,7 @@ The tester will execute your program like this:
 ./your_program.sh
 ```
 
-It'll then connect to your server on port 9092 and send a `CreateTopics` (v7) request with an invalid topic name.
+It'll then connect to your server on port 9092 and send a `CreateTopics` (v6) request with an invalid topic name.
 
 The tester will validate that:
 

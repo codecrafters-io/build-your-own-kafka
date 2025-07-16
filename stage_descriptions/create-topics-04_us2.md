@@ -10,8 +10,8 @@ If the topic already exists, the broker returns an error code of `36` (TOPIC_ALR
 
 We've created an interactive protocol inspector for the request & response structures for `CreateTopics`:
 
-- 🔎 [CreateTopics Request (v7)](https://binspec.org/kafka-createtopics-request-v7)
-- 🔎 [CreateTopics Response (v7)](https://binspec.org/kafka-createtopics-response-v7)
+- 🔎 [CreateTopics Request (v6)](https://binspec.org/kafka-createtopics-request-v6)
+- 🔎 [CreateTopics Response (v6)](https://binspec.org/kafka-createtopics-response-v6)
 
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
 - 🔎 [__cluster_metadata topic's log file](https://binspec.org/kafka-cluster-metadata)
@@ -30,7 +30,7 @@ The tester will execute your program like this:
 # Then try to create the same topic again
 ```
 
-It'll then connect to your server on port 9092 and send a `CreateTopics` (v7) request for an existing topic.
+It'll then connect to your server on port 9092 and send a `CreateTopics` (v6) request for an existing topic.
 
 The tester will validate that:
 

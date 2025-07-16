@@ -6,8 +6,8 @@ The [CreateTopics API](https://kafka.apache.org/protocol#The_Messages_CreateTopi
 
 We've created an interactive protocol inspector for the request & response structures for `CreateTopics`:
 
-- 🔎 [CreateTopics Request (v7)](https://binspec.org/kafka-createtopics-request-v7)
-- 🔎 [CreateTopics Response (v7)](https://binspec.org/kafka-createtopics-response-v7)
+- 🔎 [CreateTopics Request (v6)](https://binspec.org/kafka-createtopics-request-v6)
+- 🔎 [CreateTopics Response (v6)](https://binspec.org/kafka-createtopics-response-v6)
 
 In this stage, you'll only need to add an entry for the `CreateTopics` API to the APIVersions response you implemented in earlier stages. This will let the client know that the broker supports the `CreateTopics` API. We'll get to responding to `CreateTopics` requests in later stages.
 

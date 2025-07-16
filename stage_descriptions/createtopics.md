@@ -52,7 +52,7 @@ The tester will execute your program like this:
 ./your_program.sh
 ```
 
-It'll then connect to your server on port 9092 and send a `CreateTopics` (v7) request with an invalid topic name.
+It'll then connect to your server on port 9092 and send a `CreateTopics` (v6) request with an invalid topic name.
 
 The tester will validate that:
 
@@ -88,7 +88,7 @@ The tester will execute your program like this:
 ./your_program.sh
 ```
 
-It'll then connect to your server on port 9092 and send `CreateTopics` (v7) requests with invalid parameters.
+It'll then connect to your server on port 9092 and send `CreateTopics` (v6) requests with invalid parameters.
 
 The tester will validate that:
 
@@ -125,7 +125,7 @@ The tester will execute your program like this:
 # Then try to create the same topic again
 ```
 
-It'll then connect to your server on port 9092 and send a `CreateTopics` (v7) request for an existing topic.
+It'll then connect to your server on port 9092 and send a `CreateTopics` (v6) request for an existing topic.
 
 The tester will validate that:
 
@@ -162,7 +162,7 @@ The tester will execute your program like this:
 ./your_program.sh
 ```
 
-It'll then connect to your server on port 9092 and send `CreateTopics` (v7) requests with invalid manual assignments.
+It'll then connect to your server on port 9092 and send `CreateTopics` (v6) requests with invalid manual assignments.
 
 The tester will validate that:
 
@@ -197,7 +197,7 @@ The tester will execute your program like this:
 ./your_program.sh
 ```
 
-It'll then connect to your server on port 9092 and send `CreateTopics` (v7) requests without proper authorization.
+It'll then connect to your server on port 9092 and send `CreateTopics` (v6) requests without proper authorization.
 
 The tester will validate that:
 
