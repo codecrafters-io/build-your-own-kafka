@@ -12,17 +12,17 @@
 - CreateTopics with Invalid Request (Duplicate topic names in single request)
 
 
-  1. Topic Name Validation - INVALID_TOPIC_EXCEPTION (17)
-  - Empty topic name or "." or ".."
-  - Length > 249 characters
-  - Invalid characters (only ASCII alphanumerics, '.', '_', '-')
-  - Internal topic collision detection
+1. Topic Name Validation - INVALID_TOPIC_EXCEPTION (17)
+- Empty topic name or "." or ".."
+- Length > 249 characters
+- Invalid characters (only ASCII alphanumerics, '.', '_', '-')
+- Internal topic collision detection
 
 
 
-Stage CT8: CreateTopics with Invalid Parameters
+Stage CTX: CreateTopics with Invalid Parameters
 - Handle negative/zero partitions, invalid replication factors
 - Duplicate topic names in single request
 - Error codes: INVALID_PARTITIONS (37), INVALID_REPLICATION_FACTOR (38)
 
-- CT8: Topic-specific configurations
+Stage CTX: Topic-specific configurations
