@@ -21,5 +21,5 @@ Stage CT6: CreateTopics with Valid Parameters (Success Case)
 - Successfully create single topic with valid parameters
 - Core success functionality
 
-Stage CT7: Multiple topics in single request
+Stage CT7: Multiple topics in single CreateTopics request
 - Handle multiple topics in a single request
