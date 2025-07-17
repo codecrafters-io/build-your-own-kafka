@@ -26,7 +26,7 @@ We've created an interactive protocol inspector for the request & response struc
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
 - 🔎 [__cluster_metadata log file](https://binspec.org/kafka-cluster-metadata)
 
-In this stage, you'll need to implement the response for a `Produce` request with either an invalid topic or invalid partition. In later stages, you'll handle successfully producing messages to valid topics and partitions, persist messages to disk using Kafka's RecordBatch format, manage offset assignment, handle batch processing, and support multiple partitions and topics.
+In this stage, you'll need to implement the response for a `Produce` request with either an invalid topic or invalid partition. In later stages, you'll handle successfully producing messages to valid topics and partitions and persist messages to disk using Kafka's RecordBatch format.
 
 ## Tests
 
@@ -44,9 +44,9 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The `error_code` in the response body is `3` (UNKNOWN_TOPIC_OR_PARTITION).
 - The `throttle_time_ms` field in the response is `0`.
-- The topic response contains:
+- Inside the topic response:
   - The `name` field matches the topic name in the request.
-  - The partition response contains:
+  - Inside the partition response:
     - The `index` field matches the partition in the request.
     - The `base_offset` field is `-1`.
     - The `log_append_time_ms` field is `-1`.

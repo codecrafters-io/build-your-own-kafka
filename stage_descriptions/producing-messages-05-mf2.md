@@ -26,12 +26,12 @@ The tester will validate that:
 - The error code in the response body is `0` (NO_ERROR).
 - The `throttle_time_ms` field in the response is `0`.
 - There is a single topic present in the response.
-- The topic response contains:
+- Inside the topic response:
   - The `name` field matches the topic name in the request.
   - Each partition in the request has a corresponding partition response.
-  - Each partition response contains:
-    - The correct `index` field matching the partition in the request.
-    - A valid `base_offset` field with the assigned offset for that partition.
+  - Inside each partition response:
+    - The `index` field matches the partition in the request.
+    - The `base_offset` field contains the assigned offset for that partition.
     - The error code is `0` (NO_ERROR).
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
@@ -41,5 +41,5 @@ The tester will validate that:
 ## Notes
 
 - The response must include entries for all requested partitions.
-- On-disk log files must be stored in RecordBatch format with proper CRC validation.
+- On-disk log files must be stored in `RecordBatch` format with proper CRC validation.
 - The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
