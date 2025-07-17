@@ -1,10 +1,15 @@
 In this stage, you'll add an entry for the `Fetch` API to the APIVersions response.
 
-🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
+### The Fetch API
 
-In the meantime, please use
-[this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+gs0%3A+Include+Fetch+in+APIVersions&body=%3Cyour+question+here%3E)
-to ask questions on the forum.
+The [Fetch API](https://kafka.apache.org/protocol#The_Messages_Fetch) (API key `1`) is used to fetch messages from a Kafka topic.
+
+We've created an interactive protocol inspector for the request & response structures for `Fetch`:
+
+- 🔎 [Fetch Request (v16)](https://binspec.org/kafka-fetch-request-v16)
+- 🔎 [Fetch Response (v16)](https://binspec.org/kafka-fetch-response-v16)
+
+In this stage, you'll only need to add an entry for the `Fetch` API to the APIVersions response you implemented in earlier stages. We'll get to responding to `Fetch` requests in later stages.
 
 ### Tests
 
@@ -26,6 +31,6 @@ The tester will validate that:
 
 ### Notes
 
-- You don't have to implement support for the `Fetch` request in this stage. We'll get to this in later stages.
-- You'll still need to include the entry for `APIVersions` in your response to pass the previous stage.
+- You don't have to implement support for handling `Fetch` requests in this stage. We'll get to this in later stages.
+- You'll still need to include the entry for `APIVersions` in your response to pass earlier stages.
 - The `MaxVersion` for the `Fetch` and `APIVersions` are different. For `APIVersions`, it is 4. For `Fetch`, it is 16.
