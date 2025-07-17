@@ -26,6 +26,7 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The error code in the response body is `0` (NO_ERROR).
 - The `throttle_time_ms` field in the response is `0`.
+- There is a single topic present in the response.
 - The `name` field in the topic response matches the topic name in the request.
 - Each partition in the request has a corresponding partition response.
 - Each partition response contains:

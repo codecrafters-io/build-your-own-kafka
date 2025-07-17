@@ -31,6 +31,6 @@ The tester will validate that:
 
 ## Notes
 
-- You don't have to implement support for the `Produce` request in this stage. We'll get to this in later stages.
+- You don't have to implement support for handling `Produce` requests in this stage. We'll get to this in later stages.
 - You'll still need to include the entry for `APIVersions` in your response to pass earlier stages.
-- The `MaxVersion` for the `Produce` and `APIVersions` are different. For `APIVersions`, it is 4. For `Produce`, it is 11.
+- The `MaxVersion` for `Produce` and `APIVersions` are different. For `APIVersions`, it is 4. For `Produce`, it is 11.
