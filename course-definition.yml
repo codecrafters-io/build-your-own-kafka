@@ -220,17 +220,10 @@ stages:
 
   - slug: "ck2"
     primary_extension_slug: "producing-messages"
-    name: "Produce to Invalid topic"
+    name: "Produce to Invalid topic or partition"
     difficulty: medium
     marketing_md: |-
-      In this stage, you'll implement the Produce response for an invalid topic.
-
-  - slug: "ho8"
-    primary_extension_slug: "producing-messages"
-    name: "Produce to Invalid partition"
-    difficulty: medium
-    marketing_md: |-
-      In this stage, you'll implement the Produce response for an invalid partition.
+      In this stage, you'll implement the Produce response for an invalid topic or partition.
 
   - slug: "ps7"
     primary_extension_slug: "producing-messages"
