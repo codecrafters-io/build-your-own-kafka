@@ -40,4 +40,4 @@ The tester will validate that:
 - The response should return the base offset of the batch, not individual record offsets.
 - The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
 
-TODO: Send multiple request per stage from stage 5 onwards. (Need to test how baseOffset & log_start_offset are handled by kafka.)
+TODO: Send multiple requests per stage from stage 5 onwards. (Need to test how baseOffset & log_start_offset are handled by Kafka.)

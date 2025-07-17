@@ -1,6 +1,6 @@
 In this stage, you'll add support for handling Produce requests to invalid topics or partitions.
 
-## Produce API response for invalid topics or partitions
+## Produce API Response for Invalid Topics or Partitions
 
 When a Kafka broker receives a Produce request, it needs to validate that both the topic and partition exist. If either the topic or partition doesn't exist, it returns an appropriate error code and response.
 
@@ -36,7 +36,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request either with an invalid topic name or a valid topic but invalid partition.
+It'll then connect to your server on port 9092 and send a `Produce` (v11) request with either an invalid topic name or a valid topic but invalid partition.
 
 The tester will validate that:
 
@@ -45,12 +45,12 @@ The tester will validate that:
 - The `error_code` in the response body is `3` (UNKNOWN_TOPIC_OR_PARTITION).
 - The `throttle_time_ms` field in the response is `0`.
 - The topic response contains:
-  - The `name` field should correspond to the topic name in the request.
+  - The `name` field corresponds to the topic name in the request.
   - The partition response contains:
-    - The `index` field should correspond to the partition in the request.
-    - The `base_offset` field should be `-1`.
-    - The `log_append_time_ms` field should be `-1`.
-    - The `log_start_offset` field should be `-1`.
+    - The `index` field corresponds to the partition in the request.
+    - The `base_offset` field is `-1`.
+    - The `log_append_time_ms` field is `-1`.
+    - The `log_start_offset` field is `-1`.
 
 ## Notes
 
