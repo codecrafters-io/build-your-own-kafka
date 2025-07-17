@@ -38,7 +38,7 @@ The tester will validate that:
   - The partition response contains:
     - The `index` field matches the partition in the request.
     - The `base_offset` field contains the assigned offset for the record. (The offset is the offset of the record in the partition, not the offset of the batch. So 0 for the first record, 1 for the second record, and so on.)
-    - The `log_append_time_ms` field contains `-1` (signifying that the timestamp is the latest).
+    - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
 - The record is persisted to the appropriate log file on disk at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
 

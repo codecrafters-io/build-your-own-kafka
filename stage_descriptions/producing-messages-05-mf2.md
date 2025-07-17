@@ -31,9 +31,9 @@ The tester will validate that:
   - Each partition in the request has a corresponding partition response.
   - Each partition response contains:
     - The correct `index` field matching the partition in the request.
-    - An error code of `0` (NO_ERROR).
     - A valid `base_offset` field with the assigned offset for that partition.
-    - The `log_append_time_ms` field contains `-1` (signifying that the timestamp is the latest).
+    - The error code is `0` (NO_ERROR).
+    - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
 - Records are persisted to the correct partition log files on disk.
 - Offset assignment is independent per partition (partition 0 and partition 1 can both have offset 0). 

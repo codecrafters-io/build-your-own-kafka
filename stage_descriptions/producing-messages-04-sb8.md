@@ -29,8 +29,8 @@ The tester will validate that:
   - The `name` field matches the topic name in the request.
   - The partition response contains:
     - The `index` field matches the partition in the request.
-    - The `base_offset` field contains 0 (the base offset for the batch).
-    - The `log_append_time_ms` field contains `-1` (signifying that the timestamp is the latest).
+    - The `base_offset` field is 0 (the base offset for the batch).
+    - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
 - The records are persisted to the appropriate log file on disk at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log` with sequential offsets.
 

@@ -45,9 +45,9 @@ The tester will validate that:
 - The `error_code` in the response body is `3` (UNKNOWN_TOPIC_OR_PARTITION).
 - The `throttle_time_ms` field in the response is `0`.
 - The topic response contains:
-  - The `name` field corresponds to the topic name in the request.
+  - The `name` field matches the topic name in the request.
   - The partition response contains:
-    - The `index` field corresponds to the partition in the request.
+    - The `index` field matches the partition in the request.
     - The `base_offset` field is `-1`.
     - The `log_append_time_ms` field is `-1`.
     - The `log_start_offset` field is `-1`.
