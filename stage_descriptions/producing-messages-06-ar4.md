@@ -17,8 +17,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request targeting multiple topics with their respective partitions.
-The request will contain data for multiple topics, and a single partition for each topic. 
+It'll then connect to your server on port 9092 and send a `Produce` (v11) request targeting multiple topics with their respective partitions. The request will contain data for multiple topics, and a single partition for each topic. 
 
 The tester will validate that:
 
@@ -34,9 +33,9 @@ The tester will validate that:
     - The correct `index` field matching the partition in the request.
     - An error code of `0` (NO_ERROR).
     - A valid `base_offset` field with the assigned offset for that topic-partition.
-    - The `log_append_time_ms` field contains `-1` (signifying that the timestamp is latest).
+    - The `log_append_time_ms` field contains `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
-- Records are persisted to the correct topic-partition log files.
+- Records are persisted to the correct topic-partition log files on disk.
 - Offset assignment is independent per topic-partition combination.
 
 ## Notes

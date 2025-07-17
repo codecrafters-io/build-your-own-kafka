@@ -11,7 +11,7 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
 - 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
 
-Kafka's on-disk log format is just records inside a RecordBatch. The same RecordBatch format that is used in the Produce request, Fetch request is also used in the on-disk log file.
+Kafka's on-disk log format is just records inside a RecordBatch. The same RecordBatch format that is used in the Produce request and Fetch request is also used in the on-disk log file.
 
 You can refer to the following interactive protocol inspector for Kafka's log file format:
 - 🔎 [__cluster_metadata topic's log file](https://binspec.org/kafka-cluster-metadata)
@@ -25,7 +25,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send multiple successive `Produce` (v11) requests to a valid topic and partition with single records as payload.
+It'll then connect to your server on port 9092 and send multiple successive `Produce` (v11) requests to a valid topic and partition with single records as the payload.
 
 The tester will validate that:
 
@@ -33,13 +33,14 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The error code in the response body is `0` (NO_ERROR).
 - The `throttle_time_ms` field in the response is `0`.
-- The `name` field in the topic response matches the topic name in the request.
-- The `index` field in the partition response matches the partition in the request.
-- The `base_offset` field in the partition response contains the assigned offset to the record. (The offset is the offset of the record in the partition, not the offset of the batch. So 0 for the first record, 1 for the second record, and so on.)
-- The `log_append_time_ms` field in the partition response contains `-1` (signifying that the timestamp is latest).
-- The `log_start_offset` field in the partition response is `0`.
-
-The tester will also verify that the record is persisted to the appropriate log file on disk at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
+- The topic response contains:
+  - The `name` field matches the topic name in the request.
+  - The partition response contains:
+    - The `index` field matches the partition in the request.
+    - The `base_offset` field contains the assigned offset to the record. (The offset is the offset of the record in the partition, not the offset of the batch. So 0 for the first record, 1 for the second record, and so on.)
+    - The `log_append_time_ms` field contains `-1` (signifying that the timestamp is the latest).
+    - The `log_start_offset` field is `0`.
+- The record is persisted to the appropriate log file on disk at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
 
 ## Notes
 

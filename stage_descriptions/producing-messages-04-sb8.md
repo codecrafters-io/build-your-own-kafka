@@ -25,17 +25,18 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The error code in the response body is `0` (NO_ERROR).
 - The `throttle_time_ms` field in the response is `0`.
-- The `name` field in the topic response matches the topic name in the request.
-- The `index` field in the partition response matches the partition in the request.
-- The `base_offset` field in the partition response contains 0 (the base offset for the batch).
-- The `log_append_time_ms` field in the partition response contains `-1` (signifying that the timestamp is latest).
-- The `log_start_offset` field in the partition response is `0`.
-
-The tester will also verify that the record is persisted to the appropriate log file on disk at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log` with sequential offsets.
+- The topic response contains:
+  - The `name` field matches the topic name in the request.
+  - The partition response contains:
+    - The `index` field matches the partition in the request.
+    - The `base_offset` field contains 0 (the base offset for the batch).
+    - The `log_append_time_ms` field contains `-1` (signifying that the timestamp is the latest).
+    - The `log_start_offset` field is `0`.
+- The records are persisted to the appropriate log file on disk at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log` with sequential offsets.
 
 ## Notes
 
-- Records within a batch must be assigned sequential offsets (e.g., if base offset is 5, records get offsets 5, 6, 7).
+- Records within a batch must be assigned sequential offsets (e.g., if the base offset is 5, records get offsets 5, 6, 7).
 - The response should return the base offset of the batch, not individual record offsets.
 - The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
 
