@@ -24,11 +24,9 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
 
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
-- 🔎 [__cluster_metadata topic's log file](https://binspec.org/kafka-cluster-metadata)
+- 🔎 [__cluster_metadata log file](https://binspec.org/kafka-cluster-metadata)
 
-This would help you understand the structure of the `TOPIC_RECORD` and `PARTITION_RECORD` records inside the `__cluster_metadata` topic's log file.
-
-In this stage, you'll need to implement the response for a `Produce` request with either an invalid topic or invalid partition.
+In this stage, you'll need to implement the response for a `Produce` request with either an invalid topic or invalid partition. In later stages, you'll handle successfully producing messages to valid topics and partitions, persist messages to disk using Kafka's RecordBatch format, manage offset assignment, handle batch processing, and support multiple partitions and topics.
 
 ## Tests
 
