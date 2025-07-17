@@ -14,7 +14,7 @@ To validate that a topic exists, the broker reads the `__cluster_metadata` topic
 
 ### Partition Validation
 
-To validate that a partition exists, the broker reads the same `__cluster_metadata` topic's log file and finds the partition's metadata, which is a `record` (inside a RecordBatch) with a payload of type `PARTITION_RECORD`. If there exists a `PARTITION_RECORD` with the given partition index, the UUID of the topic it is associated with and the UUID of directory it is associated with, the partition exists.
+To validate that a partition exists, the broker reads the same `__cluster_metadata` topic's log file and finds the partition's metadata, which is a `record` (inside a RecordBatch) with a payload of type `PARTITION_RECORD`. If there exists a `PARTITION_RECORD` with the given partition index, the UUID of the topic it is associated with, and the UUID of the directory it is associated with, the partition exists.
 
 If either the topic or partition doesn't exist, the broker returns an error code of `3` (UNKNOWN_TOPIC_OR_PARTITION).
 
@@ -44,11 +44,13 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The `error_code` in the response body is `3` (UNKNOWN_TOPIC_OR_PARTITION).
 - The `throttle_time_ms` field in the response is `0`.
-- The `name` field in the nested `topic` response inside the top level response body should correspond to the topic name in the request.
-- The `index` field in the nested `partition` response inside the nested `topic` response should correspond to the partition in the request.
-- The `base_offset` field in the partition response inside topic response should be `-1`.
-- The `log_append_time_ms` field in the partition response inside topic response should be `-1`.
-- The `log_start_offset` field in the partition response inside topic response should be `-1`.
+- The topic response contains:
+  - The `name` field should correspond to the topic name in the request.
+  - The partition response contains:
+    - The `index` field should correspond to the partition in the request.
+    - The `base_offset` field should be `-1`.
+    - The `log_append_time_ms` field should be `-1`.
+    - The `log_start_offset` field should be `-1`.
 
 ## Notes
 

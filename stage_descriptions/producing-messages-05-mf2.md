@@ -17,8 +17,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request targeting multiple partitions of the same topic.
-The request will contain multiple RecordBatches, one for each partition. Each RecordBatch will contain a single record. 
+It'll then connect to your server on port 9092 and send a `Produce` (v11) request targeting multiple partitions of the same topic. The request will contain multiple RecordBatches, one for each partition. Each RecordBatch will contain a single record. 
 
 The tester will validate that:
 
@@ -27,18 +26,17 @@ The tester will validate that:
 - The error code in the response body is `0` (NO_ERROR).
 - The `throttle_time_ms` field in the response is `0`.
 - There is a single topic present in the response.
-- The `name` field in the topic response matches the topic name in the request.
-- Each partition in the request has a corresponding partition response.
-- Each partition response contains:
-  - The correct `index` field matching the partition in the request.
-  - An error code of `0` (NO_ERROR).
-  - A valid `base_offset` field with the assigned offset for that partition.
-  - The `log_append_time_ms` field contains `-1` (signifying that the timestamp is latest).
-  - The `log_start_offset` field is `0`.
-- Records are persisted to the correct partition log files.
-- Offset assignment is independent per partition (partition 0 and partition 1 can both have offset 0).
-
-The tester will also verify that the records are persisted to the correct partition log files. 
+- The topic response contains:
+  - The `name` field matches the topic name in the request.
+  - Each partition in the request has a corresponding partition response.
+  - Each partition response contains:
+    - The correct `index` field matching the partition in the request.
+    - An error code of `0` (NO_ERROR).
+    - A valid `base_offset` field with the assigned offset for that partition.
+    - The `log_append_time_ms` field contains `-1` (signifying that the timestamp is the latest).
+    - The `log_start_offset` field is `0`.
+- Records are persisted to the correct partition log files on disk.
+- Offset assignment is independent per partition (partition 0 and partition 1 can both have offset 0). 
 
 ## Notes
 
