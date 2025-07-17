@@ -1,11 +1,22 @@
-In this stage, you'll add support for handling Produce requests to invalid topics.
+In this stage, you'll add support for handling Produce requests to invalid topics or partitions.
 
-## Produce API response for invalid topics
+## Produce API response for invalid topics or partitions
 
-When a Kafka broker receives a Produce request, it first needs to validate that the topic exists. If a topic doesn't exist, it returns an appropriate error code and response. 
-To validate that a topic exists, the broker reads the `__cluster_metadata` topic's log file, located at `/tmp/kraft-combined-logs/__cluster_metadata-0/00000000000000000000.log`. Inside the log file, the broker finds the topic's metadata, which is a `record` (inside a RecordBatch) with a payload of type `TOPIC_RECORD`. If there exists a `TOPIC_RECORD` with the given topic name and the topic ID, the topic exists. Else, the topic doesn't exist.
+When a Kafka broker receives a Produce request, it needs to validate that both the topic and partition exist. If either the topic or partition doesn't exist, it returns an appropriate error code and response.
 
-If the topic doesn't exist, the broker returns an error code of `3` (UNKNOWN_TOPIC_OR_PARTITION).
+The broker performs validation in this order:
+1. **Topic validation**: Check if the topic exists by reading the `__cluster_metadata` topic's log file
+2. **Partition validation**: If the topic exists, check if the partition exists within that topic
+
+### Topic Validation
+
+To validate that a topic exists, the broker reads the `__cluster_metadata` topic's log file, located at `/tmp/kraft-combined-logs/__cluster_metadata-0/00000000000000000000.log`. Inside the log file, the broker finds the topic's metadata, which is a `record` (inside a RecordBatch) with a payload of type `TOPIC_RECORD`. If there exists a `TOPIC_RECORD` with the given topic name and the topic ID, the topic exists.
+
+### Partition Validation
+
+To validate that a partition exists, the broker reads the same `__cluster_metadata` topic's log file and finds the partition's metadata, which is a `record` (inside a RecordBatch) with a payload of type `PARTITION_RECORD`. If there exists a `PARTITION_RECORD` with the given partition index, the UUID of the topic it is associated with and the UUID of directory it is associated with, the partition exists.
+
+If either the topic or partition doesn't exist, the broker returns an error code of `3` (UNKNOWN_TOPIC_OR_PARTITION).
 
 We've created an interactive protocol inspector for the request & response structures for `Produce`:
 
@@ -15,9 +26,9 @@ We've created an interactive protocol inspector for the request & response struc
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
 - 🔎 [__cluster_metadata topic's log file](https://binspec.org/kafka-cluster-metadata)
 
-This would help you understand the structure of the `TOPIC_RECORD` record inside the `__cluster_metadata` topic's log file.
+This would help you understand the structure of the `TOPIC_RECORD` and `PARTITION_RECORD` records inside the `__cluster_metadata` topic's log file.
 
-In this stage, you'll need to implement the response for a `Produce` request with an invalid topic.
+In this stage, you'll need to implement the response for a `Produce` request with either an invalid topic or invalid partition.
 
 ## Tests
 
@@ -27,7 +38,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request with an invalid topic.
+It'll then connect to your server on port 9092 and send a `Produce` (v11) request either with an invalid topic name or a valid topic but invalid partition.
 
 The tester will validate that:
 
