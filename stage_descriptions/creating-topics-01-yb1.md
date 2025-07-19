@@ -16,7 +16,7 @@ In this stage, you'll only need to add an entry for the `CreateTopics` API to th
 The tester will execute your program like this:
 
 ```bash
-./your_program.sh
+./your_program.sh /tmp/server.properties
 ```
 
 It'll then connect to your server on port 9092 and send a valid `APIVersions` (v4) request.
@@ -33,4 +33,4 @@ The tester will validate that:
 
 - You don't have to implement support for the `CreateTopics` request in this stage. We'll get to this in later stages.
 - You'll still need to include the entry for `APIVersions` in your response to pass previous stages.
-- The `MaxVersion` for the `CreateTopics` API is 7.
+- The `MaxVersion` for the `CreateTopics` API is 6.
