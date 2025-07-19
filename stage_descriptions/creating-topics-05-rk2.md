@@ -1,8 +1,8 @@
-In this stage, you'll add support for successfully creating topics with valid parameters.
+In this stage, you'll add support for handling `CreateTopics` requests for a single topic.
 
 ## Single Topic Creation
 
-When a Kafka broker receives a CreateTopics request for a valid topic name that doesn't already exist, it needs to validate the parameters, create the topic metadata, persist it to the `__cluster_metadata` topic, create the topic directory structure, and return a successful response.
+When a Kafka broker receives a CreateTopics request for a valid topic name that doesn't already exist, it needs to validate the parameters, create the topic metadata, persist it to the `__cluster_metadata` topic's log file, create the topic directory structure, and return a successful response.
 
 The broker performs the following steps:
 1. Validates the topic name (from previous stages)

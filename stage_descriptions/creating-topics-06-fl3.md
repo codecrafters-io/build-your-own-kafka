@@ -1,4 +1,5 @@
 In this stage, you'll add support for handling multiple topics in a single CreateTopics request.
+In this stage, you'll add support for handling `CreateTopics` requests with multiple topics.
 
 ## Batch Topic Creation
 
