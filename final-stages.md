@@ -6,20 +6,16 @@ Stage CT2: CreateTopics with Invalid Topic Name (Hard code error)
 - Handle invalid characters, reserved names, empty names
 - Error code: INVALID_TOPIC_EXCEPTION (17)
 
-Stage CT3: CreateTopics with Reserved Topic Name (Check __cluster_metadata)
-- Handle attempts to create system topics (__cluster_metadata)
-- Error code: INVALID_REQUEST (42)
+Stage CT3: CreateTopics with Existing Topic Name (Read __cluster_metadata)
+- Handle attempts to create system topics (__cluster_metadata): INVALID_REQUEST (42)
+- Handle duplicate topic creation attempts: TOPIC_ALREADY_EXISTS (36)
 
-Stage CT4: CreateTopics with Existing Topic Name (Read __cluster_metadata)
-- Handle duplicate topic creation attempts
-- Error code: TOPIC_ALREADY_EXISTS (36)
+Stage CT4: CreateTopics with Validation Only
+- Success case without persisting any data
 
-Stage CT5: CreateTopics with Validation Only
-- Handle all validations but don't persist any data
-
-Stage CT6: CreateTopics with Valid Parameters (Success Case)
+Stage CT5: CreateTopics with Valid Parameters (Success Case)
 - Successfully create single topic with valid parameters
 - Core success functionality
 
-Stage CT7: Multiple topics in single CreateTopics request
+Stage CT6: Multiple topics in single CreateTopics request
 - Handle multiple topics in a single request

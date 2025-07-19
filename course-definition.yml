@@ -278,24 +278,17 @@ stages:
     marketing_md: |-
       In this stage, you'll implement the CreateTopics response for invalid topic names.
 
-  - slug: "cb8"
-    primary_extension_slug: "creating-topics"
-    name: "CreateTopics with Reserved Topic Name"
-    difficulty: medium
-    marketing_md: |-
-      In this stage, you'll implement the CreateTopics response for reserved topic names.
-
   - slug: "us2"
     primary_extension_slug: "creating-topics"
     name: "CreateTopics with Existing Topic Name"
-    difficulty: medium
+    difficulty: hard
     marketing_md: |-
-      In this stage, you'll implement the CreateTopics response for existing topic names.
+      In this stage, you'll implement the CreateTopics response for existing and reserved topic names.
 
   - slug: "hh9"
     primary_extension_slug: "creating-topics"
     name: "CreateTopics with Validation Only"
-    difficulty: medium
+    difficulty: hard
     marketing_md: |-
       In this stage, you'll implement the CreateTopics response for validation-only mode.
 
