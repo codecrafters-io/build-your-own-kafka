@@ -10,11 +10,9 @@ The broker performs the following steps:
 3. Validates partition count and replication factor parameters (request will include valid values)
 4. Creates a new topic UUID
 5. Writes a `TOPIC_RECORD` to the `__cluster_metadata` topic's log file
-6. Writes `PARTITION_RECORD`s to the `__cluster_metadata` topic's log file
+6. Writes `PARTITION_RECORD`s to the `__cluster_metadata` topic's log file for each partition
 7. Creates partition directories in the log directory (e.g., `/tmp/kraft-combined-logs/topic-name-0/`)
-8. Nested structure inside the `__cluster_metadata` topic's log file:
-TODO
-9.  Returns a successful response with error code `0` (NO_ERROR)
+8.  Returns a successful response with error code `0` (NO_ERROR)
 
 We've created an interactive protocol inspector for the request & response structures for `CreateTopics`:
 
@@ -29,10 +27,10 @@ We've also created an interactive protocol inspector for the `__cluster_metadata
 The tester will execute your program like this:
 
 ```bash
-./your_program.sh
+./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `CreateTopics` (v6) request with valid parameters.
+It'll then connect to your server on port 9092 and send a `CreateTopics` (v6) request with a non-existent topic name.
 
 The tester will validate that:
 
@@ -41,7 +39,9 @@ The tester will validate that:
 - The error code in the topic response is `0` (NO_ERROR).
 - The `throttle_time_ms` field in the response is `0`.
 - The `name` field in the topic response corresponds to the topic name in the request.
-- The topic metadata is written to the `__cluster_metadata` topic.
+TODO: details
+- The topic metadata is written to the `__cluster_metadata` topic's log file.
+TODO: details
 - The topic directory structure is created in the log directory.
 - The `num_partitions` and `replication_factor` fields in the topic response correspond to the request.
 

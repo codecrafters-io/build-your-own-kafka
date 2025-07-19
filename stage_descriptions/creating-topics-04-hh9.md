@@ -9,7 +9,7 @@ The broker performs the following steps:
 2. Checks that the topic doesn't already exist
 3. Validates partition count and replication factor parameters
 4. Returns success/error responses as if creating the topics
-5. Does NOT write any `TOPIC_RECORD` to the `__cluster_metadata` topic's log file
+5. Does NOT write any `TOPIC_RECORD` or `PARTITION_RECORD` to the `__cluster_metadata` topic's log file
 6. Does NOT create any partition directories in the log directory
 7. Does NOT modify any persistent state (e.g. topic metadata, partition files, etc.)
 
