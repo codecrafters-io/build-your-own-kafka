@@ -17,14 +17,14 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [CreateTopics Request (v6)](https://binspec.org/kafka-createtopics-request-v6)
 - 🔎 [CreateTopics Response (v6)](https://binspec.org/kafka-createtopics-response-v6)
 
-In this stage, you'll need to implement basic topic name validation without needing to check against existing topics or system topics. You can hard code the error response for invalid topic names in this stage. 
+In this stage, you'll need to implement basic topic name validation without needing to check against existing topics or system topics. You can hard code the error response for invalid topic names in this stage. We'll get to checking against existing topics and system topics in later stages.
 
 ## Tests
 
 The tester will execute your program like this:
 
 ```bash
-./your_program.sh
+./your_program.sh /tmp/server.properties
 ```
 
 It'll then connect to your server on port 9092 and send a `CreateTopics` (v6) request with an invalid topic name.
@@ -36,7 +36,7 @@ The tester will validate that:
 - The error code in the topic response is `17` (INVALID_TOPIC_EXCEPTION).
 - The `throttle_time_ms` field in the response is `0`.
 - The `name` field in the topic response corresponds to the topic name in the request.
-- The `error_message` field contains a descriptive error message.
+- The `error_message` field contains `Topic name is invalid`.
 - The `num_partitions` and `replication_factor` fields are `-1`.
 
 ## Notes
