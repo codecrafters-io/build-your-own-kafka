@@ -223,32 +223,39 @@ stages:
     name: "Produce to an invalid topic"
     difficulty: medium
     marketing_md: |-
-      In this stage, you'll implement the Produce response for an invalid topic or partition.
+      In this stage, you'll implement the Produce response for an invalid topic.
+
+  - slug: "dp1"
+    primary_extension_slug: "producing-messages"
+    name: "Respond to Produce requests"
+    difficulty: medium
+    marketing_md: |-
+      In this stage, you'll implement the Produce response for a valid topic.
 
   - slug: "ps7"
     primary_extension_slug: "producing-messages"
     name: "Produce a single record"
     difficulty: hard
     marketing_md: |-
-      In this stage, you'll implement successfully producing a single record to disk.
+      In this stage, you'll implement producing a single record to disk.
 
   - slug: "sb8"
     primary_extension_slug: "producing-messages"
     name: "Produce multiple records"
     difficulty: hard
     marketing_md: |-
-      In this stage, you'll implement producing multiple records in a single record batch.
+      In this stage, you'll implement producing multiple records.
 
   - slug: "mf2"
     primary_extension_slug: "producing-messages"
     name: "Produce to multiple partitions"
     difficulty: hard
     marketing_md: |-
-      In this stage, you'll implement producing to multiple partitions of the same topic.
+      In this stage, you'll implement producing to multiple partitions.
 
   - slug: "ar4"
     primary_extension_slug: "producing-messages"
     name: "Produce to multiple topics"
     difficulty: hard
     marketing_md: |-
-      In this stage, you'll implement producing to multiple topics in a single request.
+      In this stage, you'll implement producing to multiple topics.
