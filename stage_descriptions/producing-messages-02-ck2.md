@@ -25,11 +25,11 @@ The tester will validate that:
 
 - The first 4 bytes of your response (the "message length") are valid.
 - The correlation ID in the response header matches the correlation ID in the request header.
-- The `error_code` in the response body is `3` (UNKNOWN_TOPIC_OR_PARTITION).
 - The `throttle_time_ms` field in the response is `0`.
 - The `topics` field has 1 element, and in that element:
   - The `name` field matches the topic name in the request.
   - The `partitions` field has 1 element, and in that element:
+    - The `error_code` is `3` (UNKNOWN_TOPIC_OR_PARTITION).
     - The `index` field matches the partition in the request.
     - The `base_offset` field is `-1`.
     - The `log_append_time_ms` field is `-1`.

@@ -30,11 +30,11 @@ The tester will validate that:
 
 - The first 4 bytes of your response (the "message length") are valid.
 - The correlation ID in the response header matches the correlation ID in the request header.
-- The error code in the response body is `0` (NO_ERROR).
 - The `throttle_time_ms` field in the response is `0`.
 - The `topics` field has 1 element, and in that element:
   - The `name` field matches the topic name in the request.
   - The `partitions` field has 1 element, and in that element:
+    - The `error_code` is `0` (NO_ERROR).
     - The `index` field matches the partition in the request.
     - The `base_offset` field contains `0`. (signifying that this is the first record in the partition)
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
