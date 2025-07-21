@@ -20,7 +20,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request targeting multiple topics with their respective partitions. The request will contain data for multiple topics, and a single partition for each topic. 
+It'll then connect to your server on port 9092 and send a `Produce` (v11) request targeting multiple topics with their respective partitions. The request will contain data for multiple topics, spanning multiple partitions for each topic. 
 
 The tester will validate that:
 
@@ -28,11 +28,9 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The error code in the response body is `0` (NO_ERROR).
 - The `throttle_time_ms` field in the response is `0`.
-- Each topic in the request has a corresponding topic response.
-- Inside each topic response:
+- The `topics` field has `N` elements, one for each of the `N` topics in the request:
   - The `name` field matches the topic name in the request.
-  - Each partition in the request has a corresponding partition response.
-  - Inside each partition response:
+  - The `partitions` field has `M` elements, one for each of the `M` partitions in the request:
     - The `index` field matches the partition in the request.
     - The error code is `0` (NO_ERROR).
     - The `base_offset` field contains the assigned offset for that topic-partition.

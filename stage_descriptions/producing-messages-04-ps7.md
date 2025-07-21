@@ -32,11 +32,11 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The error code in the response body is `0` (NO_ERROR).
 - The `throttle_time_ms` field in the response is `0`.
-- Inside the topic response:
+- The `topics` field has 1 element, and in that element:
   - The `name` field matches the topic name in the request.
-  - Inside the partition response:
+  - The `partitions` field has 1 element, and in that element:
     - The `index` field matches the partition in the request.
-    - The `base_offset` field contains the assigned offset for the record. (The `base_offset` is the offset of the record in the partition, not the offset of the batch. So 0 for the first record, 1 for the second record, and so on.)
+    - The `base_offset` field contains `0`. (signifying that this is the first record in the partition)
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
 - The record is persisted to the appropriate log file on disk at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.

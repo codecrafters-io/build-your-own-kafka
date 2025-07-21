@@ -27,9 +27,9 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The `error_code` in the response body is `3` (UNKNOWN_TOPIC_OR_PARTITION).
 - The `throttle_time_ms` field in the response is `0`.
-- Inside the topic response:
+- The `topics` field has 1 element, and in that element:
   - The `name` field matches the topic name in the request.
-  - Inside the partition response:
+  - The `partitions` field has 1 element, and in that element:
     - The `index` field matches the partition in the request.
     - The `base_offset` field is `-1`.
     - The `log_append_time_ms` field is `-1`.
