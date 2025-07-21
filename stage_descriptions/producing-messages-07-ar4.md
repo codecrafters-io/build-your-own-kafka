@@ -9,6 +9,9 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
 - 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
 
+You can refer to the following interactive protocol inspector for Kafka's log file format:
+- 🔎 [A sample topic's log file](https://binspec.org/kafka-topic-log)
+
 ## Tests
 
 The tester will execute your program like this:
