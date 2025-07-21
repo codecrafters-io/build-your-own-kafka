@@ -11,7 +11,7 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
 - 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
 
-Kafka's on-disk log format is just records inside a `RecordBatch`. The same RecordBatch format that is used in the `Produce` request and `Fetch` request is also used in the on-disk log file.
+Kafka's on-disk log format uses the same [RecordBatch](add-link) format that is used in `Produce` and `Fetch` requests.
 
 You can refer to the following interactive protocol inspector for Kafka's log file format:
 - 🔎 [__cluster_metadata topic's log file](https://binspec.org/kafka-cluster-metadata)
@@ -24,7 +24,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send multiple successive `Produce` (v11) requests to a valid topic and partition with single records as the payload.
+It'll then connect to your server on port 9092 and send multiple successive `Produce` (v11) requests with single records.
 
 The tester will validate that:
 

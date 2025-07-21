@@ -1,6 +1,6 @@
 In this stage, you'll add support for producing to multiple topics in a single request.
 
-## Cross-Topic Production
+## `Produce` with multiple topics
 
 When a Kafka broker receives a `Produce` request targeting multiple topics with their respective partitions, it needs to validate that all topics and partitions exist, write records to each topic-partition's log file independently, and return a nested response structure containing results for all topics and their partitions. Each topic-partition combination maintains its own independent offset sequence, so topic "foo" partition 0 and topic "bar" partition 0 can both have records starting at offset 0.
 
@@ -36,7 +36,7 @@ The tester will validate that:
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
 - Records are persisted to the correct topic-partition log files on disk.
-- Offset assignment is independent per topic-partition combination.
+- Offset assignment is independent per partition.
 
 ## Notes
 
