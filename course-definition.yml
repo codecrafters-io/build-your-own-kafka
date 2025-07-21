@@ -220,7 +220,7 @@ stages:
 
   - slug: "ck2"
     primary_extension_slug: "producing-messages"
-    name: "Produce to an invalid topic or partition"
+    name: "Produce to an invalid topic"
     difficulty: medium
     marketing_md: |-
       In this stage, you'll implement the Produce response for an invalid topic or partition.
