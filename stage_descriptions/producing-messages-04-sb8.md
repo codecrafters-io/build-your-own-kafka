@@ -37,5 +37,4 @@ The tester will validate that:
 ## Notes
 
 - Records within a batch must be assigned sequential offsets (e.g., if the base offset is 5, records get offsets 5, 6, 7).
-- The response should return the base offset of the batch, not individual record offsets.
 - The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.

@@ -21,7 +21,7 @@ If either the topic or partition doesn't exist, the broker returns an error code
 We've created an interactive protocol inspector for the request & response structures for `Produce`:
 
 - 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
-- 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
+- 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-error-response-v11)
 
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
 - 🔎 [__cluster_metadata log file](https://binspec.org/kafka-cluster-metadata)
