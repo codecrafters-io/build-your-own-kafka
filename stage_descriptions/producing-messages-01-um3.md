@@ -9,7 +9,7 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
 - 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
 
-In this stage, you'll only need to add an entry for the `Produce` API to the APIVersions response you implemented in earlier stages. This will let the client know that the broker supports the `Produce` API. We'll get to responding to `Produce` requests in later stages.
+In this stage, you'll only need to add an entry for the `Produce` API to the APIVersions response you implemented in earlier stages. This lets clients know that your broker supports the `Produce` API. We'll get to responding to `Produce` requests in later stages.
 
 ## Tests
 
