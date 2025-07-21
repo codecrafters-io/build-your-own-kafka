@@ -20,7 +20,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request targeting multiple partitions of the same topic. The request will contain multiple RecordBatches, one for each partition. Each RecordBatch will contain a single record. 
+It'll then connect to your server on port 9092 and send a `Produce` (v11) request targeting multiple partitions of the same topic. The request will contain multiple RecordBatches, one for each partition. Each RecordBatch will contain a single record.
 
 The tester will validate that:
 
@@ -37,10 +37,10 @@ The tester will validate that:
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
 - Records are persisted to the correct partition log files on disk.
-- Offset assignment is independent per partition. 
+- Offset assignment is independent per partition.
 
 ## Notes
 
 - The response must include entries for all requested partitions.
-- On-disk log files must be stored in `RecordBatch` format with proper CRC validation.
+- On-disk log files must be stored in `RecordBatch` format.
 - The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.

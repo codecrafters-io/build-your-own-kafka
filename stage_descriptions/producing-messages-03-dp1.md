@@ -10,7 +10,7 @@ The broker performs validation in this order:
 
 ### Topic Validation
 
-To validate that a topic exists, the broker reads the `__cluster_metadata` topic's log file, located at `/tmp/kraft-combined-logs/__cluster_metadata-0/00000000000000000000.log`. Inside the log file, the broker finds the topic's metadata, which is a `record` (inside a RecordBatch) with a payload of type `TOPIC_RECORD`. If there exists a `TOPIC_RECORD` with the given topic name and the topic ID, the topic exists.
+To validate that a topic exists, the broker reads the `__cluster_metadata` topic's log file, located at `/tmp/kraft-combined-logs/__cluster_metadata-0/00000000000000000000.log`. Inside the log file, the broker finds the topic's metadata, which is a `record` (inside a `RecordBatch`) with a payload of type `TOPIC_RECORD`. If there exists a `TOPIC_RECORD` with the given topic name and the topic ID, the topic exists.
 
 ### Partition Validation
 
@@ -22,7 +22,7 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
 
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
-- 🔎 [__cluster_metadata log file](https://binspec.org/kafka-topic-log)
+- 🔎 [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata)
 
 In this stage, you'll need to implement the response for a `Produce` request with a valid topic. In later stages, you'll handle successfully producing messages to valid topics and partitions and persist messages to disk using Kafka's RecordBatch format.
 
