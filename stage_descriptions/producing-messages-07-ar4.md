@@ -2,7 +2,7 @@ In this stage, you'll add support for producing to multiple topics in a single r
 
 ## Producing to multiple topics
 
-When a Kafka broker receives a `Produce` request targeting multiple topics with their respective partitions, it needs to validate that all topics and partitions exist, write records to each topic-partition's log file independently, and return a nested response structure containing results for all topics and their partitions. 
+When a Kafka broker receives a `Produce` request targeting multiple topics with their respective partitions, it needs to validate that all topics and partitions exist, write records to each partition's log file independently, and return a nested response structure containing results for all topics and their partitions. 
 
 We've created an interactive protocol inspector for the request & response structures for `Produce`:
 
