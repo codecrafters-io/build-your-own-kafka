@@ -20,7 +20,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send multiple `Produce` (v12) requests with single records.
+It'll then connect to your server on port 9092 and send a `Produce` (v12) request with a single recordBatch containing a single record.
 
 The tester will validate that:
 
