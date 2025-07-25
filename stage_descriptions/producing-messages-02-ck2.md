@@ -38,5 +38,5 @@ The tester will validate that:
 ## Notes
 
 - You'll need to parse the `Produce` request in this stage to get the topic name and partition to send in the response.
-- For this stage, simply hardcode the error response without implementing actual validation logic.
+- You can hardcode the error response in this stage. We'll get to actually checking for valid topics and partitions in later stages.
 - The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
