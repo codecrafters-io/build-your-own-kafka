@@ -20,7 +20,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send multiple successive `Produce` (v11) requests with single records.
+It'll then connect to your server on port 9092 and send multiple `Produce` (v12) requests with single records.
 
 The tester will validate that:
 
@@ -32,7 +32,7 @@ The tester will validate that:
   - The `partitions` field has 1 element, and in that element:
     - The `error_code` is `0` (NO_ERROR).
     - The `index` field matches the partition in the request.
-    - The `base_offset` field contains `0`. (signifying that this is the first record in the partition)
+    - The `base_offset` field contains `0` (signifying that this is the first record in the partition).
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
 - The record is persisted to the appropriate log file on disk at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
@@ -40,4 +40,4 @@ The tester will validate that:
 ## Notes
 
 - On-disk log files must be stored in [RecordBatch](https://kafka.apache.org/documentation/#recordbatch) format.
-- The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
+- The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 12)" section.

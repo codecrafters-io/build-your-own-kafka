@@ -15,7 +15,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request targeting multiple topics with their respective partitions. The request will contain data for multiple topics, spanning multiple partitions for each topic. 
+It'll then connect to your server on port 9092 and send a `Produce` (v12) request targeting multiple topics with their respective partitions. The request will contain data for multiple topics, spanning multiple partitions for each topic. 
 
 The tester will validate that:
 
@@ -35,4 +35,4 @@ The tester will validate that:
 
 ## Notes
 
-- The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
+- The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 12)" section.

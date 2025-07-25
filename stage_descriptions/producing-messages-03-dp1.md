@@ -18,8 +18,8 @@ To validate that a partition exists, the broker reads the same `__cluster_metada
 
 We've created an interactive protocol inspector for the request & response structures for `Produce`:
 
-- 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
-- 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
+- 🔎 [Produce Request (v12)](https://binspec.org/kafka-produce-request-v12)
+- 🔎 [Produce Response (v12)](https://binspec.org/kafka-produce-response-v12)
 
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
 - 🔎 [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata)
@@ -34,7 +34,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request with a valid topic and partition.
+It'll then connect to your server on port 9092 and send a `Produce` (v12) request with a valid topic and partition.
 
 The tester will validate that:
 
@@ -44,13 +44,13 @@ The tester will validate that:
 - The `topics` field has 1 element, and in that element:
   - The `name` field matches the topic name in the request.
   - The `partitions` field has 1 element, and in that element:
-    - The `error_code` is `3` (UNKNOWN_TOPIC_OR_PARTITION).
+    - The `error_code` is `0` (NO_ERROR).
     - The `index` field matches the partition in the request.
-    - The `base_offset` field is `-1`.
-    - The `log_append_time_ms` field is `-1`.
-    - The `log_start_offset` field is `-1`.
+    - The `base_offset` field is `0` (signifying that this is the first record in the partition).
+    - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
+    - The `log_start_offset` field is `0`.
 
 ## Notes
 
-- The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
+- The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 12)" section.
 - The official Kafka docs don't cover the structure of records inside the `__cluster_metadata` topic, but you can find the definitions in the Kafka source code [here](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata).

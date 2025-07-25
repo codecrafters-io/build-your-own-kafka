@@ -15,7 +15,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request containing a RecordBatch with multiple records.
+It'll then connect to your server on port 9092 and send a `Produce` (v12) request containing a RecordBatch with multiple records.
 
 The tester will validate that:
 
@@ -35,4 +35,4 @@ The tester will validate that:
 ## Notes
 
 - Records within a batch must be assigned sequential offsets (e.g., if the base offset is 5, records get offsets 5, 6, 7).
-- The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
+- The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 12)" section.

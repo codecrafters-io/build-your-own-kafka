@@ -8,8 +8,8 @@ For this stage, you can hardcode the error response - assume that all `Produce` 
 
 We've created an interactive protocol inspector for the request & response structures for `Produce`:
 
-- 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
-- 🔎 [Produce Response (v11) - Invalid Topic](https://binspec.org/kafka-produce-error-response-v11-invalid-topic)
+- 🔎 [Produce Request (v12)](https://binspec.org/kafka-produce-request-v12)
+- 🔎 [Produce Response (v12) - Invalid Topic](https://binspec.org/kafka-produce-error-response-v12-invalid-topic)
 
 ## Tests
 
@@ -19,7 +19,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request with either an invalid topic name or a valid topic but invalid partition.
+It'll then connect to your server on port 9092 and send a `Produce` (v12) request with either an invalid topic name or a valid topic but invalid partition.
 
 The tester will validate that:
 
@@ -39,4 +39,4 @@ The tester will validate that:
 
 - You'll need to parse the `Produce` request in this stage to get the topic name and partition to send in the response.
 - You can hardcode the error response in this stage. We'll get to actually checking for valid topics and partitions in later stages.
-- The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
+- The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 12)" section.
