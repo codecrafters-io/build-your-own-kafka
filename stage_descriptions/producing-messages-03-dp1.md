@@ -1,8 +1,8 @@
-In this stage, you'll add support for responding to Produce requests with a valid topic.
+In this stage, you'll add support for responding to `Produce` requests with a valid topic.
 
 ## Produce API Response for Valid Topics
 
-When a Kafka broker receives a Produce request, it needs to validate that both the topic and partition exist. If either the topic or partition doesn't exist, it returns an appropriate error code and response.
+When a Kafka broker receives a `Produce` request, it needs to validate that both the topic and partition exist. If either the topic or partition doesn't exist, it returns an appropriate error code and response.
 
 The broker performs validation in this order:
 1. **Topic validation**: Check if the topic exists by reading the `__cluster_metadata` topic's log file

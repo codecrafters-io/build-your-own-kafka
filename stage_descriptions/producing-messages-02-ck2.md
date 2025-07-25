@@ -1,10 +1,10 @@
-In this stage, you'll add support for handling Produce requests to invalid topics or partitions.
+In this stage, you'll add support for handling `Produce` requests to invalid topics or partitions.
 
 ## Produce API Response for Invalid Topics or Partitions
 
-When a Kafka broker receives a Produce request, it needs to validate that both the topic and partition exist. If either the topic or partition doesn't exist, it returns an appropriate error code and response.
+When a Kafka broker receives a `Produce` request, it needs to validate that both the topic and partition exist. If either the topic or partition doesn't exist, it returns an appropriate error code and response.
 
-For this stage, you can hardcode the error response - assume that all Produce requests are for invalid topics or partitions and return the error code `3` (UNKNOWN_TOPIC_OR_PARTITION). In the next stage, you'll implement handling success responses.
+For this stage, you can hardcode the error response - assume that all `Produce` requests are for invalid topics or partitions and return the error code `3` (UNKNOWN_TOPIC_OR_PARTITION). In the next stage, you'll implement handling success responses.
 
 We've created an interactive protocol inspector for the request & response structures for `Produce`:
 
