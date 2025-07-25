@@ -34,7 +34,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request with either an invalid topic name or a valid topic but invalid partition.
+It'll then connect to your server on port 9092 and send a `Produce` (v11) request with a valid topic and partition.
 
 The tester will validate that:
 
@@ -52,6 +52,5 @@ The tester will validate that:
 
 ## Notes
 
-- You'll need to parse the `Produce` request in this stage to get the topic name and partition to send in the response.
 - The official docs for the `Produce` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "Produce Response (Version: 11)" section.
 - The official Kafka docs don't cover the structure of records inside the `__cluster_metadata` topic, but you can find the definitions in the Kafka source code [here](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata).
