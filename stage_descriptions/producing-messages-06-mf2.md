@@ -1,13 +1,8 @@
 In this stage, you'll add support for producing to multiple partitions of the same topic in a single request.
 
-## Partition Routing
+## Producing to multiple partitions
 
 When a Kafka broker receives a `Produce` request targeting multiple partitions of the same topic, it needs to validate that the topic and all partitions exist, write records to each partition's log file independently, and return a response containing results for all partitions. Each partition maintains its own offset sequence independently, so partition 0 and partition 1 can both have records starting at offset 0.
-
-We've created an interactive protocol inspector for the request & response structures for `Produce`:
-
-- 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
-- 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-response-v11)
 
 You can refer to the following interactive protocol inspector for Kafka's log file format:
 - 🔎 [A sample topic's log file](https://binspec.org/kafka-topic-log)
