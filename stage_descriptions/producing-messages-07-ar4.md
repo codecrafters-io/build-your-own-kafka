@@ -27,7 +27,7 @@ The tester will validate that:
 - The first 4 bytes of your response (the "message length") are valid.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The `throttle_time_ms` field in the response is `0`.
-- The `topics` field has `N` elements, one for each of the `N` topics in the request:
+- The `topics` field has one element for each of the topics in the request, and in each element:
   - The `name` field matches the topic name in the request.
   - The `partitions` field has `M` elements, one for each of the `M` partitions in the request:
     - The `error_code` is `0` (NO_ERROR).

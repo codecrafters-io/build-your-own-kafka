@@ -24,7 +24,7 @@ We've created an interactive protocol inspector for the request & response struc
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
 - 🔎 [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata)
 
-In this stage, you'll need to implement the response for a `Produce` request with a valid topic. In later stages, you'll handle successfully producing messages to valid topics and partitions and persist messages to disk using Kafka's RecordBatch format.
+In this stage, you'll need to implement the response for a `Produce` request with a valid topic. In later stages, you'll handle successfully producing messages to valid topics and partitions and persisting messages to disk using Kafka's `RecordBatch` format.
 
 ## Tests
 
