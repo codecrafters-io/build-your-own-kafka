@@ -4,10 +4,10 @@ In this stage, you'll add support for successfully producing a single record.
 
 When a Kafka broker receives a `Produce` request, it needs to validate that the topic and partition exist (using the `__cluster_metadata` topic's log file), store the record in the appropriate log file using Kafka's on-disk format, and return a successful response.
 
-The record must be persisted to the topic's log file at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log` using Kafka's RecordBatch format.
-You can refer to the official Kafka docs for the [RecordBatch format](https://kafka.apache.org/documentation/#recordbatch).
+The record must be persisted to the topic's log file at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log` using Kafka's [RecordBatch format](https://kafka.apache.org/documentation/#recordbatch).
 
-Kafka's on-disk log format uses the same [RecordBatch](https://binspec.org/kafka-record-batches) format that is used in `Produce` and `Fetch` requests. The `RecordBatch` you receive in the `Produce` request can be written to the log file as is.
+TODO: edit link after topic log binspec is in
+Kafka's on-disk log format uses the same [RecordBatch](https://binspec.org/kafka-topic-log) format that is used in `Produce` and `Fetch` requests. The `RecordBatch` you receive in the `Produce` request can be written to the log file as is.
 
 You can refer to the following interactive protocol inspector for Kafka's log file format:
 - 🔎 [A sample topic's log file](https://binspec.org/kafka-topic-log)
