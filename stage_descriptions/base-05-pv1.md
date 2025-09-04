@@ -32,8 +32,5 @@ The tester will validate that:
 ### Notes
 
 - The tester will always send you v4 of the APIVersions request.
-  - As of Oct 30th 2024, v4 is "unreleased" so isn't available in the Kafka docs yet. It'll
-    be available once Kafka 3.9 is released. Here's a link to the [Kafka source code](https://github.com/apache/kafka/blob/84caaa6e9da06435411510a81fa321d4f99c351f/clients/src/main/resources/common/message/ApiVersionsRequest.json#L25C22-L25C33) mentioning this.
-  - The structure for v4 is the same as v3 listed in the docs.
 - From this stage onwards, the tester will start validating the first 4 bytes of your response (the "message length") in addition to the other checks.
 - If extra bytes are remaining after decoding all the fields of the response body, this will be considered an error.
