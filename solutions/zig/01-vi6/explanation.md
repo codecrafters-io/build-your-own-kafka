@@ -4,10 +4,13 @@ Study and uncomment the relevant code:
 
 ```zig
 // Uncomment this block to pass the first stage
+const address = try net.Address.resolveIp("127.0.0.1", 9092);
+var listener = try address.listen(.{
+    .reuse_address = true,
+});
+defer listener.deinit();
 
-var client_addr: posix.sockaddr = undefined;
-var client_addr_len: posix.socklen_t = @sizeOf(posix.sockaddr);
-_ = try posix.accept(sock_fd, &client_addr, &client_addr_len, posix.SOCK.CLOEXEC);
+_ = try listener.accept();
 ```
 
 Push your changes to pass the first stage:
