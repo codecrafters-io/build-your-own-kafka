@@ -22,7 +22,6 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The error code in the response body is `0` (No Error).
 - The `throttle_time_ms` field in the response is `0`.
-- The `session_id` field in the response is `0`.
 - The `responses` field in the response has 0 elements (since the request had an empty array of topics).
 
 <!--
