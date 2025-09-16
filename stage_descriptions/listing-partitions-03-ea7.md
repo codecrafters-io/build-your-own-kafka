@@ -35,6 +35,8 @@ The tester will validate that:
 - The `partitions` field in the response should contain details of the partition assigned to the topic.
 - The error code in the partition response should be 0 (no error).
 - The `partition_index` field in the partition response should match the partition ID of the partition assigned to the topic.
+- The value of `cursor` is -1, indicating that the cursor is null.
+
 
 ### Notes
 

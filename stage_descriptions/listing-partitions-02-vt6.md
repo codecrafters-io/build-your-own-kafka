@@ -30,6 +30,7 @@ The tester will validate that:
 - The `topic_name` field in the response should be equal to the topic name sent in the request.
 - The `topic_id` field in the response should be equal to `00000000-0000-0000-0000-000000000000`.
 - The `partitions` field in the response should be empty. (As there are no partitions assigned to this non-existent topic.)
+- The value of `cursor` is -1, indicating that the cursor is null.
 
 ### Notes
 
