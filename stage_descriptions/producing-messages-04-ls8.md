@@ -1,4 +1,4 @@
-In this stage, you'll add support for successfully producing a single record.
+In this stage, you'll implement producing a single record to disk.
 
 ## Producing records
 

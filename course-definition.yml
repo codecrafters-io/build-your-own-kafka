@@ -78,7 +78,7 @@ extensions:
 
       Along the way you'll learn about how Kafka's Produce API works, how Kafka stores messages on disk and more.
 
-      [fetch-api]: https://kafka.apache.org/protocol.html#The_Messages_Produce
+      [produce-api]: https://kafka.apache.org/protocol.html#The_Messages_Produce
 
 stages:
   - slug: "vi6"
@@ -211,30 +211,51 @@ stages:
 
   # Producing Messages
 
-  - slug: "um3"
+  - slug: "xz1"
     primary_extension_slug: "producing-messages"
     name: "Include Produce in APIVersions"
     difficulty: easy
     marketing_md: |-
-      In this stage, you'll add the Fetch API to the APIVersions response.
+      In this stage, you'll implement adding the Produce API to the APIVersions response.
 
-  - slug: "ck2"
+  - slug: "zf2"
     primary_extension_slug: "producing-messages"
     name: "Respond for invalid topic or partition"
     difficulty: medium
     marketing_md: |-
-      In this stage, you'll implement the Produce response for an invalid topic or an invalid partition.
+      In this stage, you'll implement the Produce response for invalid topics or partitions.
 
-  - slug: "dp1"
+  - slug: "gg1"
     primary_extension_slug: "producing-messages"
     name: "Respond for valid topic and partition"
     difficulty: medium
     marketing_md: |-
-      In this stage, you'll implement the Produce response for a valid topic and a valid partition.
+      In this stage, you'll implement the Produce response for valid topics and partitions.
 
-  - slug: "ps7"
+  - slug: "ls8"
     primary_extension_slug: "producing-messages"
     name: "Produce a single record"
     difficulty: hard
     marketing_md: |-
-      In this stage, you'll implement producing a single record for a valid topic and a valid partition.
+      In this stage, you'll implement producing a single record to disk.
+
+  - slug: "yd8"
+    primary_extension_slug: "producing-messages"
+    name: "Produce multiple records"
+    difficulty: hard
+    marketing_md: |-
+      In this stage, you'll implement producing multiple records in a single request.
+
+  - slug: "ct4"
+    primary_extension_slug: "producing-messages"
+    name: "Produce to multiple partitions"
+    difficulty: hard
+    marketing_md: |-
+      In this stage, you'll implement producing to multiple partitions of the same topic.
+
+  - slug: "ov0"
+    primary_extension_slug: "producing-messages"
+    name: "Produce to multiple partitions of multiple topics"
+    difficulty: hard
+    marketing_md: |-
+      In this stage, you'll implement producing to multiple partitions of multiple topics.

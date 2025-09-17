@@ -1,4 +1,4 @@
-In this stage, you'll add support for producing multiple records in a single `Produce` request.
+In this stage, you'll implement producing multiple records in a single request.
 
 ## Producing multiple records
 

@@ -1,4 +1,4 @@
-In this stage, you'll add support for handling `Produce` requests to invalid topics or partitions.
+In this stage, you'll implement the Produce response for invalid topics or partitions.
 
 ## Produce API Response for Invalid Topics or Partitions
 

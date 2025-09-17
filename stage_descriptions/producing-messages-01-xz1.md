@@ -1,4 +1,4 @@
-In this stage, you'll add an entry for the `Produce` API to the APIVersions response.
+In this stage, you'll implement adding the Produce API to the APIVersions response.
 
 ## The Produce API
 

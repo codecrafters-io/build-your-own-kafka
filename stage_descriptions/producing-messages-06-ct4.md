@@ -1,4 +1,4 @@
-In this stage, you'll add support for producing to multiple partitions of the same topic in a single request.
+In this stage, you'll implement producing to multiple partitions of the same topic.
 
 ## Producing to multiple partitions
 

@@ -1,4 +1,4 @@
-In this stage, you'll implement the Produce response for a valid topic and a valid partition.
+In this stage, you'll implement the Produce response for valid topics and partitions.
 
 ## Produce API Response for Valid Topics
 
