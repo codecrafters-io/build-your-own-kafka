@@ -39,9 +39,9 @@ The tester will validate that:
   - The `partitions` field has 1 element, and in that element:
     - The `error_code` is `0` (NO_ERROR).
     - The `index` field matches the partition in the request.
-    - The `base_offset` field is `0` (signifying that this is the first record in the partition). (Verify)
+    - The `base_offset` field is `0` (signifying that this is the first record in the partition).
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
-    - The `log_start_offset` field is `0`. (Verify)
+    - The `log_start_offset` field is `0`.
 
 ## Notes
 

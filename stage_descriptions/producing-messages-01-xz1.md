@@ -27,7 +27,7 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The error code in the response body is `0` (NO_ERROR).
 - The response body contains at least one entry for the API key `0` (`Produce`).
-- The `MaxVersion` for the `Produce` API is at least 12.
+- The `MaxVersion` for the `Produce` API is at least 11.
 
 ## Notes
 

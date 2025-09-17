@@ -26,12 +26,22 @@ The tester will validate that:
   - The `partitions` field has 1 element, and in that element:
     - The `error_code` is `0` (NO_ERROR).
     - The `index` field matches the partition in the request.
-    - The `base_offset` field contains `0` (signifying that this is the first record in the partition).
+    - The `base_offset` field is `0` (signifying that this is the first record in the partition).
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
 - The record is persisted to the appropriate log file on disk at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
 
+The tester will then send a Fetch Request specifying the topic and partition and validate the response against following conditions:
+
+- The `responses` field in the response has 1 element, and in that element:
+  - The `topic_id` field matches what was sent in the request.
+  - The `partitions` array has 1 element, and in that element:
+    - The `partition_index` field matches what was sent in the request.
+    - The `error_code` field is `0` (No Error).
+    - The entire `RecordBatch` content is read from disk. (The tester will compare the contents of the `RecordBatch` with the contents of the log file to verify this.)
+
+
 ## Notes
 
-- The on-disk log files must be stored in [RecordBatch](https://kafka.apache.org/documentation/#recordbatch) format. You should write the `RecordBatch` from the request directly to the file.
+- The on-disk log files must be stored in [RecordBatch](https://kafka.apache.org/documentation/#recordbatch) format. You should write each `RecordBatch` from the request directly to the log file of the appropriate topic's partition.
 - The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 11)" section.
