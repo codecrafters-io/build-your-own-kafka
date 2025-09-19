@@ -26,7 +26,7 @@ The tester will validate that:
   - The `topic_id` field matches what was sent in the request.
   - The `partitions` array has 1 element, and in that element:
     - The `partition_index` field is `0`.
-    - The `error_code` field is `100` (UNKNOWN_TOPIC).
+    - The `error_code` field is `100` (UNKNOWN_TOPIC_ID).
 
 ### Notes
 
