@@ -28,6 +28,8 @@ The tester will validate that:
 - There should be 2 partition responses.
 - The error code in both the partition responses should be `0` (NO_ERROR).
 - The `partition_index` field in both the partition responses should be equal to the partition ID of the partition assigned to the topic.
+- The value of `cursor` is -1, indicating that the cursor is null.
+
 
 ### Notes
 
