@@ -14,12 +14,13 @@ The tester will execute your program like this:
 $ ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `DescribeTopicPartitions` (v0) request. The request will contain 3 topic names. The topics exist and have 1 or 2 partitions assigned to each.
+It'll then connect to your server on port 9092 and send a `DescribeTopicPartitions` (v0) request. The request will contain 2 topic names. The topics exist and have 1 or 2 partitions assigned to each.
 
 The tester will validate that:
 
 - The first 4 bytes of your response (the "message length") are valid.
 - The correlation ID in the response header matches the correlation ID in the request header.
+- The topics are sorted alphabetically by topic name.
 - The error code in the topic response body is `0` (NO_ERROR).
 - The `topic_name` field in the topic response should be equal to the topic name sent in the request.
 - The `topic_id` field in the topic response should be equal to the topic UUID of the topic.
