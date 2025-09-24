@@ -35,16 +35,6 @@ The tester will validate that:
   
 - The RecordBatch sent in the request is written in `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
 
-The tester will then send a Fetch Request specifying the topic and partition and validate the response against following conditions:
-
-- The `responses` field in the response has 1 element, and in that element:
-  - The `topic_id` field matches what was sent in the request.
-  - The `partitions` array has 1 element, and in that element:
-    - The `partition_index` field matches what was sent in the request.
-    - The `error_code` field is `0` (No Error).
-    - The entire `RecordBatch` content is read from disk. (The tester will compare the contents of the `RecordBatch` with the contents of the corresponding log file to verify this.)
-
-
 ## Notes
 
 - The on-disk log files must be stored in [RecordBatch](https://kafka.apache.org/documentation/#recordbatch) format. You should write each `RecordBatch` from the request directly to the log file of the appropriate topic's partition.
