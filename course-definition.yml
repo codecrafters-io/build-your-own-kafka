@@ -95,13 +95,13 @@ stages:
     name: "Parse API Version"
     difficulty: medium
     marketing_md: |-
-      In this stage, you'll start encoding your response to the `APIVersions` requests.
+      In this stage, you'll start encoding your response to the `ApiVersions` requests.
 
   - slug: "pv1"
     name: "Handle ApiVersions requests"
     difficulty: hard
     marketing_md: |-
-      In this stage, you'll need to implement the `APIVersions:V4` response.
+      In this stage, you'll need to implement the `ApiVersions:V4` response.
 
   # Concurrent Requests
 
@@ -110,23 +110,23 @@ stages:
     primary_extension_slug: "concurrent-clients"
     difficulty: medium
     marketing_md: |-
-      In this stage, you'll need to handle multiple sequential `APIVersions` requests.
+      In this stage, you'll need to handle multiple sequential `ApiVersions` requests.
 
   - slug: "sk0"
     name: "Concurrent requests"
     primary_extension_slug: "concurrent-clients"
     difficulty: hard
     marketing_md: |-
-      In this stage, you'll need to handle concurrent `APIVersions` requests.
+      In this stage, you'll need to handle concurrent `ApiVersions` requests.
 
   # Describe Topic Partitions
 
   - slug: "yk1"
     primary_extension_slug: "listing-partitions"
-    name: "Include DescribeTopicPartitions in APIVersions"
+    name: "Include DescribeTopicPartitions in ApiVersions"
     difficulty: medium
     marketing_md: |-
-      In this stage, you'll add the DescribeTopicPartitions API to the APIVersions response.
+      In this stage, you'll add the DescribeTopicPartitions API to the ApiVersions response.
 
   - slug: "vt6"
     primary_extension_slug: "listing-partitions"
@@ -160,10 +160,10 @@ stages:
 
   - slug: "gs0"
     primary_extension_slug: "consuming-messages"
-    name: "Include Fetch in APIVersions"
+    name: "Include Fetch in ApiVersions"
     difficulty: medium
     marketing_md: |-
-      In this stage, you'll add the Fetch API to the APIVersions response.
+      In this stage, you'll add the Fetch API to the ApiVersions response.
 
   - slug: "dh6"
     primary_extension_slug: "consuming-messages"
