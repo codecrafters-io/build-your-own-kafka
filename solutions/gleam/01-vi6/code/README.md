@@ -4,7 +4,7 @@ This is a starting point for Gleam solutions to the
 ["Build Your Own Kafka" Challenge](https://codecrafters.io/challenges/kafka).
 
 In this challenge, you'll build a toy Kafka clone that's capable of accepting
-and responding to APIVersions & Fetch API requests. You'll also learn about
+and responding to ApiVersions & Fetch API requests. You'll also learn about
 encoding and decoding messages using the Kafka wire protocol. You'll also learn
 about handling the network protocol, event loops, TCP sockets and more.
 
