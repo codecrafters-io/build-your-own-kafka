@@ -21,6 +21,7 @@ languages:
   - slug: "go"
   - slug: "java"
   - slug: "javascript"
+  - slug: "kotlin"
   - slug: "python"
   - slug: "rust"
   - slug: "typescript"
