@@ -1,4 +1,4 @@
-In this stage, you'll implement the Produce response for invalid topics or partitions.
+In this stage, you'll implement the Produce response for invalid topics or partitions. And that would be all.
 
 ## Produce API Response for Invalid Topics or Partitions
 
