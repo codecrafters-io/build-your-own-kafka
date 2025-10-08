@@ -14,7 +14,7 @@ We've created an interactive protocol inspector for the request & response struc
 The tester will execute your program like this:
 
 ```bash
-./your_program.sh /tmp/server.properties
+$ ./your_program.sh /tmp/server.properties
 ```
 
 It'll then connect to your server on port 9092 and send a `Produce` (v11) request containing a RecordBatch with multiple records.
@@ -27,7 +27,7 @@ The tester will validate that:
 - The `topics` field has 1 element, and in that element:
   - The `name` field matches the topic name in the request.
   - The `partitions` field has 1 element, and in that element:
-    - The `error_code` is `0` (NO_ERROR).
+    - The `error_code` is `0` (`NO_ERROR`).
     - The `index` field matches the partition in the request.
     - The `base_offset` field is 0 (the base offset for the batch).
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).

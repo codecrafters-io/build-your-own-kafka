@@ -11,7 +11,7 @@ The record must be persisted to the topic's log file at `<log-dir>/<topic-name>-
 The tester will execute your program like this:
 
 ```bash
-./your_program.sh /tmp/server.properties
+$ ./your_program.sh /tmp/server.properties
 ```
 
 It'll then connect to your server on port 9092 and send a `Produce` (v11) request with a single recordBatch containing a single record.
@@ -24,7 +24,7 @@ The tester will validate that:
 - The `topics` field has 1 element, and in that element:
   - The `name` field matches the topic name in the request.
   - The `partitions` field has 1 element, and in that element:
-    - The `error_code` is `0` (NO_ERROR).
+    - The `error_code` is `0` (`NO_ERROR`).
     - The `index` field matches the partition in the request.
     - The `base_offset` field is `0` (signifying that this is the first record in the partition).
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).

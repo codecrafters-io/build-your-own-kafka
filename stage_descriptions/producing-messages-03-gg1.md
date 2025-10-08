@@ -24,7 +24,7 @@ We've also created an interactive protocol inspector for the `__cluster_metadata
 The tester will execute your program like this:
 
 ```bash
-./your_program.sh /tmp/server.properties
+$ ./your_program.sh /tmp/server.properties
 ```
 
 It'll then connect to your server on port 9092 and send a `Produce` (v11) request with a valid topic and partition.
