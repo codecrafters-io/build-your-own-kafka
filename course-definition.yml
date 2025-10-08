@@ -214,10 +214,10 @@ stages:
 
   - slug: "xz1"
     primary_extension_slug: "producing-messages"
-    name: "Include Produce in APIVersions"
+    name: "Include Produce in ApiVersions"
     difficulty: easy
     marketing_md: |-
-      In this stage, you'll implement adding the Produce API to the APIVersions response.
+      In this stage, you'll implement adding the Produce API to the ApiVersions response.
 
   - slug: "zf2"
     primary_extension_slug: "producing-messages"
