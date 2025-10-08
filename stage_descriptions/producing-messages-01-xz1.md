@@ -1,4 +1,4 @@
-In this stage, you'll implement adding the Produce API to the APIVersions response.
+In this stage, you'll implement adding the Produce API to the ApiVersions response.
 
 ## The Produce API
 
@@ -9,7 +9,7 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Request (v11)](example.com)
 - 🔎 [Produce Response (v11)](example.com)
 
-In this stage, you'll only need to add an entry for the `Produce` API to the APIVersions response you implemented in earlier stages. This lets clients know that your broker supports the `Produce` API. We'll get to responding to `Produce` requests in later stages.
+In this stage, you'll only need to add an entry for the `Produce` API to the ApiVersions response you implemented in earlier stages. This lets clients know that your broker supports the `Produce` API. We'll get to responding to `Produce` requests in later stages.
 
 ## Tests
 
@@ -19,7 +19,7 @@ The tester will execute your program like this:
 ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a valid `APIVersions` (v4) request.
+It'll then connect to your server on port 9092 and send a valid `ApiVersions` (v4) request.
 
 The tester will validate that:
 
@@ -32,5 +32,5 @@ The tester will validate that:
 ## Notes
 
 - You don't have to implement support for handling `Produce` requests in this stage. We'll get to this in later stages.
-- You'll still need to include the entry for `APIVersions` in your response to pass earlier stages.
-- The `MaxVersion` for `Produce` and `APIVersions` are different. For `APIVersions`, it is 4. For `Produce`, it is 11.
+- You'll still need to include the entry for `ApiVersions` in your response to pass earlier stages.
+- The `MaxVersion` for `Produce` and `ApiVersions` are different. For `ApiVersions`, it is 4. For `Produce`, it is 11.
