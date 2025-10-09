@@ -1,6 +1,6 @@
 In this stage, you'll implement the Produce response for valid topics and partitions.
 
-## Produce API Response for Valid Topics
+### Produce API Response for Valid Topics
 
 When a Kafka broker receives a `Produce` request, it needs to validate that both the topic and partition exist. If either the topic or partition doesn't exist, it returns an appropriate error code and response.
 
@@ -19,12 +19,12 @@ To validate that a partition exists, the broker reads the same `__cluster_metada
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
 - 🔎 [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata)
 
-## Tests
+### Tests
 
 The tester will execute your program like this:
 
 ```bash
-./your_program.sh /tmp/server.properties
+$ ./your_program.sh /tmp/server.properties
 ```
 
 It'll then connect to your server on port 9092 and send a `Produce` (v11) request with a valid topic and partition.
@@ -43,7 +43,7 @@ The tester will validate that:
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
 
-## Notes
+### Notes
 
 - The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 11)" section.
 - The official Kafka docs don't cover the structure of records inside the `__cluster_metadata` topic, but you can find the definitions in the Kafka source code [here](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata).
