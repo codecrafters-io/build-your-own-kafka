@@ -1,6 +1,6 @@
 In this stage, you'll implement the Produce response for invalid topics or partitions.
 
-## Produce API Response for Invalid Topics or Partitions
+### Produce API Response for Invalid Topics or Partitions
 
 When a Kafka broker receives a `Produce` request, it needs to validate that both the topic and partition exist. If either the topic or partition doesn't exist, it returns an appropriate error code and response.
 
@@ -11,7 +11,7 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Request (v11)](example.com)
 - 🔎 [Produce Response (v11) - Invalid Topic](example.com)
 
-## Tests
+### Tests
 
 The tester will execute your program like this:
 
@@ -35,7 +35,7 @@ The tester will validate that:
     - The `log_append_time_ms` field is `-1`.
     - The `log_start_offset` field is `-1`.
 
-## Notes
+### Notes
 
 - You'll need to parse the `Produce` request in this stage to get the topic name and partition to send in the response.
 - You can hardcode the error response in this stage. We'll get to actually checking for valid topics and partitions in later stages.

@@ -1,6 +1,6 @@
 In this stage, you'll implement producing multiple records in a single request.
 
-## Producing multiple records
+### Producing multiple records
 
 When a Kafka broker receives a `Produce` request containing a `RecordBatch` with multiple records, it needs to validate that the topic and partition exist, assign sequential offsets to each record within the batch, and store the entire batch to the log file. The `RecordBatch` containing multiple records must be stored as a single unit to the topic's log file at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
 
@@ -9,7 +9,7 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Request (v11)](example.com)
 - 🔎 [Produce Response (v11)](example.com)
 
-## Tests
+### Tests
 
 The tester will execute your program like this:
 
@@ -35,7 +35,7 @@ The tester will validate that:
   
 - The RecordBatch sent in the request is written in `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
 
-## Notes
+### Notes
 
 - The on-disk log files must be stored in [RecordBatch](https://kafka.apache.org/documentation/#recordbatch) format. You should write each `RecordBatch` from the request directly to the log file of the appropriate topic's partition.
 - The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 11)" section.

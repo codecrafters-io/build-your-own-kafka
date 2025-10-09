@@ -1,6 +1,6 @@
 In this stage, you'll implement producing to multiple partitions of multiple topics.
 
-## Producing to multiple partitions of multiple topics
+### Producing to multiple partitions of multiple topics
 
 When a Kafka broker receives a `Produce` request targeting multiple partitions of multiple topics, it needs to validate that all topics and partitions exist, write records to each partition's log file independently, and return a response containing results for all topics and partitions.
 
@@ -9,7 +9,7 @@ We've created an interactive protocol inspector for the request & response struc
 - 🔎 [Produce Request (v11)](example.com)
 - 🔎 [Produce Response (v11)](example.com)
 
-## Tests
+### Tests
 
 The tester will execute your program like this:
 
@@ -34,7 +34,7 @@ The tester will validate that:
     - The `log_start_offset` field is `0`.
 - Each RecordBatch is persisted to the appropriate log file on disk at `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
 
-## Notes
+### Notes
 
 - The on-disk log files must be stored in [RecordBatch](https://kafka.apache.org/documentation/#recordbatch) format. You should write each `RecordBatch` from the request directly to the log file of the appropriate topic's partition.
 - The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 11)" section.
