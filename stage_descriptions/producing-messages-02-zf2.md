@@ -9,7 +9,7 @@ For this stage, you can hardcode the error response - assume that all `Produce` 
 We've created an interactive protocol inspector for the request & response structures for `Produce`:
 
 - 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
-- 🔎 [Produce Response (v11) - Invalid Topic](https://binspec.org/kafka-produce-unknown-topic-or-partition-response-v11)
+- 🔎 [Produce Response (v11) - Invalid Topic or Partition](https://binspec.org/kafka-produce-unknown-topic-or-partition-response-v11)
 
 ### Tests
 
