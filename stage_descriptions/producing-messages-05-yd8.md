@@ -6,8 +6,8 @@ When a Kafka broker receives a `Produce` request containing a `RecordBatch` with
 
 We've created an interactive protocol inspector for the request & response structures for `Produce`:
 
-- 🔎 [Produce Request (v11)](example.com)
-- 🔎 [Produce Response (v11)](example.com)
+- 🔎 [Produce Request (v11)](https://binspec.org/kafka-produce-request-v11)
+- 🔎 [Produce Response (v11)](https://binspec.org/kafka-produce-success-response)
 
 ### Tests
 
