@@ -250,13 +250,13 @@ stages:
   - slug: "ct4"
     primary_extension_slug: "producing-messages"
     name: "Produce to multiple partitions"
-    difficulty: hard
+    difficulty: easy
     marketing_md: |-
       In this stage, you'll implement producing to multiple partitions of the same topic.
 
   - slug: "ov0"
     primary_extension_slug: "producing-messages"
     name: "Produce to multiple partitions of multiple topics"
-    difficulty: hard
+    difficulty: easy
     marketing_md: |-
       In this stage, you'll implement producing to multiple partitions of multiple topics.

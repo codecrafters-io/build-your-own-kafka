@@ -19,9 +19,9 @@ The tester will execute your program like this:
 $ ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Produce` (v11) request with either an invalid topic name or a valid topic but invalid partition.
+It'll then connect to your server on port 9092 and send two `Produce` (v11) requests: the first request will be valid topic but invalid partition, and the second request will be invalid topic.
 
-The tester will validate that:
+For the responses of both requests, the tester will validate that:
 
 - The first 4 bytes of your response (the "message length") are valid.
 - The correlation ID in the response header matches the correlation ID in the request header.
