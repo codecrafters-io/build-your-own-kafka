@@ -84,6 +84,16 @@ extensions:
 stages:
   - slug: "vi6"
     name: "Bind to a port"
+    concept_slugs:
+      [
+        "network-protocols",
+        "tcp-overview",
+        "go-tcp-server",
+        "rust-tcp-server",
+        "python-tcp-server",
+        "java-tcp-server",
+        "cpp-tcp-server",
+      ]
     difficulty: easy
     marketing_md: |-
       In this stage, you'll start a TCP server on port 9092, which is the
@@ -91,12 +101,32 @@ stages:
 
   - slug: "nv3"
     name: "Send Correlation ID"
+    concept_slugs:
+      [
+        "network-protocols",
+        "tcp-overview",
+        "go-tcp-server",
+        "rust-tcp-server",
+        "python-tcp-server",
+        "java-tcp-server",
+        "cpp-tcp-server",
+      ]
     difficulty: easy
     marketing_md: |-
       In this stage, you'll start implementing the ResponseHeader.
 
   - slug: "wa6"
     name: "Parse Correlation ID"
+    concept_slugs:
+      [
+        "network-protocols",
+        "tcp-overview",
+        "go-tcp-server",
+        "rust-tcp-server",
+        "python-tcp-server",
+        "java-tcp-server",
+        "cpp-tcp-server",
+      ]
     difficulty: medium
     marketing_md: |-
       In this stage, you'll start decoding the RequestHeader.
