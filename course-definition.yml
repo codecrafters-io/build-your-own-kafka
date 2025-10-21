@@ -147,6 +147,16 @@ stages:
 
   - slug: "nh4"
     name: "Serial requests"
+    concept_slugs:
+      [
+        "network-protocols",
+        "tcp-overview",
+        "go-tcp-server",
+        "rust-tcp-server",
+        "python-tcp-server",
+        "java-tcp-server",
+        "cpp-tcp-server",
+      ]
     primary_extension_slug: "concurrent-clients"
     difficulty: medium
     marketing_md: |-
@@ -154,6 +164,16 @@ stages:
 
   - slug: "sk0"
     name: "Concurrent requests"
+    concept_slugs:
+      [
+        "network-protocols",
+        "tcp-overview",
+        "go-tcp-server",
+        "rust-tcp-server",
+        "python-tcp-server",
+        "java-tcp-server",
+        "cpp-tcp-server",
+      ]
     primary_extension_slug: "concurrent-clients"
     difficulty: hard
     marketing_md: |-
