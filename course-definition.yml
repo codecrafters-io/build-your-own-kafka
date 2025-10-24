@@ -1,7 +1,7 @@
 slug: "kafka"
 name: "Build your own Kafka"
 short_name: "Kafka"
-release_status: "beta"
+release_status: "live"
 
 description_md: |-
   Apache Kafka is a distributed event streaming platform often used for high-performance data pipelines. In this challenge, you'll build your own Kafka broker
