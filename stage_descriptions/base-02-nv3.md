@@ -11,26 +11,22 @@ A Kafka response message has three parts:
 
 For this stage, you can ignore the body and just focus on `message_size` and the header. You'll learn about response bodies in a later stage.
 
-#### The `message_size` field
+### The `message_size` Field
 
 The [`message_size`](https://kafka.apache.org/protocol.html#protocol_common) field is a 32-bit signed integer. It specifies the size of the header and body.
 
-For this stage, the tester will only assert that your `message_size` field is 4 bytes long—it won't check the value. You'll implement correct `message_size` values in a later stage.
+For this stage, the tester will only assert that your `message_size` field is 4 bytes long and it won't check the value. You'll implement correct `message_size` values in a later stage.
 
-#### Header
+### Response Header v0
 
-Kafka has a few different header versions. The way Kafka determines which header version to use is a bit complicated and is outside the scope of this challenge. For more information, take a look at [KIP-482](https://cwiki.apache.org/confluence/display/KAFKA/KIP-482%3A+The+Kafka+Protocol+should+Support+Optional+Tagged+Fields) and this [Stack Overflow answer](https://stackoverflow.com/a/71853003).
-
-In this stage, you will use [response header v0](https://kafka.apache.org/protocol.html#protocol_messages) (scroll down).
-
-Response header v0 contains a single field: [`correlation_id`](https://developer.confluent.io/patterns/event/correlation-identifier/). This field lets clients match responses to their original requests. Here's how it works:
+Kafka has multiple header versions. In this stage, you will use [response header v0](https://kafka.apache.org/protocol.html#protocol_messages). Response header v0 contains a single field: [`correlation_id`](https://developer.confluent.io/patterns/event/correlation-identifier/). This field lets clients match responses to their original requests. Here's how it works:
 
 1. The client generates a correlation ID.
 2. The client sends a request that includes the correlation ID.
 3. The broker sends a response that includes the same correlation ID.
 4. The client receives the response and matches the correlation ID to the original request.
 
-The `correlation_id` field is a 32-bit signed integer. For this stage, your program must respond with a hard-coded `correlation_id` of 7.
+The `correlation_id` field is a 32-bit signed integer. For this stage, your program must respond with a hard-coded `correlation_id` of `7`.
 
 ### Tests
 
@@ -39,16 +35,16 @@ The tester will execute your program like this:
 $ ./your_program.sh
 ```
 
-It'll then connect to your broker on port 9092 and send a request:
+It will then connect to your broker on port `9092` and send a request:
 ```
 $ echo -n "Placeholder request" | nc -v localhost 9092 | hexdump -C
-```
-
-Your broker must send a response with a correlation ID of 7:
-```java
 00 00 00 00  // message_size:   0 (any value works)
 00 00 00 07  // correlation_id: 7
 ```
+
+The tester will verify that:
+- Your response is 8 bytes total (4 for `message_size`, 4 for `correlation_id`).
+- The `correlation_id` field contains the value `7`.
 
 ### Notes
 
