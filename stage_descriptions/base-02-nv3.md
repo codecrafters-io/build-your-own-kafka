@@ -21,7 +21,7 @@ All integers in the Kafka protocol are in [big-endian](https://developer.mozilla
 00 00 00 02  // message_size: 2
 ```
 
-For this stage, the tester will only assert that your `message_size` field is 4 bytes long, and it won't check the value. You'll implement correct `message_size` values in a later stage.
+For this stage, you only need to ensure that your `message_size` field is 4 bytes long. You'll implement the correct `message_size` values in a later stage.
 
 ### Response Header v0
 
