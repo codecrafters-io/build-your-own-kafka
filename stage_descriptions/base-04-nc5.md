@@ -7,7 +7,7 @@ Every Kafka request is an API call. The Kafka protocol defines over 70 different
 - `CreateTopics` creates new topics.
 - `ApiVersions` returns the broker's supported API versions.
 
-A Kafka request specifies the API its calling by using the [`request_api_key`](https://kafka.apache.org/protocol.html#protocol_api_keys) header field.
+A Kafka request specifies the API it's calling by using the [`request_api_key`](https://kafka.apache.org/protocol.html#protocol_api_keys) header field.
 
 ### Message body
 
@@ -29,7 +29,7 @@ As a reminder, requests and responses both have the following format:
 
 ### API versioning
 
-Each API supports multiple versions, to allow for different schemas. Here's how API versioning works:
+Each API supports multiple versions to allow for different schemas. Here's how API versioning works:
 - Requests use the header field `request_api_version` to specify the API version being requested.
 - Responses always use the same API version as the request. For example, a `Produce Request (Version: 3)` will always get a `Produce Response (Version: 3)` back.
 - Each API's version history is independent. So, different APIs with the same version are unrelated. For example, `Produce Request (Version: 10)` is not related to `Fetch Request (Version: 10)`.
@@ -51,7 +51,8 @@ The tester will execute your program like this:
 $ ./your_program.sh
 ```
 
-It'll then connect to your broker on port 9092 and send an `ApiVersions` request. This request will ask for an unsupported version of `ApiVersions`:
+It will then connect to your broker on port 9092 and send an `ApiVersions` request. This request will ask for an unsupported version of `ApiVersions`:
+
 ```
 $ echo -n "000000230012674a4f74d28b00096b61666b612d636c69000a6b61666b612d636c6904302e3100" | xxd -r -p | nc localhost 9092 | hexdump -C
 ```
@@ -70,7 +71,7 @@ Your broker should send an `ApiVersions` version 4 response with the `error_code
 00 23        // error_code:     35
 ```
 
-You broker should send an `ApiVersions` response with the `error_code` field set to **0** when the request is valid, though we are not testing for that in this stage.
+Your broker should send an `ApiVersions` response with the `error_code` field set to **0** when the request is valid, though we are not testing for that in this stage.
 
 ### Notes
 
