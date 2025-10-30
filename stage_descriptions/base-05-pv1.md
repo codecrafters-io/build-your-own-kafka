@@ -1,15 +1,10 @@
 In this stage, you'll implement the response body for the `ApiVersions` request.
 
-We've created an interactive protocol inspector for the `ApiVersions` request & response:
+We've created an interactive protocol inspector for the `ApiVersions` request & response: 
 
 - 🔎 [ApiVersions Request (v4)](https://binspec.org/kafka-api-versions-request-v4)
 - 🔎 [ApiVersions Response (v4)](https://binspec.org/kafka-api-versions-Response-v4)
 
-🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
-
-In the meantime, please use
-[this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+pv1%3A+Handle+ApiVersions+requests&body=%3Cyour+question+here%3E)
-to ask questions on the forum.
 
 ### Tests
 
