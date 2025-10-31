@@ -34,7 +34,7 @@ The `Produce` response body contains response codes indicating whether each writ
 Each API supports multiple versions to allow schemas to evolve over time. Here's how API versioning works:
 
 - Requests use the `request_api_version` header field to specify which version they're using.
-- Responses must always use the same version as the request. For example, a `Produce Request (Version: 3)` should receive a `Produce Response (Version: 3)` back.
+- Responses use the same version as the request when that version is supported. For example, a `Produce Request (Version: 3)` should receive a `Produce Response (Version: 3)` back.
 - Each API's version history is independent. `Produce (Version: 10)` is unrelated to `Fetch (Version: 10)`.
 
 ### The `ApiVersions` API
