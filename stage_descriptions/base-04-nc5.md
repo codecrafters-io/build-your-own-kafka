@@ -7,11 +7,11 @@ Every Kafka request is an API call. The Kafka protocol defines over 70 different
 - `CreateTopics`: Creates new topics.
 - `ApiVersions`: Returns the broker's supported API versions.
 
-A Kafka request specifies the API it's calling using the [`request_api_key`](https://kafka.apache.org/protocol.html#protocol_api_keys) field in the request header.
+A Kafka request specifies the API it's calling using the [`request_api_key`](https://kafka.apache.org/protocol.html#protocol_api_keys) header field.
 
 ### Message Body
 
-As a recap, requests and responses both have the following format:
+As a recap, Kafka requests and responses have the following format:
 
 1. `message_size`
 2. Header
@@ -45,9 +45,9 @@ In this stage, you'll begin adding support for `ApiVersions` version 4. For now,
 
 ### The `error_code` Field
 
-The `ApiVersions` response body begins with a 16-bit signed integer `error_code`. This field indicates if an error occurred with the request. It's set to `0` if there was no error. For all possible error codes, see the [error codes chart](https://kafka.apache.org/protocol.html#protocol_error_codes).
+The `ApiVersions` response body begins with a 16-bit signed integer called the `error_code`. This field indicates if an error occurred with the request. It's set to `0` if there was no error. For all possible error codes, see the [error codes chart](https://kafka.apache.org/protocol.html#protocol_error_codes).
 
-For this stage, you only need to handle error code 35 (`UNSUPPORTED_VERSION`). This error occurs when the client requests a version of `ApiVersions` that the broker doesn't support. You can assume your broker supports versions `0-4`.
+For this stage, you only need to handle error code `35` (`UNSUPPORTED_VERSION`). This error occurs when the client requests a version of `ApiVersions` that the broker doesn't support. You can assume your broker supports versions `0-4`.
 
 ### Tests
 
