@@ -78,7 +78,7 @@ The tester will validate your response by checking that:
 - The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The `error_code` in the response body `0`.
-- The response includes an entry for API key `18` (ApiVersions) with `min_version` `0` and `max_version` `4`.
+- The response includes an entry for API key `18` (ApiVersions), where the `min_version` is `0` and the `max_version` is `4`.
 - No extra bytes remain after decoding all response fields.
 
 ### Notes
