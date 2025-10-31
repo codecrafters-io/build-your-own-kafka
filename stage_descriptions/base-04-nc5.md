@@ -80,8 +80,6 @@ Your broker must respond with an `ApiVersions` version 4 response containing the
 00 23        // error_code:     35
 ```
 
-Your broker should send an `ApiVersions` response with the `error_code` field set to **0** when the request is valid, though we are not testing for that in this stage.
-
 When the request has a valid version (`0-4`), your broker should respond with error code `0`, though this isn't tested in this stage.
 
 ### Notes
