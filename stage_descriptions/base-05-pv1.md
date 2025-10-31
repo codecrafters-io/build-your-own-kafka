@@ -73,13 +73,13 @@ Here's what the request looks like:
 ...          // rest of header and body
 ```
 
-The tester will validate that:
+The tester will validate your response by checking that:
 
-- The `message_size` field in the response body correctly represents the size of the header and body.
+- The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The `error_code` in the response body `0`.
 - The response includes an entry for API key `18` (ApiVersions) with `min_version` `0` and `max_version` `4`.
-- No extra bytes remain after decoding all response fields
+- No extra bytes remain after decoding all response fields.
 
 ### Notes
 
