@@ -4,7 +4,7 @@ In this stage, you'll send a response with a correlation ID.
 
 Kafka brokers communicate with clients through the [Kafka wire protocol](https://kafka.apache.org/protocol.html). The protocol uses a request-response model: the client sends a request message, and the broker replies with a response message.
 
-A Kafka response message has three parts:
+A Kafka request or response message consists of three parts:
 1. `message_size`
 2. Header
 3. Body
