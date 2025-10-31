@@ -8,11 +8,11 @@ As a recap, a Kafka request message has three parts:
 2. Header: Contains metadata about the request
 3. Body: Contains the actual request data
 
-In the previous stage, you sent a response with a hardcoded `correlation_id` in the response header. Now you'll extract the actual `correlation_id` from the incoming request and echo it back.
+In a previous stage, you sent a response with a hardcoded `correlation_id`. Now you'll extract the actual `correlation_id` from the incoming request header and echo it back.
 
 ### Parsing the Request Header
 
-To extract the `correlation_id`, you need to parse the request header. In this stage, you'll work with [request header v2](https://kafka.apache.org/protocol.html#protocol_messages).
+To extract the `correlation_id`, you need to parse the request header. For this stage, you'll work with [request header v2](https://kafka.apache.org/protocol.html#protocol_messages).
 
 Here’s what the structure looks like:
 
