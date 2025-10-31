@@ -1,8 +1,8 @@
 In this stage, you'll replace the hardcoded correlation ID with the actual correlation ID from the request.
 
-### Request Message Structure
+### Kafka Message Structure
 
-As a recap, a Kafka request message has three parts:
+As a recap, Kafka request and response messages have the following format:
 
 1. `message_size`: The size of the header and body
 2. Header: Contains metadata about the request
