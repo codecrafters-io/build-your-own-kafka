@@ -9,26 +9,25 @@ We've created an interactive protocol inspector to help you visualize the reques
 - 🔎 [ApiVersions Request (v4)](https://binspec.org/kafka-api-versions-request-v4)
 - 🔎 [ApiVersions Response (v4)](https://binspec.org/kafka-api-versions-Response-v4)
 
-
 ### The `ApiVersions` Response Body
 
 The `ApiVersions` response body (v4) has the following structure:
 
-| Field              | Data type      | Description                                    |
-| ------------------ | -------------- | ---------------------------------------------- |
-| `error_code`       | `INT16`        | Error code (`0` for successful requests)         |
-| `api_keys`         | `COMPACT_ARRAY`| Array of supported APIs with version ranges    |
-| `throttle_time_ms` | `INT32`        | Throttle time in milliseconds                  |
-| `TAG_BUFFER`       | `TAGGED_FIELDS`| Optional tagged fields                         |
+| Field              | Data type       | Description                                 |
+| ------------------ | --------------- | ------------------------------------------- |
+| `error_code`       | `INT16`         | Error code (`0` for successful requests)    |
+| `api_keys`         | `COMPACT_ARRAY` | Array of supported APIs with version ranges |
+| `throttle_time_ms` | `INT32`         | Throttle time in milliseconds               |
+| `TAG_BUFFER`       | `TAGGED_FIELDS` | Optional tagged fields                      |
 
 Each entry in the `api_keys` array contains:
 
-| Field          | Data type       | Description                    |
-| -------------- | --------------- | ------------------------------ |
-| `api_key`      | `INT16`         | The API identifier             |
-| `min_version`  | `INT16`         | Minimum supported version      |
-| `max_version`  | `INT16`         | Maximum supported version      |
-| `TAG_BUFFER`   | `TAGGED_FIELDS` | Optional tagged fields                  |
+| Field         | Data type       | Description               |
+| ------------- | --------------- | ------------------------- |
+| `api_key`     | `INT16`         | The API identifier        |
+| `min_version` | `INT16`         | Minimum supported version |
+| `max_version` | `INT16`         | Maximum supported version |
+| `TAG_BUFFER`  | `TAGGED_FIELDS` | Optional tagged fields    |
 
 For this stage, your response must include at least one entry for API key `18` (ApiVersions) with a `min_version` of `0` and `max_version` of `4`.
 
@@ -69,7 +68,7 @@ Here's what the request looks like:
 00 00 00 1a  // message_size:        26
 00 12        // request_api_key:     18 (ApiVersions)
 00 04        // request_api_version: 4
-67 89 0a bc  // correlation_id:      1736982204
+67 89 0a bc  // correlation_id:      1737034428
 ...          // rest of header and body
 ```
 
@@ -77,7 +76,7 @@ The tester will validate your response by checking that:
 
 - The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
-- The `error_code` in the response body `0`.
+- The `error_code` in the response body is `0`.
 - The response includes an entry for API key `18` (ApiVersions), where the `min_version` is `0` and the `max_version` is `4`.
 - No extra bytes remain after decoding all response fields.
 
@@ -85,8 +84,3 @@ The tester will validate your response by checking that:
 
 - The tester will always send you v4 of the `ApiVersions` request.
 - From this stage onwards, the tester will start validating the first 4 bytes of your response (the `message_size`) in addition to the other checks.
-
-
-
-
-
