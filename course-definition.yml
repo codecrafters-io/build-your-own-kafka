@@ -17,6 +17,7 @@ completion_percentage: 15
 concept_slugs: ["network-protocols", "tcp-overview"]
 
 languages:
+  - slug: "c"
   - slug: "cpp"
   - slug: "csharp"
   - slug: "gleam"
