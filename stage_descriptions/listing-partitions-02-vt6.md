@@ -22,7 +22,7 @@ Each topic in the `topics` array contains:
 
 | Field        | Data type    | Description          |
 | ------------ | ------------ | -------------------- |
-| `name`       | `STRING`     | The topic name       |
+| `topic_name`       | `STRING`     | The topic name       |
 | `TAG_BUFFER` | `TAGGED_FIELDS` | Tagged fields        |
 
 For this stage, the tester will send a request with a single topic name. You'll need to extract this name and echo it back in your response.
@@ -56,7 +56,7 @@ Each topic in the `topics` array contains:
 | Field             | Data type       | Description                                       |
 | ----------------- | --------------- | ------------------------------------------------- |
 | `error_code`      | `INT16`         | Error code (3 for UNKNOWN_TOPIC_OR_PARTITION)     |
-| `name`            | `STRING`        | The topic name (from the request)                 |
+| `topic_name`            | `STRING`        | The topic name (from the request)                 |
 | `topic_id`        | `UUID`          | Topic UUID (use all zeros for unknown topics)     |
 | `is_internal`     | `BOOLEAN`       | Whether topic is internal (use false)             |
 | `partitions`      | `COMPACT_ARRAY` | Array of partition metadata (empty for unknown)   |
@@ -65,7 +65,7 @@ Each topic in the `topics` array contains:
 
 For an unknown topic, your response should:
 - Set `error_code` to `3` (`UNKNOWN_TOPIC_OR_PARTITION`).
-- Echo back the topic `name` from the request.
+- Echo back the `topic_name` from the request.
 - Set `topic_id` to `00000000-0000-0000-0000-000000000000` (all zeros).
 - Set `is_internal` to `false`.
 - Leave the `partitions` array empty.
@@ -81,7 +81,7 @@ ab cd ef 12  // correlation_id:               (matches request)
 02           // topics array:                 1 element
 00 03        // error_code:                   3 (UNKNOWN_TOPIC_OR_PARTITION)
 04           // name length:                  3 (compact string)
-66 6f 6f     // name:                         "foo"
+66 6f 6f     // topic_name:                         "foo"
 00 00 00 00  // topic_id:                     00000000-0000-0000-
 00 00 00 00  //                               0000-000000000000
 00 00 00 00  //                               (16 bytes total)
@@ -102,7 +102,7 @@ The tester will execute your program like this:
 $ ./your_program.sh /tmp/server.properties
 ```
 
-It will then connect to your server on port `9092` and send a `DescribeTopicPartitions` (v0) request containing a single topic with 1 partition.
+It will then connect to your server on port `9092` and send a `DescribeTopicPartitions` (v0) request containing a single topic name.
 
 ```
 echo -n "00000020004b00000000000700096b61666b612d636c69000204666f6f0000000064ff00" | xxd -r -p | nc localhost 9092 | hexdump -C
@@ -113,12 +113,12 @@ The tester will validate that:
 - The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The response uses response header v1 (with `TAG_BUFFER`).
-- The `error_code` in the response body is 3 (`UNKNOWN_TOPIC_OR_PARTITION`).
+- The `error_code` in the response body is `3` (`UNKNOWN_TOPIC_OR_PARTITION`).
 - The response body should be valid DescribeTopicPartitions (v0) Response.
 - The `topic_name` field in the response should be equal to the topic name sent in the request.
 - The `topic_id` field in the response should be equal to `00000000-0000-0000-0000-000000000000`.
-- The `partitions` field in the response should be empty. (As there are no partitions assigned to this non-existent topic.)
-- The value of `cursor` is -1, indicating that the cursor is null.
+- The `partitions` field in the response should be empty.
+- The value of `next_cursor` is `-1`, indicating that the cursor is null.
 
 ### Notes
 
