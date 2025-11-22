@@ -94,23 +94,6 @@ ff           // next_cursor:                  -1 (null)
 00           // TAG_BUFFER:                   empty
 ```
 
-## Tests
-
-The tester will execute your program:
-```bash
-$ ./your_program.sh /tmp/server.properties
-```
-
-It'll then send a `DescribeTopicPartitions` (v0) request with a single topic and verify that:
-- The `message_size` field is correct
-- The correlation ID matches the request
-- The `error_code` in the topic entry is `3` (UNKNOWN_TOPIC_OR_PARTITION)
-- The response is a valid `DescribeTopicPartitions` (v0) response
-- The `topic_name` in the response matches the topic name from the request
-- The `topic_id` is `00000000-0000-0000-0000-000000000000`
-- The `partitions` array is empty
-- The `next_cursor` value is `-1` (null)
-
 ### Tests
 
 The tester will execute your program like this:
