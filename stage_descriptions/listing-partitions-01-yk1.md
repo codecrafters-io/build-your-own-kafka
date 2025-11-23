@@ -55,11 +55,9 @@ The tester will validate that:
 - The `error_code` in the response body is `0` (No Error).
 - The response body includes entries for both API key 18 (`ApiVersions`) and API key 75 (`DescribeTopicPartitions`).
 - The API key `18` (`ApiVersions`) response has a `min_version` of `0` and a `max_version` of at least `4`.
-- The response for the API key `75` (`DescribeTopicPartitions`) has a `MaxVersion` of at least `0`, and a `MinVersion` of at least `0`.
 - The API key `75` (`DescribeTopicPartitions`) response has a `min_version` of `0` and a `max_version` of at least `0`.
 
 ### Notes
 
-- The `MaxVersion` for the `DescribeTopicPartitions` and `ApiVersions` is different. For `ApiVersions`, it is 4. For `DescribeTopicPartitions`, it is 0.
 - You'll still need to include the entry for `ApiVersions` in your response to pass the previous stages.
 - We'll get to implementing the `DescribeTopicPartitions` request in later stages. For this stage, you only need to add an entry to the ApiVersions response.
