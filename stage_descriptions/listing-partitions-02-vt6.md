@@ -40,27 +40,27 @@ The main difference is the addition of the `TAG_BUFFER` field. You can leave the
 
 ### The `DescribeTopicPartitions` Response Body
 
-For this stage, you should treat all topics as unknown. The response should indicate an error using error code `3` (`UNKNOWN_TOPIC_OR_PARTITION`).
+For this stage, you should treat all topics as unknown.
 
 The `DescribeTopicPartitions` response body has the following structure:
 
 | Field              | Data type       | Description                                    |
 | ------------------ | --------------- | ---------------------------------------------- |
-| `throttle_time_ms` | `INT32`         | Throttle time in milliseconds (use 0)          |
+| `throttle_time_ms` | `INT32`         | Throttle time in milliseconds (use `0`)          |
 | `topics`           | `COMPACT_ARRAY` | Array of topic metadata                        |
-| `next_cursor`      | `NULLABLE_INT8` | Pagination cursor (use -1 for null)            |
+| `next_cursor`      | `NULLABLE_INT8` | Pagination cursor (use `-1` for null)            |
 | `TAG_BUFFER`       | `TAGGED_FIELDS`    | Tagged fields                                  |
 
 Each topic in the `topics` array contains:
 
 | Field             | Data type       | Description                                       |
 | ----------------- | --------------- | ------------------------------------------------- |
-| `error_code`      | `INT16`         | Error code (3 for UNKNOWN_TOPIC_OR_PARTITION)     |
+| `error_code`      | `INT16`         | Error code     |
 | `topic_name`            | `STRING`        | The topic name (from the request)                 |
-| `topic_id`        | `UUID`          | Topic UUID (use all zeros for unknown topics)     |
-| `is_internal`     | `BOOLEAN`       | Whether topic is internal (use false)             |
+| `topic_id`        | `UUID`          | Topic UUID    |
+| `is_internal`     | `BOOLEAN`       | Whether topic is internal           |
 | `partitions`      | `COMPACT_ARRAY` | Array of partition metadata (empty for unknown)   |
-| `topic_authorized_operations`      | `INT32` | Authorized operations bitfield (use 0)   |
+| `topic_authorized_operations`      | `INT32` | Authorized operations bitfield (use `0`)   |
 | `TAG_BUFFER`      | `TAGGED_FIELDS`    | Tagged fields                                     |
 
 For an unknown topic, your response should:
