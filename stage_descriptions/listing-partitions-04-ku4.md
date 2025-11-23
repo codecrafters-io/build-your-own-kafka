@@ -17,7 +17,7 @@ $ ./your_program.sh /tmp/server.properties
 It will then send a `DescribeTopicPartitions` (v0) request for a topic that has two partitions.
 
 The tester will verify that:
-- The `message_size` field is correct.
+- The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The `error_code` in the topic entry is `0` (no error).
 - The response is a valid `DescribeTopicPartitions` (v0) response.
