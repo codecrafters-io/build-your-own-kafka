@@ -40,8 +40,6 @@ The main difference is the addition of the `TAG_BUFFER` field. You can leave the
 
 ### The `DescribeTopicPartitions` Response Body
 
-For this stage, you should treat all topics as unknown.
-
 The `DescribeTopicPartitions` response body has the following structure:
 
 | Field              | Data type       | Description                                    |
@@ -63,7 +61,7 @@ Each topic in the `topics` array contains:
 | `topic_authorized_operations`      | `INT32` | Authorized operations bitfield (use `0`)   |
 | `TAG_BUFFER`      | `TAGGED_FIELDS`    | Tagged fields                                     |
 
-For an unknown topic, your response should:
+For this stage, you should treat all topics as unknown. For an unknown topic, your response should:
 - Set `error_code` to `3` (`UNKNOWN_TOPIC_OR_PARTITION`).
 - Echo back the `topic_name` from the request.
 - Set `topic_id` to `00000000-0000-0000-0000-000000000000` (all zeros).
