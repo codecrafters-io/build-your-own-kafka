@@ -1,10 +1,10 @@
-In this stage, you'll implement the `DescribeTopicPartitions` response for a single topic with multiple partitions.
+In this stage, you'll implement the `DescribeTopicPartitions` response for a topic with multiple partitions.
 
-🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
+### Handling Multiple Partitions
 
-In the meantime, please use
-[this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+KU4+%28DescribeTopicPartition+with+single+topic+but+multiple+partitions%29&body=%3Cyour+question+here%3E)
-to ask questions on the forum.
+When a topic has multiple partitions, each partition gets its own entry in the `partitions` array. The structure of each [partition entry](https://binspec.org/kafka-describe-topic-partitions-response-v0?highlight=38-65) remains the same as with previous stages.
+
+For this stage, you'll respond with metadata for a topic that has two partitions. Each partition should have its own entry with the correct `partition_index`.
 
 ### Tests
 
@@ -14,23 +14,22 @@ The tester will execute your program like this:
 $ ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `DescribeTopicPartitions` (v0) request. The request will contain an single topic name. The topic exists and has 2 partitions assigned to it.
+It will then send a `DescribeTopicPartitions` (v0) request for a topic that has two partitions.
 
-The tester will validate that:
-
-- The first 4 bytes of your response (the "message length") are valid.
+The tester will verify that:
+- The `message_size` field is correct.
 - The correlation ID in the response header matches the correlation ID in the request header.
-- The error code in the response body is `0` (NO_ERROR).
-- The response body should be valid DescribeTopicPartitionResponse.
-- The `topic_name` field in the response should be equal to the topic name sent in the request.
-- The `topic_id` field in the response should be equal to the topic UUID of the topic.
-- The partition response should contain details of the 2 partitions assigned to the topic.
-- There should be 2 partition responses.
-- The error code in both the partition responses should be `0` (NO_ERROR).
-- The `partition_index` field in both the partition responses should be equal to the partition ID of the partition assigned to the topic.
-- The value of `cursor` is -1, indicating that the cursor is null.
-
+- The `error_code` in the topic entry is `0` (no error).
+- The response is a valid `DescribeTopicPartitions` (v0) response.
+- The `topic_name` field matches the topic name sent in the request.
+- The `topic_id` matches the actual UUID from the cluster metadata.
+- The `partitions` array contains exactly two partition entries.
+- Both partition entries have `error_code` of `0` (no error).
+- Each `partition_index` matches the actual partition IDs from the metadata.
+- The `next_cursor` value is `-1` (null).
 
 ### Notes
 
-- The official docs for the `DescribeTopicPartitions` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions).
+- The main change from the previous stage is handling multiple partition entries in the response.
+- Each partition should have its own complete entry in the `partitions` array with the correct `partition_index`.
+- The official [`DescribeTopicPartitions` documentation](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) contains the complete response schema.
