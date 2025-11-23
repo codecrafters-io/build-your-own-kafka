@@ -2,7 +2,7 @@ In this stage, you'll implement the `DescribeTopicPartitions` response for an un
 
 ### The `DescribeTopicPartitions` API (Recap)
 
-The [`DescribeTopicPartitions`](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/documentation/#intro_concepts_and_terms) and their [partitions](https://kafka.apache.org/documentation/#:~:text=partitioned). For this stage, you'll handle cases where a client asks about a topic that doesn't exist.
+As a recap, the [`DescribeTopicPartitions`](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/documentation/#intro_concepts_and_terms) and their [partitions](https://kafka.apache.org/documentation/#:~:text=partitioned). For this stage, you'll handle cases where a client requests a topic that doesn't exist.
 
 We've created an interactive protocol inspector for the `DescribeTopicPartitions` request & response:
 
@@ -36,7 +36,7 @@ In previous stages, you used response header v0, which only contained the `corre
 | `correlation_id` | `INT32`      | Matches the request's correlation ID  |
 | `TAG_BUFFER`     | `TAGGED_FIELDS` | Tagged fields         |
 
-The main difference is the addition of the `TAG_BUFFER` field. For this stage, you can leave the `TAG_BUFFER` empty.
+The main difference is the addition of the `TAG_BUFFER` field. You can leave the `TAG_BUFFER` empty.
 
 ### The `DescribeTopicPartitions` Response Body
 
@@ -71,7 +71,7 @@ For an unknown topic, your response should:
 - Leave the `partitions` array empty.
 - Set `next_cursor` to `-1` (null).
 
-Here's an example of what your response might look like for a topic named "foo":
+Here's an example of what your response might look like for a topic named `"foo"`:
 
 ```java
 00 00 00 2f  // message_size:                 47 bytes
@@ -114,7 +114,7 @@ The tester will validate that:
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The response uses response header v1 (with `TAG_BUFFER`).
 - The `error_code` in the response body is `3` (`UNKNOWN_TOPIC_OR_PARTITION`).
-- The response body should be valid DescribeTopicPartitions (v0) Response.
+- The response body should be a valid DescribeTopicPartitions (v0) Response.
 - The `topic_name` field in the response should be equal to the topic name sent in the request.
 - The `topic_id` field in the response should be equal to `00000000-0000-0000-0000-000000000000`.
 - The `partitions` field in the response should be empty.
