@@ -10,7 +10,6 @@ The topics in your response must be **sorted alphabetically** by topic name. Thi
 
 For example, if a client requests topics `"zebra"` and `"apple"`, your response should list `"apple"` first, then `"zebra"`.
 
-
 ### Tests
 
 The tester will execute your program like this:
@@ -21,14 +20,14 @@ $ ./your_program.sh /tmp/server.properties
 It will then send a `DescribeTopicPartitions` (v0) request with two topic names. Each topic will have one or two partitions.
 
 The tester will verify that:
-- The `message_size` field is correct.
+- The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The topics are sorted alphabetically by topic name.
-- Each topic entry has `error_code` of `0` (no error).
+- Each topic entry has an `error_code` of `0` (no error).
 - Each `topic_name` matches one of the requested topics.
 - Each `topic_id` matches the actual UUID from the cluster metadata.
 - Each topic's `partitions` array contains the correct partition entries.
-- All partition entries have `error_code` of `0` (no error).
+- All partition entries have an `error_code` of `0` (no error).
 - Each `partition_index` matches the actual partition IDs from the metadata.
 - The `next_cursor` value is `-1` (null).
 
