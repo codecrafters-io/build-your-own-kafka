@@ -2,7 +2,7 @@ In this stage, you'll implement the `DescribeTopicPartitions` response for a sin
 
 ### The `DescribeTopicPartitions` API (Recap)
 
-The [`DescribeTopicPartitions`](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/documentation/#intro_concepts_and_terms) and their [partitions](https://kafka.apache.org/documentation/#:~:text=partitioned). In previous stages, you treated all topics as unknown. For this stage, you'll read actual topic metadata (from a cluster metadata log) and send a valid response for that topic.
+As a recap, the [`DescribeTopicPartitions`](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/documentation/#intro_concepts_and_terms) and their [partitions](https://kafka.apache.org/documentation/#:~:text=partitioned). In previous stages, you treated all topics as unknown. For this stage, you'll read actual topic metadata (from a cluster metadata log) and send a valid response for that topic.
 
 We've created an interactive protocol inspector for the cluster metadata format and the `DescribeTopicPartitions` response structure:
 
@@ -26,11 +26,11 @@ The Kafka documentation doesn't cover the internal structure of `__cluster_metad
 
 ### Building the Response for Existing Topics
 
-When a topic exists, your response should contain complete metadata about it. The key differences from the "unknown topic" response are:
+When a topic exists, your response should contain complete metadata about it. The key differences from the `"unknown topic"` response are:
 
-- Set `error_code` to `0` (no error)
-- Use the actual `topic_id` (UUID) from the cluster metadata, not all zeros
-- Include partition information in the `partitions` array
+- Set `error_code` to `0` (no error).
+- Use the actual `topic_id` (UUID) from the cluster metadata, not all zeros.
+- Include partition information in the `partitions` array.
 
 Each partition entry in the `partitions` array contains:
 
@@ -49,7 +49,7 @@ Each partition entry in the `partitions` array contains:
 
 For this stage, the tester will send requests for topics with a single partition.
 
-Here's an example response for a topic named "foo" with one partition:
+Here's an example response for a topic named `"foo"` with one partition:
 
 ```
 00 00 00 4a  // message_size:                 74 bytes
@@ -87,6 +87,7 @@ ff           // next_cursor:                  -1 (null)
 ### Tests
 
 The tester will execute your program like this:
+
 ```bash
 $ ./your_program.sh /tmp/server.properties
 ```
@@ -94,7 +95,7 @@ $ ./your_program.sh /tmp/server.properties
 It will then send a `DescribeTopicPartitions` (v0) request for a topic that exists with a single partition.
 
 The tester will verify that:
-- The `message_size` field is correct.
+- The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The `error_code` in the topic entry is `0` (no error).
 - The response is a valid `DescribeTopicPartitions` (v0) response.
