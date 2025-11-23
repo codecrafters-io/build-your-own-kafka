@@ -1,35 +1,38 @@
 In this stage, you'll implement the `DescribeTopicPartitions` response for multiple topics.
 
-🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
+### Handling Multiple Topics
 
-In the meantime, please use
-[this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+WQ2+%28DescribeTopicPartition+with+multiple+topics%29&body=%3Cyour+question+here%3E)
-to ask questions on the forum.
+In previous stages, you responded with metadata for a single topic. Now you'll handle requests that ask about multiple topics at once.
+
+The `DescribeTopicPartitions` request can include multiple topic names in the `topics` array. Your response should include a corresponding entry for each requested topic in the response's `topics` array.
+
+The topics in your response must be **sorted alphabetically** by topic name. This ensures consistent ordering regardless of how the client sends the request.
+
+For example, if a client requests topics `"zebra"` and `"apple"`, your response should list `"apple"` first, then `"zebra"`.
 
 ### Tests
 
 The tester will execute your program like this:
-
 ```bash
 $ ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `DescribeTopicPartitions` (v0) request. The request will contain 2 topic names. The topics exist and have 1 or 2 partitions assigned to each.
+It will then send a `DescribeTopicPartitions` (v0) request with two topic names. Each topic will have one or two partitions.
 
-The tester will validate that:
-
-- The first 4 bytes of your response (the "message length") are valid.
+The tester will verify that:
+- The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The topics are sorted alphabetically by topic name.
-- The error code in the topic response body is `0` (NO_ERROR).
-- The `topic_name` field in the topic response should be equal to the topic name sent in the request.
-- The `topic_id` field in the topic response should be equal to the topic UUID of the topic.
-- The partition response should contain details of the partitions assigned to the topic.
-- The error code in all the partition responses should be `0` (NO_ERROR).
-- The `partition_index` field in all the partition responses should be equal to the partition ID of the partition assigned to the topic.
-- The value of `cursor` is -1, indicating that the cursor is null.
-
+- Each topic entry has an `error_code` of `0` (no error).
+- Each `topic_name` matches one of the requested topics.
+- Each `topic_id` matches the actual UUID from the cluster metadata.
+- Each topic's `partitions` array contains the correct partition entries.
+- All partition entries have an `error_code` of `0` (no error).
+- Each `partition_index` matches the actual partition IDs from the metadata.
+- The `next_cursor` value is `-1` (null).
 
 ### Notes
 
-- The official docs for the `DescribeTopicPartitions` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions).
+- Topics must be sorted alphabetically by name in the response.
+- Each topic in the request gets its own complete entry in the response's `topics` array.
+- The official [`DescribeTopicPartitions` documentation](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) contains the complete response schema.
