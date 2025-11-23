@@ -30,6 +30,5 @@ The tester will verify that:
 
 ### Notes
 
-- The main change from the previous stage is handling multiple partition entries in the response.
 - Each partition should have its own complete entry in the `partitions` array with the correct `partition_index`.
 - The official [`DescribeTopicPartitions` documentation](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) contains the complete response schema.
