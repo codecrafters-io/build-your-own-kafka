@@ -2,7 +2,7 @@
 FROM elixir:1.19.4-alpine
 
 # Ensures the container is re-built if dependency files change
-ENV CODECRAFTERS_DEPENDENCY_FILE_PATHS="mix.exs"
+ENV CODECRAFTERS_DEPENDENCY_FILE_PATHS="mix.exs,mix.lock"
 
 WORKDIR /app
 
