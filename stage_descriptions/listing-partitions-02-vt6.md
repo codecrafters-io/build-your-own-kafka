@@ -22,7 +22,7 @@ Each topic in the `topics` array contains:
 
 | Field        | Data type    | Description          |
 | ------------ | ------------ | -------------------- |
-| `topic_name`       | `STRING`     | The topic name       |
+| `topic_name` | `COMPACT_STRING`     | The topic name       |
 | `TAG_BUFFER` | `TAGGED_FIELDS` | Tagged fields        |
 
 For this stage, the tester will send a request with a single topic name. You'll need to extract this name and echo it back in your response.
@@ -54,7 +54,7 @@ Each topic in the `topics` array contains:
 | Field             | Data type       | Description                                       |
 | ----------------- | --------------- | ------------------------------------------------- |
 | `error_code`      | `INT16`         | Error code     |
-| `topic_name`            | `STRING`        | The topic name (from the request)                 |
+| `topic_name`      | `COMPACT_STRING`| The topic name (from the request)                 |
 | `topic_id`        | `UUID`          | Topic UUID    |
 | `is_internal`     | `BOOLEAN`       | Whether topic is internal           |
 | `partitions`      | `COMPACT_ARRAY` | Array of partition metadata (empty for unknown)   |
