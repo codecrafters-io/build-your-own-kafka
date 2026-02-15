@@ -5,6 +5,7 @@ In this stage, you'll implement the Produce response for valid topics and partit
 When a Kafka broker receives a `Produce` request, it needs to validate that both the topic and partition exist. If either the topic or partition doesn't exist, it returns an appropriate error code and response.
 
 The broker performs validation in this order:
+
 1. **Topic validation**: Check if the topic exists by reading the `__cluster_metadata` topic's log file
 2. **Partition validation**: If the topic exists, check if the partition exists within that topic
 
@@ -14,9 +15,16 @@ To validate that a topic exists, the broker reads the `__cluster_metadata` topic
 
 ### Partition Validation
 
-To validate that a partition exists, the broker reads the same `__cluster_metadata` topic's log file and finds the partition's metadata, which is a `record` (inside a RecordBatch) with a payload of type `PARTITION_RECORD`. If there exists a `PARTITION_RECORD` with the given partition index, the UUID of the topic it is associated with, and the UUID of the directory it is associated with, the partition exists.
+To validate that a partition exists, the broker reads the same `__cluster_metadata` topic's log file and finds the partition's metadata, which is a `record` (inside a RecordBatch) with a payload of type `PARTITION_RECORD`.
+
+A partition is considered to exist if there is a PARTITION_RECORD that matches:
+
+- the requested partition ID,
+- the UUID of the topic it belongs to,
+- the UUID of the log directory where the partition is stored. (You can assume the third criterion is always true in the test runner.)
 
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
+
 - 🔎 [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata)
 
 ### Tests
