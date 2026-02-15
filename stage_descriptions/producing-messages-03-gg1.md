@@ -21,7 +21,7 @@ A partition is considered to exist if there is a PARTITION_RECORD that matches:
 
 - the requested partition ID,
 - the UUID of the topic it belongs to,
-- the UUID of the log directory where the partition is stored. (You can assume the third criterion is always true in the test runner.)
+- the UUID of the log directory where the partition is stored.
 
 We've also created an interactive protocol inspector for the `__cluster_metadata` topic's log file:
 
