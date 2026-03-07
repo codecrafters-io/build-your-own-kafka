@@ -28,6 +28,7 @@ languages:
   - slug: "kotlin"
   - slug: "python"
   - slug: "rust"
+  - slug: "scala"
   - slug: "typescript"
   - slug: "zig"
 
