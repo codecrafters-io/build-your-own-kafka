@@ -32,10 +32,9 @@ The tester will validate that:
     - The `base_offset` field is 0 (the base offset for the batch).
     - The `log_append_time_ms` field is `-1` (signifying that the timestamp is the latest).
     - The `log_start_offset` field is `0`.
-  
 - The RecordBatch sent in the request is written in `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
 
 ### Notes
 
-- The on-disk log files must be stored in [RecordBatch](https://kafka.apache.org/documentation/#recordbatch) format. You should write each `RecordBatch` from the request directly to the log file of the appropriate topic's partition.
-- The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 11)" section.
+- The on-disk log files must be stored in [RecordBatch](https://kafka.apache.org/42/implementation/message-format/#record-batchh) format. You should write each `RecordBatch` from the request directly to the log file of the appropriate topic's partition.
+- The official docs for the `Produce` API can be found [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Produce). Make sure to scroll down to the "(Version: 11)" section.

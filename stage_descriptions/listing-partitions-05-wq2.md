@@ -13,6 +13,7 @@ For example, if a client requests topics `"zebra"` and `"apple"`, your response 
 ### Tests
 
 The tester will execute your program like this:
+
 ```bash
 $ ./your_program.sh /tmp/server.properties
 ```
@@ -20,6 +21,7 @@ $ ./your_program.sh /tmp/server.properties
 It will then send a `DescribeTopicPartitions` (v0) request with two topic names. Each topic will have one or two partitions.
 
 The tester will verify that:
+
 - The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The topics are sorted alphabetically by topic name.
@@ -35,4 +37,4 @@ The tester will verify that:
 
 - Topics must be sorted alphabetically by name in the response.
 - Each topic in the request gets its own complete entry in the response's `topics` array.
-- The official [`DescribeTopicPartitions` documentation](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) contains the complete response schema.
+- The official [`DescribeTopicPartitions` documentation](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) contains the complete response schema.

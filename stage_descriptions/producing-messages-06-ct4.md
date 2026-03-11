@@ -36,5 +36,5 @@ The tester will validate that:
 
 ### Notes
 
-- The on-disk log files must be stored in [RecordBatch](https://kafka.apache.org/documentation/#recordbatch) format. You should write each `RecordBatch` from the request directly to the log file of the appropriate topic's partition.
-- The official docs for the `Produce` API can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Produce). Make sure to scroll down to the "(Version: 11)" section.
+- The on-disk log files must be stored in [RecordBatch](https://kafka.apache.org/42/implementation/message-format/#record-batchh) format. You should write each `RecordBatch` from the request directly to the log file of the appropriate topic's partition.
+- The official docs for the `Produce` API can be found [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Produce). Make sure to scroll down to the "(Version: 11)" section.

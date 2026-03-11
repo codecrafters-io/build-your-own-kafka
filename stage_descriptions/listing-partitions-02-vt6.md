@@ -2,7 +2,7 @@ In this stage, you'll implement the `DescribeTopicPartitions` response for an un
 
 ### The `DescribeTopicPartitions` API (Recap)
 
-As a recap, the [`DescribeTopicPartitions`](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/documentation/#intro_concepts_and_terms) and their [partitions](https://kafka.apache.org/documentation/#:~:text=partitioned). For this stage, you'll handle cases where a client requests a topic that doesn't exist.
+As a recap, the [`DescribeTopicPartitions`](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=topics) and their [partitions](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=partitioned). For this stage, you'll handle cases where a client requests a topic that doesn't exist.
 
 We've created an interactive protocol inspector for the `DescribeTopicPartitions` request & response:
 
@@ -11,30 +11,30 @@ We've created an interactive protocol inspector for the `DescribeTopicPartitions
 
 ### Parsing the Request
 
-To respond correctly, you'll need to parse the `DescribeTopicPartitions` request to extract the topic name. The [`DescribeTopicPartitions` request (v0)](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) contains:
+To respond correctly, you'll need to parse the `DescribeTopicPartitions` request to extract the topic name. The [`DescribeTopicPartitions` request (v0)](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) contains:
 
-| Field        | Data type       | Description                           |
-| ------------ | --------------- | ------------------------------------- |
-| `topics`     | `COMPACT_ARRAY` | Array of topics to get metadata for   |
-| `TAG_BUFFER` | `TAGGED_FIELDS`    | Tagged fields                         |
+| Field        | Data type       | Description                         |
+| ------------ | --------------- | ----------------------------------- |
+| `topics`     | `COMPACT_ARRAY` | Array of topics to get metadata for |
+| `TAG_BUFFER` | `TAGGED_FIELDS` | Tagged fields                       |
 
 Each topic in the `topics` array contains:
 
-| Field        | Data type    | Description          |
-| ------------ | ------------ | -------------------- |
-| `topic_name` | `COMPACT_STRING`     | The topic name       |
-| `TAG_BUFFER` | `TAGGED_FIELDS` | Tagged fields        |
+| Field        | Data type        | Description    |
+| ------------ | ---------------- | -------------- |
+| `topic_name` | `COMPACT_STRING` | The topic name |
+| `TAG_BUFFER` | `TAGGED_FIELDS`  | Tagged fields  |
 
 For this stage, the tester will send a request with a single topic name. You'll need to extract this name and echo it back in your response.
 
 ### Response Header v1
 
-In previous stages, you used response header v0, which only contained the `correlation_id` field. For this stage, you'll use [response header v1](https://kafka.apache.org/protocol.html#protocol_messages), which has the following structure:
+In previous stages, you used response header v0, which only contained the `correlation_id` field. For this stage, you'll use [response header v1](https://kafka.apache.org/42/design/protocol/#the-messages), which has the following structure:
 
-| Field            | Data type    | Description                           |
-| ---------------- | ------------ | ------------------------------------- |
-| `correlation_id` | `INT32`      | Matches the request's correlation ID  |
-| `TAG_BUFFER`     | `TAGGED_FIELDS` | Tagged fields         |
+| Field            | Data type       | Description                          |
+| ---------------- | --------------- | ------------------------------------ |
+| `correlation_id` | `INT32`         | Matches the request's correlation ID |
+| `TAG_BUFFER`     | `TAGGED_FIELDS` | Tagged fields                        |
 
 The main difference is the addition of the `TAG_BUFFER` field. You can leave the `TAG_BUFFER` empty.
 
@@ -42,26 +42,27 @@ The main difference is the addition of the `TAG_BUFFER` field. You can leave the
 
 The `DescribeTopicPartitions` response body has the following structure:
 
-| Field              | Data type       | Description                                    |
-| ------------------ | --------------- | ---------------------------------------------- |
-| `throttle_time_ms` | `INT32`         | Throttle time in milliseconds (use `0`)          |
-| `topics`           | `COMPACT_ARRAY` | Array of topic metadata                        |
-| `next_cursor`      | `NULLABLE_INT8` | Pagination cursor (use `-1` for null)            |
-| `TAG_BUFFER`       | `TAGGED_FIELDS`    | Tagged fields                                  |
+| Field              | Data type       | Description                             |
+| ------------------ | --------------- | --------------------------------------- |
+| `throttle_time_ms` | `INT32`         | Throttle time in milliseconds (use `0`) |
+| `topics`           | `COMPACT_ARRAY` | Array of topic metadata                 |
+| `next_cursor`      | `NULLABLE_INT8` | Pagination cursor (use `-1` for null)   |
+| `TAG_BUFFER`       | `TAGGED_FIELDS` | Tagged fields                           |
 
 Each topic in the `topics` array contains:
 
-| Field             | Data type       | Description                                       |
-| ----------------- | --------------- | ------------------------------------------------- |
-| `error_code`      | `INT16`         | Error code     |
-| `topic_name`      | `COMPACT_STRING`| The topic name (from the request)                 |
-| `topic_id`        | `UUID`          | Topic UUID    |
-| `is_internal`     | `BOOLEAN`       | Whether topic is internal           |
-| `partitions`      | `COMPACT_ARRAY` | Array of partition metadata (empty for unknown)   |
-| `topic_authorized_operations`      | `INT32` | Authorized operations bitfield (use `0`)   |
-| `TAG_BUFFER`      | `TAGGED_FIELDS`    | Tagged fields                                     |
+| Field                         | Data type        | Description                                     |
+| ----------------------------- | ---------------- | ----------------------------------------------- |
+| `error_code`                  | `INT16`          | Error code                                      |
+| `topic_name`                  | `COMPACT_STRING` | The topic name (from the request)               |
+| `topic_id`                    | `UUID`           | Topic UUID                                      |
+| `is_internal`                 | `BOOLEAN`        | Whether topic is internal                       |
+| `partitions`                  | `COMPACT_ARRAY`  | Array of partition metadata (empty for unknown) |
+| `topic_authorized_operations` | `INT32`          | Authorized operations bitfield (use `0`)        |
+| `TAG_BUFFER`                  | `TAGGED_FIELDS`  | Tagged fields                                   |
 
 For this stage, you should treat all topics as unknown. For an unknown topic, your response should:
+
 - Set `error_code` to `3` (`UNKNOWN_TOPIC_OR_PARTITION`).
 - Echo back the `topic_name` from the request.
 - Set `topic_id` to `00000000-0000-0000-0000-000000000000` (all zeros).

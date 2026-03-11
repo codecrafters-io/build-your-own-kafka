@@ -66,7 +66,7 @@ extensions:
 
       Along the way you'll learn about how Kafka stores messages on disk, the `__cluster_metadata` topic and more.
 
-      [describe-topic-partitions]: https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions
+      [describe-topic-partitions]: https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions
 
   - slug: "consuming-messages"
     name: "Consuming Messages"
@@ -75,7 +75,7 @@ extensions:
 
       Along the way you'll learn about how Kafka's Fetch API works, how Kafka stores messages on disk and more.
 
-      [fetch-api]: https://kafka.apache.org/protocol.html#The_Messages_Fetch
+      [fetch-api]: https://kafka.apache.org/42/design/protocol/#The_Messages_Fetch
 
   - slug: "producing-messages"
     name: "Producing Messages"
@@ -84,7 +84,7 @@ extensions:
 
       Along the way you'll learn about how Kafka's Produce API works, how Kafka stores messages on disk and more.
 
-      [produce-api]: https://kafka.apache.org/protocol.html#The_Messages_Produce
+      [produce-api]: https://kafka.apache.org/42/design/protocol/#The_Messages_Produce
 
 stages:
   - slug: "vi6"
