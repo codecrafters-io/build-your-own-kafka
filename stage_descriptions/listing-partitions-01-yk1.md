@@ -2,13 +2,13 @@ In this stage, you'll add an entry for the `DescribeTopicPartitions` API to the 
 
 ### The `ApiVersions` API (Recap)
 
-As a recap, the [`ApiVersions`](https://kafka.apache.org/protocol.html#The_Messages_ApiVersions) API returns the broker's supported API versions. The [response](https://binspec.org/kafka-api-versions-Response-v4) includes a list of APIs, along with their minimum and maximum supported versions.
+As a recap, the [`ApiVersions`](https://kafka.apache.org/42/design/protocol/#The_Messages_ApiVersions) API returns the broker's supported API versions. The [response](https://binspec.org/kafka-api-versions-Response-v4) includes a list of APIs, along with their minimum and maximum supported versions.
 
 In previous stages, you implemented the `ApiVersions` response with a single entry for the `ApiVersions` API itself. Now you'll add a second entry for the `DescribeTopicPartitions` API.
 
 ### The `DescribeTopicPartitions` API
 
-The [`DescribeTopicPartitions`](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/documentation/#intro_concepts_and_terms) and their [partitions](https://kafka.apache.org/documentation/#:~:text=partitioned). For this stage, you only need to advertise support for it in the `ApiVersions` response. You'll implement the actual API handling in later stages.
+The [`DescribeTopicPartitions`](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=topics) and their [partitions](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=partitioned). For this stage, you only need to advertise support for it in the `ApiVersions` response. You'll implement the actual API handling in later stages.
 
 Your `ApiVersions` response should now include two entries in the `api_keys` array:
 

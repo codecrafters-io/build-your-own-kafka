@@ -12,7 +12,7 @@ In a previous stage, you sent a response with a hardcoded `correlation_id`. Now 
 
 ### Parsing the Request Header
 
-To extract the `correlation_id`, you need to parse the request header. For this stage, you'll work with [request header v2](https://kafka.apache.org/protocol.html#protocol_messages).
+To extract the `correlation_id`, you need to parse the request header. For this stage, you'll work with [request header v2](https://kafka.apache.org/42/design/protocol/#the-messages).
 
 Here’s what the structure looks like:
 
@@ -24,7 +24,7 @@ Here’s what the structure looks like:
 | `client_id`           | `NULLABLE_STRING` | Variable     | The client ID for the request          |
 | `TAG_BUFFER`          | `TAGGED_FIELDS`   | Variable     | Optional tagged fields                 |
 
-_To learn more about the different data types, see [Protocol Primitive Types](https://kafka.apache.org/protocol.html#protocol_types)._
+_To learn more about the different data types, see [Protocol Primitive Types](https://kafka.apache.org/42/design/protocol/#protocol-primitive-types)._
 
 To get the `correlation_id` field, you need to find its offset in the request message. Here's an example request showing where each field is located:
 

@@ -2,7 +2,7 @@ In this stage, you'll implement the response body for the `ApiVersions` request.
 
 ### The `ApiVersions` API (Recap)
 
-As a recap, the [`ApiVersions`](https://kafka.apache.org/protocol.html#The_Messages_ApiVersions) API returns the broker's supported API versions. The response includes a list of APIs, along with their minimum and maximum supported versions.
+As a recap, the [`ApiVersions`](https://kafka.apache.org/42/design/protocol/#The_Messages_ApiVersions) API returns the broker's supported API versions. The response includes a list of APIs, along with their minimum and maximum supported versions.
 
 We've created an interactive protocol inspector to help you visualize the request and response structures:
 

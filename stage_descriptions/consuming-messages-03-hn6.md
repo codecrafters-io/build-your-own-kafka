@@ -31,5 +31,5 @@ The tester will validate that:
 ### Notes
 
 - You'll need to parse the `Fetch` request in this stage to get the `topic_id` to send in the response.
-- The official docs for the `Fetch` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Fetch). Make sure
+- The official docs for the `Fetch` request can be found [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Fetch). Make sure
   to scroll down to the "Fetch Response (Version: 16)" section.

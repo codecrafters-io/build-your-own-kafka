@@ -2,7 +2,7 @@ In this stage, you'll implement adding the Produce API to the ApiVersions respon
 
 ### The Produce API
 
-The [Produce API](https://kafka.apache.org/protocol#The_Messages_Produce) (API key `0`) is used to produce messages to a Kafka topic.
+The [Produce API](https://kafka.apache.org/42/design/protocol/#The_Messages_Produce) (API key `0`) is used to produce messages to a Kafka topic.
 
 We've created an interactive protocol inspector for the request & response structures for `Produce`:
 

@@ -34,5 +34,5 @@ The tester will validate that:
 ### Notes
 
 - You don't need to parse the fields in the `Fetch` request in this stage, we'll get to this in later stages.
-- The official docs for the `Fetch` request can be found [here](https://kafka.apache.org/protocol.html#The_Messages_Fetch). Make sure
-to scroll down to the "Fetch Response (Version: 16)" section.
+- The official docs for the `Fetch` request can be found [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Fetch). Make sure
+  to scroll down to the "Fetch Response (Version: 16)" section.

@@ -2,7 +2,7 @@ In this stage, you'll implement the `DescribeTopicPartitions` response for a sin
 
 ### The `DescribeTopicPartitions` API (Recap)
 
-As a recap, the [`DescribeTopicPartitions`](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/documentation/#intro_concepts_and_terms) and their [partitions](https://kafka.apache.org/documentation/#:~:text=partitioned). In previous stages, you treated all topics as unknown. For this stage, you'll read actual topic metadata (from a cluster metadata log) and send a valid response for that topic.
+As a recap, the [`DescribeTopicPartitions`](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=topics) and their [partitions](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=partitioned). In previous stages, you treated all topics as unknown. For this stage, you'll read actual topic metadata (from a cluster metadata log) and send a valid response for that topic.
 
 We've created an interactive protocol inspector for the cluster metadata format and the `DescribeTopicPartitions` response structure:
 
@@ -14,11 +14,13 @@ We've created an interactive protocol inspector for the cluster metadata format 
 Kafka stores metadata about topics in the `__cluster_metadata` topic. This is an internal topic that contains records about topic creation, partition assignments, and other cluster configuration. To check if a topic exists and get its metadata, you'll need to read the cluster metadata log file.
 
 The log file is located at:
+
 ```
 /tmp/kraft-combined-logs/__cluster_metadata-0/00000000000000000000.log
 ```
 
 You'll need to parse this file to extract:
+
 - Topic names and their UUIDs
 - Partition IDs for each topic
 
@@ -34,18 +36,18 @@ When a topic exists, your response should contain complete metadata about it. Th
 
 Each partition entry in the `partitions` array contains:
 
-| Field                              | Data type       | Description                                    |
-| ---------------------------------- | --------------- | ---------------------------------------------- |
-| `error_code`                       | `INT16`         | Error code (0 for valid partitions)            |
-| `partition_index`                  | `INT32`         | The partition ID                               |
-| `leader_id`                        | `INT32`         | The broker ID hosting this partition           |
-| `leader_epoch`                     | `INT32`         | The leader epoch                               |
-| `replica_nodes`                    | `COMPACT_ARRAY` | Array of replica broker IDs                    |
-| `isr_nodes`                        | `COMPACT_ARRAY` | Array of in-sync replica broker IDs            |
-| `eligible_leader_replicas`         | `COMPACT_ARRAY` | Array of eligible leader replica broker IDs    |
-| `last_known_elr`                   | `COMPACT_ARRAY` | Array of last known eligible leader replicas   |
-| `offline_replicas`                 | `COMPACT_ARRAY` | Array of offline replica broker IDs            |
-| `TAG_BUFFER`                       | `TAGGED_FIELDS` | Tagged fields                                  |
+| Field                      | Data type       | Description                                  |
+| -------------------------- | --------------- | -------------------------------------------- |
+| `error_code`               | `INT16`         | Error code (0 for valid partitions)          |
+| `partition_index`          | `INT32`         | The partition ID                             |
+| `leader_id`                | `INT32`         | The broker ID hosting this partition         |
+| `leader_epoch`             | `INT32`         | The leader epoch                             |
+| `replica_nodes`            | `COMPACT_ARRAY` | Array of replica broker IDs                  |
+| `isr_nodes`                | `COMPACT_ARRAY` | Array of in-sync replica broker IDs          |
+| `eligible_leader_replicas` | `COMPACT_ARRAY` | Array of eligible leader replica broker IDs  |
+| `last_known_elr`           | `COMPACT_ARRAY` | Array of last known eligible leader replicas |
+| `offline_replicas`         | `COMPACT_ARRAY` | Array of offline replica broker IDs          |
+| `TAG_BUFFER`               | `TAGGED_FIELDS` | Tagged fields                                |
 
 For this stage, the tester will send requests for topics with a single partition.
 
@@ -95,6 +97,7 @@ $ ./your_program.sh /tmp/server.properties
 It will then send a `DescribeTopicPartitions` (v0) request for a topic that exists with a single partition.
 
 The tester will verify that:
+
 - The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The `error_code` in the topic entry is `0` (no error).
@@ -110,4 +113,4 @@ The tester will verify that:
 
 - You'll need to parse the cluster metadata log file to extract the topic and partition information.
 - The official Kafka protocol documentation doesn't detail the `__cluster_metadata` structure. Refer to the [Kafka source code](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata) for schema definitions.
-- The official [`DescribeTopicPartitions` documentation](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) contains the complete response schema.
+- The official [`DescribeTopicPartitions` documentation](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) contains the complete response schema.

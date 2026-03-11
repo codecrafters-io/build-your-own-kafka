@@ -17,6 +17,7 @@ $ ./your_program.sh /tmp/server.properties
 It will then send a `DescribeTopicPartitions` (v0) request for a topic that has two partitions.
 
 The tester will verify that:
+
 - The `message_size` field correctly represents the size of the header and body.
 - The correlation ID in the response header matches the correlation ID in the request header.
 - The `error_code` in the topic entry is `0` (no error).
@@ -31,4 +32,4 @@ The tester will verify that:
 ### Notes
 
 - Each partition should have its own complete entry in the `partitions` array with the correct `partition_index`.
-- The official [`DescribeTopicPartitions` documentation](https://kafka.apache.org/protocol.html#The_Messages_DescribeTopicPartitions) contains the complete response schema.
+- The official [`DescribeTopicPartitions` documentation](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) contains the complete response schema.
