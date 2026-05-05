@@ -73,9 +73,9 @@ a3 b4 c5 d6  //
 00 00 00 01  // leader_id:                    1
 00 00 00 00  // leader_epoch:                 0
 02           // replica_nodes:                1 element
-01           //                               broker 1
+00 00 00 01  //                               broker 1
 02           // isr_nodes:                    1 element
-01           //                               broker 1
+00 00 00 01  //                               broker 1
 01           // eligible_leader_replicas:     0 elements (empty)
 01           // last_known_elr:               0 elements (empty)
 01           // offline_replicas:             0 elements (empty)
