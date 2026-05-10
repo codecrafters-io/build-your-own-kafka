@@ -1,13 +1,14 @@
 const std = @import("std");
-const net = std.net;
-const posix = std.posix;
+const net = std.Io.net;
 
-pub fn main() !void {
-    const address = try net.Address.resolveIp("127.0.0.1", 9092);
-    var listener = try address.listen(.{
+pub fn main(init: std.process.Init) !void {
+    const io = init.io;
+
+    const address = try net.IpAddress.parse("127.0.0.1", 9092);
+    var listener = try address.listen(io, .{
         .reuse_address = true,
     });
-    defer listener.deinit();
+    defer listener.deinit(io);
 
-    _ = try listener.accept();
+    _ = try listener.accept(io);
 }
