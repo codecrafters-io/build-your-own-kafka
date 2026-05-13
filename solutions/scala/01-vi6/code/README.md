@@ -15,11 +15,10 @@ about handling the network protocol, event loops, TCP sockets and more.
 
 The entry point for your Kafka implementation is in
 `src/main/scala/codecrafters_kafka/App.scala`. Study and uncomment the relevant
-code, and push your changes to pass the first stage:
+code, and then run the command below to execute the tests on our servers:
 
 ```sh
-git commit -am "pass 1st stage" # any msg
-git push origin master
+codecrafters submit
 ```
 
 That's all!
