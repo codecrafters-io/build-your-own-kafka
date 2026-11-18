@@ -4,10 +4,11 @@ short_name: "Kafka"
 release_status: "live"
 
 description_md: |-
-  Apache Kafka is a distributed event streaming platform often used for high-performance data pipelines. In this challenge, you'll build your own Kafka broker
-  that's capable of serving basic requests.
+  How does a Kafka client find messages that were written earlier?
 
-  Along the way you'll learn about TCP servers, the Kafka wire protocol and more.
+  A broker is a Kafka server that stores event streams. Each stream is a sequence of messages, such as order updates, grouped into a named topic and divided into partition logs. Clients identify the topic and partition to read. You'll build a broker that negotiates API versions. Extensions add concurrent clients, topic and partition discovery, and reading and writing messages on disk. Replication is outside this single-broker build.
+
+  You'll practice encoding binary messages, separating requests on a TCP connection, looking up metadata, and preserving structured records on disk.
 
 short_description_md: |-
   Learn about TCP servers, the Kafka wire protocol and more.
