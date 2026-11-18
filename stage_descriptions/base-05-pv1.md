@@ -1,6 +1,6 @@
-Complete your `ApiVersions` v4 response so clients can discover the operations
-your broker supports. This also replaces the placeholder `message_size` with the
-actual response length.
+Clients use `ApiVersions` to discover the operations your broker supports. In
+this stage, you'll complete the v4 response and replace the placeholder
+`message_size` with the actual response length.
 
 ### The `ApiVersions` API
 
@@ -63,9 +63,8 @@ ab cd ef 12  // correlation_id:    (matches request)
 00           // TAG_BUFFER:        empty
 ```
 
-This is the first stage where the tester will validate the `message_size` field.
-For example, if your response header is 4 bytes and your body is 15 bytes, your
-`message_size` should be `19`.
+The tester now validates the `message_size` field. For example, if your response
+header is 4 bytes and your body is 15 bytes, your `message_size` should be `19`.
 
 ### Tests
 

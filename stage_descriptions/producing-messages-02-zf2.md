@@ -1,6 +1,6 @@
-Your broker advertises `Produce`. Now answer a v11 request whose target topic or
-partition does not exist. This gives clients an explicit failure before you add
-successful writes.
+Your broker advertises `Produce`, but it cannot yet accept writes. In this
+stage, you'll answer a v11 request with an explicit error when its target topic
+or partition does not exist.
 
 ### Produce response for invalid topics or partitions
 
@@ -47,18 +47,19 @@ second request will be invalid topic.
 
 For the responses of both requests, the tester will validate that:
 
+<!-- prettier-ignore -->
 - The first 4 bytes of your response (the "message length") are valid.
 - The correlation ID in the response header matches the correlation ID in the
   request header.
 - The `throttle_time_ms` field in the response is `0`.
 - The `topics` field has 1 element, and in that element:
-  - The `name` field matches the topic name in the request.
-  - The `partitions` field has 1 element, and in that element:
-    - The `error_code` is `3` (`UNKNOWN_TOPIC_OR_PARTITION`).
-    - The `index` field matches the partition in the request.
-    - The `base_offset` field is `-1`.
-    - The `log_append_time_ms` field is `-1`.
-    - The `log_start_offset` field is `-1`.
+    - The `name` field matches the topic name in the request.
+    - The `partitions` field has 1 element, and in that element:
+        - The `error_code` is `3` (`UNKNOWN_TOPIC_OR_PARTITION`).
+        - The `index` field matches the partition in the request.
+        - The `base_offset` field is `-1`.
+        - The `log_append_time_ms` field is `-1`.
+        - The `log_start_offset` field is `-1`.
 
 ### Notes
 
@@ -66,6 +67,6 @@ For the responses of both requests, the tester will validate that:
   and partition to send in the response.
 - You can keep the error code fixed in this stage. Checking actual topic and
   partition metadata comes next.
-- The official docs for the `Produce` API can be found
-  [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Produce).
-  Make sure to scroll down to the "(Version: 11)" section.
+- See the
+  [Produce API schemas](https://kafka.apache.org/42/design/protocol/#The_Messages_Produce),
+  under "(Version: 11)".

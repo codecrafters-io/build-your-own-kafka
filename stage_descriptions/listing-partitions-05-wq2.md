@@ -1,5 +1,5 @@
-Extend your single-topic lookup to answer a request for several topics. A client
-can then discover their partitions in one exchange.
+Your broker can look up one topic. In this stage, you'll answer a request for
+several topics so a client can discover their partitions in one exchange.
 
 ### Handling multiple topics
 

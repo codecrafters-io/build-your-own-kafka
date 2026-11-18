@@ -1,6 +1,5 @@
-Distinguish an existing topic with an empty log from an unknown topic. The
-former is a successful Fetch with no records, so its partition error code is
-`0`.
+An existing topic can have an empty log. In this stage, you'll distinguish that
+successful Fetch with no records from an unknown-topic error.
 
 ### Finding an existing topic
 
@@ -28,7 +27,7 @@ their fields start after the payload's three-byte prefix. Other metadata record
 types can appear in the same log.
 
 For the existing topic and partition `0`, return no record-batch bytes. An empty
-log does not make the topic unknown. Message data comes in the next stage.
+log does not make the topic unknown. Message data comes in later stages.
 
 ### Tests
 
@@ -44,25 +43,26 @@ the topic has no messages assigned to it (i.e. the log file is empty).
 
 The tester will validate that:
 
+<!-- prettier-ignore -->
 - The first 4 bytes of your response (the "message length") are valid.
 - The correlation ID in the response header matches the correlation ID in the
   request header.
 - The error code in the response body is `0` (No Error).
 - The `throttle_time_ms` field in the response is `0`.
 - The `responses` field in the response has 1 element, and in that element:
-  - The `topic_id` field matches what was sent in the request.
-  - The `partitions` array has 1 element, and in that element:
-    - The `partition_index` field is `0`.
-    - The `error_code` field is `0` (No Error).
-    - The `records` field contains no record batches.
+    - The `topic_id` field matches what was sent in the request.
+    - The `partitions` array has 1 element, and in that element:
+        - The `partition_index` field is `0`.
+        - The `error_code` field is `0` (No Error).
+        - The `records` field contains no record batches.
 
 ### Notes
 
 - You'll need to parse the `Fetch` request in this stage to get the `topic_id`
   to send in the response.
-- The official docs for the `Fetch` request can be found
-  [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Fetch). Make
-  sure to scroll down to the "Fetch Response (Version: 16)" section.
+- See the
+  [Fetch response schema](https://kafka.apache.org/42/design/protocol/#The_Messages_Fetch),
+  under "Fetch Response (Version: 16)".
 
 For questions about this stage,
 [ask on the forum](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+cm4%3A+Fetch+with+an+empty+topic&body=%3Cyour+question+here%3E).

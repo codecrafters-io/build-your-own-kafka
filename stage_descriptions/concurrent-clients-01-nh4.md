@@ -1,7 +1,8 @@
 The Concurrent Clients extension lets your broker serve clients without
-restarting between requests. Start by keeping one client's connection open for
-several request-response exchanges. Reuse the `ApiVersions` response from the
-core stages.
+restarting between requests, reusing your `ApiVersions` response. In this stage,
+you'll keep one client's connection open for several request-response exchanges.
+
+### Requests on one connection
 
 TCP carries a byte stream and does not preserve message boundaries. A receive
 operation can return only part of a request, or bytes from more than one

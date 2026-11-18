@@ -1,6 +1,6 @@
 The Listing Partitions extension lets clients discover how a topic's events are
-divided into partitions. Start by advertising `DescribeTopicPartitions` in the
-`ApiVersions` response you built in core. Handling that new API comes later.
+divided into partitions. In this stage, you'll advertise
+`DescribeTopicPartitions` in your existing `ApiVersions` response.
 
 ### The `ApiVersions` API
 
@@ -25,14 +25,14 @@ A topic is a named event stream, and each partition is an ordered log within it.
 Clients need metadata such as partition IDs to address the right log. This stage
 only advertises the API's availability.
 
-Your `ApiVersions` response should now include two entries in the `api_keys`
-array:
+Your `ApiVersions` response should now include these two required entries in the
+`api_keys` array, alongside any other supported APIs:
 
 - `ApiVersions` (API key `18`): `min_version` `0`, `max_version` `4`.
 - `DescribeTopicPartitions` (API key `75`): `min_version` `0`, `max_version`
   `0`.
 
-Here's an example of what your updated response might look like:
+Here's an example containing only those two entries:
 
 ```bash
 00 00 00 1a  // message_size:      26 bytes

@@ -1,17 +1,14 @@
-Replace the always-error shortcut with metadata validation. For an existing
-topic and partition, send a successful Produce response. Writing the received
-record batch to disk starts in the next stage.
+A Produce request can succeed only when its topic and partition exist. In this
+stage, you'll validate that destination using metadata and send a successful
+response for a valid request.
 
 ### Produce response for valid topics
-
-When a Kafka broker receives a `Produce` request, it needs to validate that both
-the topic and partition exist. If either the topic or partition doesn't exist,
-it returns an appropriate error code and response.
 
 The supplied metadata identifies topics and the partitions belonging to each
 topic. A partition index alone does not identify a destination, because
 different topics can each have partition `0`. If you completed Listing
-Partitions, this uses the same metadata log.
+Partitions, this uses the same metadata log. Writing the received record batch
+to disk comes in later stages.
 
 ### Topic validation
 
@@ -38,11 +35,8 @@ types can appear in the same log.
 
 ### Partition validation
 
-To validate that a partition exists, the broker reads the same
-`__cluster_metadata` topic's log file and finds the partition's metadata, which
-is a `record` (inside a RecordBatch) with a payload of type `PARTITION_RECORD`.
-
-A partition is considered to exist if there is a PARTITION_RECORD that matches:
+In the same metadata log, a `PARTITION_RECORD` identifies an existing
+destination when it matches:
 
 - the requested partition ID,
 - the UUID of the topic it belongs to,
@@ -52,15 +46,14 @@ The supplied log directory's `meta.properties` contains `directory.id` in
 URL-safe Base64 form. Metadata partition records store the same identifier as 16
 UUID bytes. These are two representations of the same value.
 
-We've also created an interactive protocol inspector for the
-`__cluster_metadata` topic's log file:
-
-- [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata)
+The
+[Cluster Metadata Log File inspector](https://binspec.org/kafka-cluster-metadata)
+shows the byte layout.
 
 A successful response reports `base_offset` `0` and `log_start_offset` `0` for
 this stage's initially empty partition. Keep `log_append_time_ms` at `-1`,
-meaning no broker append timestamp is supplied. The previous stage's
-unknown-topic-or-partition behavior remains required for invalid destinations.
+meaning no broker append timestamp is supplied. Keep the
+unknown-topic-or-partition response for invalid destinations.
 
 ### Tests
 
@@ -75,27 +68,27 @@ request with a valid topic and partition.
 
 The tester will validate that:
 
+<!-- prettier-ignore -->
 - The first 4 bytes of your response (the "message length") are valid.
 - The correlation ID in the response header matches the correlation ID in the
   request header.
 - The `throttle_time_ms` field in the response is `0`.
 - The `topics` field has 1 element, and in that element:
-  - The `name` field matches the topic name in the request.
-  - The `partitions` field has 1 element, and in that element:
-    - The `error_code` is `0` (NO_ERROR).
-    - The `index` field matches the partition in the request.
-    - The `base_offset` field is `0` (signifying that this is the first record
-      in the partition).
-    - The `log_append_time_ms` field is `-1` (no broker append timestamp is
-      supplied).
-    - The `log_start_offset` field is `0`.
+    - The `name` field matches the topic name in the request.
+    - The `partitions` field has 1 element, and in that element:
+        - The `error_code` is `0` (NO_ERROR).
+        - The `index` field matches the partition in the request.
+        - The `base_offset` field is `0` (signifying that this is the first record
+          in the partition).
+        - The `log_append_time_ms` field is `-1` (no broker append timestamp is
+          supplied).
+        - The `log_start_offset` field is `0`.
 
 ### Notes
 
-- The official docs for the `Produce` API can be found
-  [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Produce).
-  Make sure to scroll down to the "(Version: 11)" section.
-- The official Kafka docs don't cover the structure of records inside the
-  `__cluster_metadata` topic, but you can find the definitions in the Kafka
-  source code
-  [here](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata).
+- See the
+  [Produce API schemas](https://kafka.apache.org/42/design/protocol/#The_Messages_Produce),
+  under "(Version: 11)".
+- The
+  [Kafka metadata record schemas](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata)
+  define the payloads stored in `__cluster_metadata`.

@@ -1,5 +1,5 @@
-Your broker advertises `Fetch`. Now handle a `Fetch` v16 request with no topics.
-An empty result establishes the response format before you add message lookup.
+An empty Fetch result establishes the response format before you add message
+lookup. In this stage, you'll handle a `Fetch` v16 request with no topics.
 
 ### The Fetch response
 
@@ -18,7 +18,7 @@ After the Fetch response header, the body contains these fields in order:
 | `TAG_BUFFER`       | Tagged fields   | Use `00` for no tags                                           |
 
 The four-byte `message_size` counts the response header and body, excluding
-itself. You can ignore the request body for this increment.
+itself. You can ignore the request body in this stage.
 
 ### Tests
 
@@ -45,9 +45,9 @@ The tester will validate that:
 
 - You don't need to parse the fields in the `Fetch` request in this stage, we'll
   get to this in later stages.
-- The official docs for the `Fetch` request can be found
-  [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Fetch). Make
-  sure to scroll down to the "Fetch Response (Version: 16)" section.
+- See the
+  [Fetch response schema](https://kafka.apache.org/42/design/protocol/#The_Messages_Fetch),
+  under "Fetch Response (Version: 16)".
 
 For questions about this stage,
 [ask on the forum](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+dh6%3A+Fetch+with+no+topics&body=%3Cyour+question+here%3E).

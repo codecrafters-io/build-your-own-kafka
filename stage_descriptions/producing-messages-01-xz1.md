@@ -1,6 +1,6 @@
 The Producing Messages extension lets clients write events to your broker's
-partition logs. Start by advertising `Produce` in the `ApiVersions` response
-from core, so clients can discover the supported request format.
+partition logs. In this stage, you'll advertise `Produce` in your existing
+`ApiVersions` response so clients can discover the supported request format.
 
 ### The Produce API
 
@@ -49,5 +49,5 @@ The tester will validate that:
   stage. We'll get to this in later stages.
 - You'll still need to include the entry for `ApiVersions` in your response to
   pass earlier stages.
-- The `MaxVersion` for `Produce` and `ApiVersions` are different. For
-  `ApiVersions`, it is 4. For `Produce`, it is 11.
+- Choose `max_version` for each API independently: at least `4` for
+  `ApiVersions`, and at least `11` for `Produce`.

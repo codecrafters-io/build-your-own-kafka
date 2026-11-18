@@ -1,12 +1,12 @@
-Your broker can store a batch in one partition. Now route batches to several
-partitions of the same topic in a single Produce request.
+Your broker can store a batch in one partition. In this stage, you'll route
+batches to several partitions of the same topic in a single Produce request.
+
+### Producing to multiple partitions
 
 Each partition has its own log and offset sequence. Writing the first record to
 partition `0` does not advance the offset in partition `1`. These fixtures use
 initially empty partitions, so each successful partition result has
 `base_offset` `0`.
-
-### Producing to multiple partitions
 
 When a Kafka broker receives a `Produce` request targeting multiple partitions
 of the same topic, it needs to validate that the topic and all partitions exist,
@@ -34,21 +34,22 @@ contain a single record.
 
 The tester will validate that:
 
+<!-- prettier-ignore -->
 - The first 4 bytes of your response (the "message length") are valid.
 - The correlation ID in the response header matches the correlation ID in the
   request header.
 - The `throttle_time_ms` field in the response is `0`.
 - The `topics` field has 1 element, and in that element:
-  - The `name` field matches the topic name in the request.
-  - The `partitions` field has multiple elements (one for each partition in the
-    request), and in each element:
-    - The `error_code` is `0` (`NO_ERROR`).
-    - The `index` field matches the partition index in the request.
-    - The `base_offset` field is `0` (signifying that this is the first record
-      in each partition).
-    - The `log_append_time_ms` field is `-1` (no broker append timestamp is
-      supplied).
-    - The `log_start_offset` field is `0`.
+    - The `name` field matches the topic name in the request.
+    - The `partitions` field has multiple elements (one for each partition in the
+      request), and in each element:
+        - The `error_code` is `0` (`NO_ERROR`).
+        - The `index` field matches the partition index in the request.
+        - The `base_offset` field is `0` (signifying that this is the first record
+          in each partition).
+        - The `log_append_time_ms` field is `-1` (no broker append timestamp is
+          supplied).
+        - The `log_start_offset` field is `0`.
 - Each RecordBatch is persisted to the appropriate log file on disk at
   `<log-dir>/<topic-name>-<partition-index>/00000000000000000000.log`.
 
@@ -58,6 +59,6 @@ The tester will validate that:
   [RecordBatch](https://kafka.apache.org/42/implementation/message-format/#record-batchh)
   format. You should write each `RecordBatch` from the request directly to the
   log file of the appropriate topic's partition.
-- The official docs for the `Produce` API can be found
-  [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Produce).
-  Make sure to scroll down to the "(Version: 11)" section.
+- See the
+  [Produce API schemas](https://kafka.apache.org/42/design/protocol/#The_Messages_Produce),
+  under "(Version: 11)".

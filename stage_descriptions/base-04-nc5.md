@@ -1,5 +1,6 @@
-Your broker now echoes request IDs. Add the first response-body field so it can
-tell a client that its requested `ApiVersions` version is unsupported.
+Your broker now echoes request IDs. In this stage, you'll add the first
+response-body field to report that a client's requested `ApiVersions` version is
+unsupported.
 
 ### Kafka APIs
 
@@ -112,9 +113,9 @@ header v0:
 ```
 
 When the request has a valid version (`0-4`), your broker should respond with
-error code `0`, though this isn't tested in this stage. This increment checks
-only the header and error field. It does not yet require a complete
-version-specific response body.
+error code `0`, though this isn't tested in this stage. This stage checks only
+the header and error field. It does not yet require a complete version-specific
+response body.
 
 ### Notes
 
@@ -125,4 +126,4 @@ version-specific response body.
   You don't need to check the `request_api_key` field in the header.
 - For this stage, the tester will only assert that your `message_size` field is
   4 bytes long. It won't check the value. You'll implement correct
-  `message_size` values in a later stage.
+  `message_size` values in later stages.

@@ -1,5 +1,7 @@
-Your broker can now handle repeated requests on one connection. Extend it to
-serve several clients whose connections overlap in time.
+Your broker can handle repeated requests on one connection. In this stage,
+you'll serve several clients whose connections overlap in time.
+
+### Overlapping connections
 
 One client may keep its connection open while another sends a request. Waiting
 for the first client's next request must not prevent the second client from

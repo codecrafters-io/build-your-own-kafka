@@ -1,5 +1,5 @@
-Replace the fixed `7` with the incoming request's correlation ID. Your response
-can then be matched to requests with different IDs.
+A response must identify the request that prompted it. In this stage, you'll
+replace the fixed correlation ID of `7` with the ID from the incoming request.
 
 ### Kafka message structure
 
@@ -46,7 +46,7 @@ message. Here's an example request showing where each field is located:
 ...
 ```
 
-Your response will use the same structure from the previous stage:
+Your response will use the same structure from earlier stages:
 
 ```
 00 00 00 00  // message_size:   0 (any value works for this stage)
@@ -78,9 +78,9 @@ Your broker must extract the correlation ID from the request and echo it back:
 ### Notes
 
 - For this stage, you don't need to worry about what the request is asking for.
-  You'll handle that at a later stage.
+  You'll handle that in later stages.
 - For this stage, the tester will only assert that your `message_size` field is
   4 bytes long. It won't check the value. You'll implement correct
-  `message_size` values in a later stage.
+  `message_size` values in later stages.
 - The request header version and response header version are unrelated to each
   other and do not have to match.

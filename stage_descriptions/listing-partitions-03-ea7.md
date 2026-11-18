@@ -1,6 +1,6 @@
-Replace the all-topics-unknown shortcut with a lookup in the supplied metadata
-log. Your broker must now return a real topic's UUID and its single partition,
-while keeping the unknown-topic response for missing names.
+Your broker currently treats all requested topics as unknown. In this stage,
+you'll look up a topic in the supplied metadata log and return its UUID and
+single partition, keeping the unknown-topic response for missing names.
 
 ### The `DescribeTopicPartitions` API
 
@@ -10,12 +10,7 @@ API returns metadata about
 [topics](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=topics)
 and their
 [partitions](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=partitioned).
-In previous stages, you treated all topics as unknown. For this stage, you'll
-read actual topic metadata (from a cluster metadata log) and send a valid
-response for that topic.
-
-We've created an interactive protocol inspector for the cluster metadata format
-and the `DescribeTopicPartitions` response structure:
+Inspect the metadata log and response layouts:
 
 - [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata)
 - [DescribeTopicPartitions Response (v0)](https://binspec.org/kafka-describe-topic-partitions-response-v0)
@@ -23,9 +18,8 @@ and the `DescribeTopicPartitions` response structure:
 ### Understanding the cluster metadata log
 
 Kafka stores metadata about topics in the `__cluster_metadata` topic. This is an
-internal topic that contains records about topic creation, partition
-assignments, and other cluster configuration. To check if a topic exists and get
-its metadata, you'll need to read the cluster metadata log file.
+internal topic that contains records about topic creation, partition assignments
+and other cluster configuration.
 
 The log file is located at:
 
@@ -56,21 +50,9 @@ and a record version. The type and version select the `TopicRecord` or
 their fields start after the payload's three-byte prefix. Other metadata record
 types can appear in the same log.
 
-Use the linked inspector for the full byte layout. You'll need to parse this
-file to extract:
-
-- Topic names and their UUIDs
-- Partition IDs for each topic
-
-The Kafka documentation doesn't cover the internal structure of
-`__cluster_metadata` records in detail, but you can find the schema definitions
-in the
-[Kafka source code](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata).
-
 ### Building the response for existing topics
 
-When a topic exists, your response should contain complete metadata about it.
-The key differences from the `"unknown topic"` response are:
+For an existing topic:
 
 - Set `error_code` to `0` (no error).
 - Use the actual `topic_id` (UUID) from the cluster metadata.
@@ -96,9 +78,6 @@ holding copies of it, and in-sync replicas have caught up with the leader. A
 leader epoch is a counter that identifies a leadership generation. Here you read
 these values from metadata. You are not implementing replication or leader
 election.
-
-For this stage, the tester will send requests for topics with a single
-partition.
 
 Here's an example response for a topic named `"foo"` with one partition:
 
@@ -162,8 +141,6 @@ The tester will verify that:
 
 ### Notes
 
-- You'll need to parse the cluster metadata log file to extract the topic and
-  partition information.
 - The official Kafka protocol documentation doesn't detail the
   `__cluster_metadata` structure. Refer to the
   [Kafka source code](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata)

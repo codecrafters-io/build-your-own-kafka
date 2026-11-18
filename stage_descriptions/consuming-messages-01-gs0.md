@@ -1,11 +1,13 @@
 The Consuming Messages extension lets clients read events stored by your broker.
-Start by adding `Fetch` to the `ApiVersions` response from core, so clients can
-discover the version they will use to request those events.
+In this stage, you'll add `Fetch` to your existing `ApiVersions` response so
+clients can discover the version used to request those events.
+
+### Advertising Fetch
 
 `Fetch` has API key `1`. Advertise `min_version` `0` and `max_version` at least
 `16`, while retaining the `ApiVersions` entry and any other APIs you already
 support. This stage still receives only `ApiVersions` v4 requests. Handling
-`Fetch` comes next.
+`Fetch` comes in later stages.
 
 ### Tests
 
@@ -32,9 +34,9 @@ The tester will validate that:
 - You don't have to implement support for the `Fetch` request in this stage.
   We'll get to this in later stages.
 - You'll still need to include the entry for `ApiVersions` in your response to
-  pass the previous stage.
-- The `MaxVersion` for the `Fetch` and `ApiVersions` are different. For
-  `ApiVersions`, it is 4. For `Fetch`, it is 16.
+  preserve the `ApiVersions` behavior from earlier stages.
+- Choose `max_version` for each API independently: at least `4` for
+  `ApiVersions`, and at least `16` for `Fetch`.
 
 For questions about this stage,
 [ask on the forum](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+gs0%3A+Include+Fetch+in+ApiVersions&body=%3Cyour+question+here%3E).

@@ -1,5 +1,5 @@
-Your metadata lookup handles one partition. Now return both partitions of a
-topic so a client can discover every log in the supplied topic.
+Your metadata lookup handles one partition. In this stage, you'll return both
+partitions of a topic so a client can discover every log in the supplied topic.
 
 ### Handling multiple partitions
 

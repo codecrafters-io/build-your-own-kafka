@@ -1,6 +1,6 @@
-Your broker advertises `DescribeTopicPartitions`. Now answer a request for a
-topic that does not exist, so the client can distinguish a missing topic from a
-successful lookup.
+Your broker advertises `DescribeTopicPartitions`. In this stage, you'll answer a
+request for a topic that does not exist so the client can distinguish a missing
+topic from a successful lookup.
 
 ### The `DescribeTopicPartitions` API
 
@@ -10,19 +10,14 @@ API returns metadata about
 [topics](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=topics)
 and their
 [partitions](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=partitioned).
-For this stage, you'll handle cases where a client requests a topic that doesn't
-exist.
-
-We've created an interactive protocol inspector for the
-`DescribeTopicPartitions` request and response:
+Inspect the request and response layouts:
 
 - [DescribeTopicPartitions Request (v0)](https://binspec.org/kafka-describe-topic-partitions-request-v0)
 - [DescribeTopicPartitions Response (v0) - Unknown Topic](https://binspec.org/kafka-describe-topic-partitions-response-v0-unknown-topic)
 
 ### Parsing the request
 
-To respond correctly, you'll need to parse the `DescribeTopicPartitions` request
-to extract the topic name. The
+The
 [`DescribeTopicPartitions` request (v0)](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions)
 contains:
 
@@ -42,31 +37,26 @@ Each topic in the `topics` array contains:
 
 A `COMPACT_STRING` contains a UTF-8 byte length plus one, encoded as an unsigned
 variable-length integer, followed by the string bytes. Thus `foo` is
-`04 66 6f 6f`. The request uses header v2, as in core. Its `client_id` uses the
-older `NULLABLE_STRING` format: a signed two-byte length followed by bytes, with
-`-1` for null.
+`04 66 6f 6f`. The request uses header v2, as with `ApiVersions`. Its
+`client_id` uses the older `NULLABLE_STRING` format: a signed two-byte length
+followed by bytes, with `-1` for null.
 
 The cursor supports pagination, which divides a large result across requests.
 Here the cursor is null, represented by the single byte `ff`, and no pagination
 is required. A non-null cursor would contain a topic name and partition index.
 
-For this stage, the tester will send a request with a single topic name. You'll
-need to extract this name and echo it back in your response.
-
 ### Response header v1
 
-In previous stages, you used response header v0, which only contained the
-`correlation_id` field. For this stage, you'll use
-[response header v1](https://kafka.apache.org/42/design/protocol/#the-messages),
-which has the following structure:
+The
+[response header v1](https://kafka.apache.org/42/design/protocol/#the-messages)
+adds `TAG_BUFFER` to the `correlation_id` from header v0:
 
 | Field            | Data type       | Description                          |
 | ---------------- | --------------- | ------------------------------------ |
 | `correlation_id` | `INT32`         | Matches the request's correlation ID |
 | `TAG_BUFFER`     | `TAGGED_FIELDS` | Tagged fields                        |
 
-The main difference is the addition of the `TAG_BUFFER` field. You can leave the
-`TAG_BUFFER` empty.
+Leave `TAG_BUFFER` empty.
 
 ### The `DescribeTopicPartitions` response body
 
@@ -158,10 +148,3 @@ The tester will validate that:
   `00000000-0000-0000-0000-000000000000`.
 - The `partitions` field in the response should be empty.
 - The value of `next_cursor` is `-1`, indicating that the cursor is null.
-
-### Notes
-
-- You'll need to parse the `DescribeTopicPartitions` request in this stage to
-  get the topic name to send in the response.
-- For now, you can assume that all topics are "unknown". We'll work on
-  identifying actual vs. unknown topics in later stages.

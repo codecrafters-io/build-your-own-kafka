@@ -1,6 +1,6 @@
-Your broker can accept a connection. Now send its first binary response, with a
-fixed correlation ID of `7`. Clients use this ID to associate a response with
-the request that prompted it.
+Your broker can accept a connection. Clients use a correlation ID to associate a
+response with its request. In this stage, you'll send your first binary response
+with a fixed correlation ID of `7`.
 
 ### The Kafka wire protocol
 
@@ -16,7 +16,7 @@ A Kafka message consists of three parts:
 3. Body
 
 For this stage, you can ignore the body and just focus on `message_size` and the
-header. You'll learn about response bodies in a later stage.
+header. You'll learn about response bodies in later stages.
 
 ### The `message_size` field
 
@@ -36,7 +36,7 @@ bytes. The examples show each byte as two hexadecimal digits. For example, a
 ```
 
 For this stage, you only need to ensure that your `message_size` field is 4
-bytes long. You'll implement the correct `message_size` values in a later stage.
+bytes long. You'll implement the correct `message_size` values in later stages.
 
 ### Response header v0
 
@@ -87,7 +87,7 @@ The tester will verify that:
 ### Notes
 
 - For this stage, you don't need to parse the request. You'll learn about
-  request parsing in a later stage.
+  request parsing in later stages.
 - Fixed-width integers are in
   [big-endian](https://developer.mozilla.org/en-US/docs/Glossary/Endianness)
   order. Kafka also has variable-length encodings, introduced when needed.
