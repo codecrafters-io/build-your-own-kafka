@@ -1,22 +1,37 @@
-In this stage, you'll implement the `DescribeTopicPartitions` response for an unknown topic.
+Your broker advertises `DescribeTopicPartitions`. Now answer a request for a
+topic that does not exist, so the client can distinguish a missing topic from a
+successful lookup.
 
-### The `DescribeTopicPartitions` API (Recap)
+### The `DescribeTopicPartitions` API
 
-As a recap, the [`DescribeTopicPartitions`](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=topics) and their [partitions](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=partitioned). For this stage, you'll handle cases where a client requests a topic that doesn't exist.
+The
+[`DescribeTopicPartitions`](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions)
+API returns metadata about
+[topics](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=topics)
+and their
+[partitions](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=partitioned).
+For this stage, you'll handle cases where a client requests a topic that doesn't
+exist.
 
-We've created an interactive protocol inspector for the `DescribeTopicPartitions` request & response:
+We've created an interactive protocol inspector for the
+`DescribeTopicPartitions` request and response:
 
-- 🔎 [DescribeTopicPartitions Request (v0)](https://binspec.org/kafka-describe-topic-partitions-request-v0)
-- 🔎 [DescribeTopicPartitions Response (v0) - Unknown Topic](https://binspec.org/kafka-describe-topic-partitions-response-v0-unknown-topic)
+- [DescribeTopicPartitions Request (v0)](https://binspec.org/kafka-describe-topic-partitions-request-v0)
+- [DescribeTopicPartitions Response (v0) - Unknown Topic](https://binspec.org/kafka-describe-topic-partitions-response-v0-unknown-topic)
 
-### Parsing the Request
+### Parsing the request
 
-To respond correctly, you'll need to parse the `DescribeTopicPartitions` request to extract the topic name. The [`DescribeTopicPartitions` request (v0)](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) contains:
+To respond correctly, you'll need to parse the `DescribeTopicPartitions` request
+to extract the topic name. The
+[`DescribeTopicPartitions` request (v0)](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions)
+contains:
 
-| Field        | Data type       | Description                         |
-| ------------ | --------------- | ----------------------------------- |
-| `topics`     | `COMPACT_ARRAY` | Array of topics to get metadata for |
-| `TAG_BUFFER` | `TAGGED_FIELDS` | Tagged fields                       |
+| Field                      | Data type          | Description                              |
+| -------------------------- | ------------------ | ---------------------------------------- |
+| `topics`                   | `COMPACT_ARRAY`    | Array of topics to get metadata for      |
+| `response_partition_limit` | `INT32`            | Maximum number of partitions to return   |
+| `cursor`                   | Nullable structure | Starting position for a continued lookup |
+| `TAG_BUFFER`               | `TAGGED_FIELDS`    | Tagged fields                            |
 
 Each topic in the `topics` array contains:
 
@@ -25,29 +40,44 @@ Each topic in the `topics` array contains:
 | `topic_name` | `COMPACT_STRING` | The topic name |
 | `TAG_BUFFER` | `TAGGED_FIELDS`  | Tagged fields  |
 
-For this stage, the tester will send a request with a single topic name. You'll need to extract this name and echo it back in your response.
+A `COMPACT_STRING` contains a UTF-8 byte length plus one, encoded as an unsigned
+variable-length integer, followed by the string bytes. Thus `foo` is
+`04 66 6f 6f`. The request uses header v2, as in core. Its `client_id` uses the
+older `NULLABLE_STRING` format: a signed two-byte length followed by bytes, with
+`-1` for null.
 
-### Response Header v1
+The cursor supports pagination, which divides a large result across requests.
+Here the cursor is null, represented by the single byte `ff`, and no pagination
+is required. A non-null cursor would contain a topic name and partition index.
 
-In previous stages, you used response header v0, which only contained the `correlation_id` field. For this stage, you'll use [response header v1](https://kafka.apache.org/42/design/protocol/#the-messages), which has the following structure:
+For this stage, the tester will send a request with a single topic name. You'll
+need to extract this name and echo it back in your response.
+
+### Response header v1
+
+In previous stages, you used response header v0, which only contained the
+`correlation_id` field. For this stage, you'll use
+[response header v1](https://kafka.apache.org/42/design/protocol/#the-messages),
+which has the following structure:
 
 | Field            | Data type       | Description                          |
 | ---------------- | --------------- | ------------------------------------ |
 | `correlation_id` | `INT32`         | Matches the request's correlation ID |
 | `TAG_BUFFER`     | `TAGGED_FIELDS` | Tagged fields                        |
 
-The main difference is the addition of the `TAG_BUFFER` field. You can leave the `TAG_BUFFER` empty.
+The main difference is the addition of the `TAG_BUFFER` field. You can leave the
+`TAG_BUFFER` empty.
 
-### The `DescribeTopicPartitions` Response Body
+### The `DescribeTopicPartitions` response body
 
 The `DescribeTopicPartitions` response body has the following structure:
 
-| Field              | Data type       | Description                             |
-| ------------------ | --------------- | --------------------------------------- |
-| `throttle_time_ms` | `INT32`         | Throttle time in milliseconds (use `0`) |
-| `topics`           | `COMPACT_ARRAY` | Array of topic metadata                 |
-| `next_cursor`      | `NULLABLE_INT8` | Pagination cursor (use `-1` for null)   |
-| `TAG_BUFFER`       | `TAGGED_FIELDS` | Tagged fields                           |
+| Field              | Data type          | Description                                    |
+| ------------------ | ------------------ | ---------------------------------------------- |
+| `throttle_time_ms` | `INT32`            | Throttle time in milliseconds (use `0`)        |
+| `topics`           | `COMPACT_ARRAY`    | Array of topic metadata                        |
+| `next_cursor`      | Nullable structure | Pagination cursor (use the byte `ff` for null) |
+| `TAG_BUFFER`       | `TAGGED_FIELDS`    | Tagged fields                                  |
 
 Each topic in the `topics` array contains:
 
@@ -61,7 +91,12 @@ Each topic in the `topics` array contains:
 | `topic_authorized_operations` | `INT32`          | Authorized operations bitfield (use `0`)        |
 | `TAG_BUFFER`                  | `TAGGED_FIELDS`  | Tagged fields                                   |
 
-For this stage, you should treat all topics as unknown. For an unknown topic, your response should:
+A topic UUID is a 16-byte identifier. Its hyphenated text form is only a display
+format. The wire response contains the 16 bytes. A boolean occupies one byte,
+with `00` for false.
+
+For this stage, you should treat all topics as unknown. For an unknown topic,
+your response should:
 
 - Set `error_code` to `3` (`UNKNOWN_TOPIC_OR_PARTITION`).
 - Echo back the `topic_name` from the request.
@@ -70,10 +105,11 @@ For this stage, you should treat all topics as unknown. For an unknown topic, yo
 - Leave the `partitions` array empty.
 - Set `next_cursor` to `-1` (null).
 
-Here's an example of what your response might look like for a topic named `"foo"`:
+Here's an example of what your response might look like for a topic named
+`"foo"`:
 
 ```java
-00 00 00 2f  // message_size:                 47 bytes
+00 00 00 29  // message_size:                 41 bytes
 ab cd ef 12  // correlation_id:               (matches request)
 00           // TAG_BUFFER:                   empty (response header v1)
 00 00 00 00  // throttle_time_ms:             0
@@ -101,7 +137,8 @@ The tester will execute your program like this:
 $ ./your_program.sh /tmp/server.properties
 ```
 
-It will then connect to your server on port `9092` and send a `DescribeTopicPartitions` (v0) request containing a single topic name.
+It will then connect to your server on port `9092` and send a
+`DescribeTopicPartitions` (v0) request containing a single topic name.
 
 ```
 echo -n "00000020004b00000000000700096b61666b612d636c69000204666f6f0000000064ff00" | xxd -r -p | nc localhost 9092 | hexdump -C
@@ -110,16 +147,21 @@ echo -n "00000020004b00000000000700096b61666b612d636c69000204666f6f0000000064ff0
 The tester will validate that:
 
 - The `message_size` field correctly represents the size of the header and body.
-- The correlation ID in the response header matches the correlation ID in the request header.
+- The correlation ID in the response header matches the correlation ID in the
+  request header.
 - The response uses response header v1 (with `TAG_BUFFER`).
 - The `error_code` in the response body is `3` (`UNKNOWN_TOPIC_OR_PARTITION`).
 - The response body should be a valid DescribeTopicPartitions (v0) Response.
-- The `topic_name` field in the response should be equal to the topic name sent in the request.
-- The `topic_id` field in the response should be equal to `00000000-0000-0000-0000-000000000000`.
+- The `topic_name` field in the response should be equal to the topic name sent
+  in the request.
+- The `topic_id` field in the response should be equal to
+  `00000000-0000-0000-0000-000000000000`.
 - The `partitions` field in the response should be empty.
 - The value of `next_cursor` is `-1`, indicating that the cursor is null.
 
 ### Notes
 
-- You'll need to parse the `DescribeTopicPartitions` request in this stage to get the topic name to send in the response.
-- For now, you can assume that all topics are "unknown". We'll work on identifying actual vs. unknown topics in later stages.
+- You'll need to parse the `DescribeTopicPartitions` request in this stage to
+  get the topic name to send in the response.
+- For now, you can assume that all topics are "unknown". We'll work on
+  identifying actual vs. unknown topics in later stages.

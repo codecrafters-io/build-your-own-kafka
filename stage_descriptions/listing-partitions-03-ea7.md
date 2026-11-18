@@ -1,17 +1,31 @@
-In this stage, you'll implement the `DescribeTopicPartitions` response for a single topic.
+Replace the all-topics-unknown shortcut with a lookup in the supplied metadata
+log. Your broker must now return a real topic's UUID and its single partition,
+while keeping the unknown-topic response for missing names.
 
-### The `DescribeTopicPartitions` API (Recap)
+### The `DescribeTopicPartitions` API
 
-As a recap, the [`DescribeTopicPartitions`](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) API returns metadata about [topics](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=topics) and their [partitions](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=partitioned). In previous stages, you treated all topics as unknown. For this stage, you'll read actual topic metadata (from a cluster metadata log) and send a valid response for that topic.
+The
+[`DescribeTopicPartitions`](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions)
+API returns metadata about
+[topics](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=topics)
+and their
+[partitions](https://kafka.apache.org/42/getting-started/introduction/#main-concepts-and-terminologys:~:text=partitioned).
+In previous stages, you treated all topics as unknown. For this stage, you'll
+read actual topic metadata (from a cluster metadata log) and send a valid
+response for that topic.
 
-We've created an interactive protocol inspector for the cluster metadata format and the `DescribeTopicPartitions` response structure:
+We've created an interactive protocol inspector for the cluster metadata format
+and the `DescribeTopicPartitions` response structure:
 
-- 🔎 [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata)
-- 🔎 [DescribeTopicPartitions Response (v0)](https://binspec.org/kafka-describe-topic-partitions-response-v0)
+- [Cluster Metadata Log File](https://binspec.org/kafka-cluster-metadata)
+- [DescribeTopicPartitions Response (v0)](https://binspec.org/kafka-describe-topic-partitions-response-v0)
 
-### Understanding the Cluster Metadata Log
+### Understanding the cluster metadata log
 
-Kafka stores metadata about topics in the `__cluster_metadata` topic. This is an internal topic that contains records about topic creation, partition assignments, and other cluster configuration. To check if a topic exists and get its metadata, you'll need to read the cluster metadata log file.
+Kafka stores metadata about topics in the `__cluster_metadata` topic. This is an
+internal topic that contains records about topic creation, partition
+assignments, and other cluster configuration. To check if a topic exists and get
+its metadata, you'll need to read the cluster metadata log file.
 
 The log file is located at:
 
@@ -19,19 +33,47 @@ The log file is located at:
 /tmp/kraft-combined-logs/__cluster_metadata-0/00000000000000000000.log
 ```
 
-You'll need to parse this file to extract:
+The tester creates this binary file before launching your broker. Its records
+are grouped into `RecordBatch` containers. Each batch has a header and a
+sequence of records, and each record's value contains a metadata payload. The
+payload's type distinguishes a `TopicRecord`, which maps a name to a UUID, from
+a `PartitionRecord`, which links a partition index and broker information to
+that UUID.
+
+The batch begins with an eight-byte base offset, the first record's position in
+the log, and a four-byte batch length. That length counts bytes after the length
+field. Inside a batch, record lengths and several record fields use signed
+variable-length integers with zigzag encoding. Zigzag maps `0`, `-1`, `1`, `-2`
+to unsigned values `0`, `1`, `2`, `3` before variable-length encoding. These
+differ from the unsigned compact-array lengths used in API messages.
+
+The inspector's record layout is the outer envelope. It contains the record
+length, attributes, timestamp and offset deltas, then length-prefixed key and
+value bytes, followed by headers. The value length bounds the metadata payload
+inside that envelope. That payload begins with a frame version, a record type
+and a record version. The type and version select the `TopicRecord` or
+`PartitionRecord` schema. Those schemas describe the contents of the value, so
+their fields start after the payload's three-byte prefix. Other metadata record
+types can appear in the same log.
+
+Use the linked inspector for the full byte layout. You'll need to parse this
+file to extract:
 
 - Topic names and their UUIDs
 - Partition IDs for each topic
 
-The Kafka documentation doesn't cover the internal structure of `__cluster_metadata` records in detail, but you can find the schema definitions in the [Kafka source code](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata).
+The Kafka documentation doesn't cover the internal structure of
+`__cluster_metadata` records in detail, but you can find the schema definitions
+in the
+[Kafka source code](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata).
 
-### Building the Response for Existing Topics
+### Building the response for existing topics
 
-When a topic exists, your response should contain complete metadata about it. The key differences from the `"unknown topic"` response are:
+When a topic exists, your response should contain complete metadata about it.
+The key differences from the `"unknown topic"` response are:
 
 - Set `error_code` to `0` (no error).
-- Use the actual `topic_id` (UUID) from the cluster metadata, not all zeros.
+- Use the actual `topic_id` (UUID) from the cluster metadata.
 - Include partition information in the `partitions` array.
 
 Each partition entry in the `partitions` array contains:
@@ -49,12 +91,19 @@ Each partition entry in the `partitions` array contains:
 | `offline_replicas`         | `COMPACT_ARRAY` | Array of offline replica broker IDs          |
 | `TAG_BUFFER`               | `TAGGED_FIELDS` | Tagged fields                                |
 
-For this stage, the tester will send requests for topics with a single partition.
+The leader is the broker responsible for a partition. Replicas are brokers
+holding copies of it, and in-sync replicas have caught up with the leader. A
+leader epoch is a counter that identifies a leadership generation. Here you read
+these values from metadata. You are not implementing replication or leader
+election.
+
+For this stage, the tester will send requests for topics with a single
+partition.
 
 Here's an example response for a topic named `"foo"` with one partition:
 
 ```
-00 00 00 4a  // message_size:                 74 bytes
+00 00 00 45  // message_size:                 69 bytes
 ab cd ef 12  // correlation_id:               (matches request)
 00           // TAG_BUFFER:                   empty (response header v1)
 00 00 00 00  // throttle_time_ms:             0
@@ -94,12 +143,14 @@ The tester will execute your program like this:
 $ ./your_program.sh /tmp/server.properties
 ```
 
-It will then send a `DescribeTopicPartitions` (v0) request for a topic that exists with a single partition.
+It will then send a `DescribeTopicPartitions` (v0) request for a topic that
+exists with a single partition.
 
 The tester will verify that:
 
 - The `message_size` field correctly represents the size of the header and body.
-- The correlation ID in the response header matches the correlation ID in the request header.
+- The correlation ID in the response header matches the correlation ID in the
+  request header.
 - The `error_code` in the topic entry is `0` (no error).
 - The response is a valid `DescribeTopicPartitions` (v0) response.
 - The `topic_name` field matches the topic name sent in the request.
@@ -111,6 +162,12 @@ The tester will verify that:
 
 ### Notes
 
-- You'll need to parse the cluster metadata log file to extract the topic and partition information.
-- The official Kafka protocol documentation doesn't detail the `__cluster_metadata` structure. Refer to the [Kafka source code](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata) for schema definitions.
-- The official [`DescribeTopicPartitions` documentation](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions) contains the complete response schema.
+- You'll need to parse the cluster metadata log file to extract the topic and
+  partition information.
+- The official Kafka protocol documentation doesn't detail the
+  `__cluster_metadata` structure. Refer to the
+  [Kafka source code](https://github.com/apache/kafka/tree/5b3027dfcbcb62d169d4b4421260226e620459af/metadata/src/main/resources/common/metadata)
+  for schema definitions.
+- The official
+  [`DescribeTopicPartitions` documentation](https://kafka.apache.org/42/design/protocol/#The_Messages_DescribeTopicPartitions)
+  contains the complete response schema.

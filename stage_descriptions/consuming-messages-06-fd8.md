@@ -1,25 +1,35 @@
-In this stage, you'll implement the Fetch response for a topic with multiple messages, reading them from disk.
+Extend Fetch to return all the stored messages in the requested partition. The
+response still has one topic entry and one partition entry, but its `records`
+field now carries multiple batches.
 
-🚧 **We're still working on instructions for this stage**. You can find notes on how the tester works below.
+### Multiple batches in one response
 
-In the meantime, please use
-[this link](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+fd8%3A+Fetch+multiple+messages+from+disk&body=%3Cyour+question+here%3E)
-to ask questions on the forum.
+Keep the record batches in their on-disk order and preserve each complete batch.
+The compact length of `records` counts all their encoded bytes plus one. Batch
+boundaries come from each batch's own length field.
+
+A batch can contain several messages, so message count and batch count are
+different quantities. The tester's fixture writes the messages as separate
+batches in one partition. Use the requested partition index when locating its
+log and constructing the response.
 
 ### Tests
 
 The tester will execute your program like this:
 
 ```bash
-$ ./your_program.sh
+$ ./your_program.sh /tmp/server.properties
 ```
 
-It'll then connect to your server on port 9092 and send a `Fetch` (v16) request. The request will contain a single topic with a topic ID that exists. The topic has multiple messages assigned to it (but written to a single partition).
+It'll then connect to your server on port 9092 and send a `Fetch` (v16) request.
+The request will contain a single topic with a topic ID that exists. The topic
+has multiple messages assigned to it (but written to a single partition).
 
 The tester will validate that:
 
 - The first 4 bytes of your response (the "message length") are valid.
-- The correlation ID in the response header matches the correlation ID in the request header.
+- The correlation ID in the response header matches the correlation ID in the
+  request header.
 - The error code in the response body is `0` (No Error).
 - The `throttle_time_ms` field in the response is `0`.
 - The `responses` field in the response has 1 element, and in that element:
@@ -27,11 +37,18 @@ The tester will validate that:
   - The `partitions` array has 1 element, and in that element:
     - The `partition_index` field matches what was sent in the request.
     - The `error_code` field is `0` (No Error).
-    - The `records` array has the correct number of elements.
-      - The entire `RecordBatch` content is read from disk. (We will compare the contents of the `RecordBatch` with the contents of the log file to verify this.)
+    - The `records` field contains all expected record batches.
+      - The entire `RecordBatch` content is read from disk. (We will compare the
+        contents of the `RecordBatch` with the contents of the log file to
+        verify this.)
 
 ### Notes
 
-- You'll need to parse the `Fetch` request in this stage to get the `topic_id` to send in the response.
-- The official docs for the `Fetch` request can be found [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Fetch). Make sure
-  to scroll down to the "Fetch Response (Version: 16)" section.
+- You'll need to parse the `Fetch` request in this stage to get the `topic_id`
+  to send in the response.
+- The official docs for the `Fetch` request can be found
+  [here](https://kafka.apache.org/42/design/protocol/#The_Messages_Fetch). Make
+  sure to scroll down to the "Fetch Response (Version: 16)" section.
+
+For questions about this stage,
+[ask on the forum](https://forum.codecrafters.io/new-topic?category=Challenges&tags=challenge%3Akafka&title=Question+about+fd8%3A+Fetch+multiple+messages+from+disk&body=%3Cyour+question+here%3E).
